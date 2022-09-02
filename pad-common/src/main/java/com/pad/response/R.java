@@ -71,8 +71,4 @@ public class R {
         return this;
     }
 
-    public R put1(String data, HashMap<Object, Object> map) {
-        this.data.put(data,map);
-        return this;
-    }
 }

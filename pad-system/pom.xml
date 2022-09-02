@@ -13,13 +13,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.pad</groupId>
-            <artifactId>pad-core</artifactId>
+            <artifactId>pad-security</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
