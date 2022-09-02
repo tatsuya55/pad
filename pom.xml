@@ -27,7 +27,7 @@
         <httpclient.version>4.5.1</httpclient.version>
         <mysql.version>8.0.28</mysql.version>
         <druid.version>1.2.8</druid.version>
-        <fastjson.version>2.0.7</fastjson.version>
+        <fastjson.version>1.2.76</fastjson.version>
     </properties>
 
     <!--依赖声明-->
@@ -115,8 +115,8 @@
             </dependency>
             <!--JSON解析器-->
             <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
         </dependencies>

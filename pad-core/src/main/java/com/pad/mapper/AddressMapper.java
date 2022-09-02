@@ -2,6 +2,10 @@ package com.pad.mapper;
 
 import com.pad.entity.Address;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pad.entity.Permission;
+import com.pad.entity.Role;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +16,4 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2022-09-02
  */
 public interface AddressMapper extends BaseMapper<Address> {
-
 }
