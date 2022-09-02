@@ -29,7 +29,7 @@ public class CodeGenerator {
         //容易获取出错，建议直接写项目的绝对路径
         //gc.setOutputDir("D:\\Ammao" + "/src/main/java");//输出目录
 
-        gc.setAuthor("pad");
+        gc.setAuthor("F4");
         gc.setOpen(false); //生成后是否打开资源管理器 即打开目录文件夹
         gc.setFileOverride(false); //重新生成时文件是否覆盖
 
@@ -42,7 +42,7 @@ public class CodeGenerator {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/java4?serverTimezone=GMT%2B8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/pad?serverTimezone=GMT%2B8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
@@ -67,7 +67,7 @@ public class CodeGenerator {
         StrategyConfig strategy = new StrategyConfig();
 
         //放入数据库表名，多张表用逗号分割
-        strategy.setInclude("dept");
+        strategy.setInclude("address","admin","admin_role","approval_record","bank","company_detail","company_info","company_material","credit","integral","loan_info","message","notice","overdue","periodization","permission","profit","recognition","role","role_permission");
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
 
