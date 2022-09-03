@@ -37,13 +37,13 @@ public class JwtUtils {
         Claims claims = Jwts.parser().setSigningKey(bytes).parseClaimsJws(s).getBody();
         System.out.println(claims);*/
 
-       /* //生成jwt
-        String s = acquireJWT("123456", "1", "123");
+      /*  //生成jwt
+        String s = acquireJWT("123456");
         System.out.println(s);*/
 
-        //解析jwt
-        Claims claims1 = parseJWT("eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwic3ViIjoi5rWL6K-VIiwiaWF0IjoxNjYyMTI0MDI5LCJleHAiOjE2NjIyMTA0MjksInQiOiIxMjM0NTYiLCJhY2NvdW50IjoiMTIzIiwidWlkIjoxfQ.ItArJyxm2bVwWaHne89Gf5OQOUfX9EWhaTGCIZYE8Rg");
-        System.out.println(claims1);
+        /*//解析jwt
+        Claims claims = parseJWT("eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI5NWQwMjJjMmUxYzM0ZDM3OGRjZWI1NWQ1MDgzMDhhMSIsInN1YiI6IjEyMzQ1NiIsImlhdCI6MTY2MjE2NTk5NywiZXhwIjoxNjYyMjUyMzk3fQ.92ogsKHTpECIBTqkKHhZz7o8aSADXtv8Rl08FXzzThw");
+        System.out.println(claims);*/
     }
 
     /**
@@ -69,8 +69,8 @@ public class JwtUtils {
     public static String acquireJWT(String id)  {
         //生成jwt令牌
         JwtBuilder jwtBuilder = Jwts.builder()
-                .setId(id)//设置jwt jti: jwt的唯一身份标识，主要用来作为一次性token
-                .setSubject("pad")//设置jwt主题 sub: jwt所面向的用户
+                .setId(UUIDUtils.getSimpleUUID())//设置jwt jti: jwt的唯一身份标识，主要用来作为一次性token
+                .setSubject(id)//设置jwt主题 sub: jwt所面向的用户
                 .setIssuedAt(new Date())//设置jwt签发日期 iat: jwt的签发时间
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))//设置jwt的过期时间 exp: jwt的过期时间
                 //.claim("uid",uid)
