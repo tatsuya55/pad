@@ -1,7 +1,12 @@
 package com.pad.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.pad.entity.CompanyDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
+import io.lettuce.core.dynamic.annotation.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +18,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CompanyDetailService extends IService<CompanyDetail> {
 
+    List<CompanyDetail> selectList(@Param(Constants.WRAPPER) Wrapper<CompanyDetail> queryWrapper);
 }

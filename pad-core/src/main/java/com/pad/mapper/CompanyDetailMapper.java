@@ -2,6 +2,7 @@ package com.pad.mapper;
 
 import com.pad.entity.CompanyDetail;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author F4
  * @since 2022-09-02
  */
+@Mapper
 public interface CompanyDetailMapper extends BaseMapper<CompanyDetail> {
 
 }
