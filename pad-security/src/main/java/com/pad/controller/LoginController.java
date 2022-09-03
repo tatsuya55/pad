@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "用户登录")
-@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class LoginController {

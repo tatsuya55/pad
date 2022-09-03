@@ -6,6 +6,7 @@ import com.pad.utils.JwtUtils;
 import com.pad.utils.RedisUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -43,14 +44,14 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String userId = claims.getSubject();
         //从redis获取用户信息
         String redisKey = "login:" + userId;
-        LoginUser loginUser = (LoginUser)redisUtil.getCacheObject(redisKey);
+        LoginUser loginUser = (LoginUser) redisUtil.getCacheObject(redisKey);
         if (ObjectUtils.isEmpty(loginUser)){
-            throw new PadException(-1,"用户未登录");
+            throw new PadException(HttpStatus.FORBIDDEN.value(),"用户未登录");
         }
         //存入securityContextHolder 后面的过滤器都是从这里获取信息
         //TODO 获取权限信息
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginUser,null,null);
+                new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         //放行
         filterChain.doFilter(request,response);

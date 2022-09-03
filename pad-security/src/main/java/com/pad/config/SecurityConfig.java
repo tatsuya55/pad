@@ -13,16 +13,22 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private MyUserDetailsService userDetailsService;
 
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+    @Autowired
+    private AuthenticationEntryPoint authenticationEntryPoint;
+
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
 
     //指定密码加解密方式
     @Bean
@@ -46,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
+        //.antMatchers("/a").hasAuthority("a") //配置文件中指定权限
         .antMatchers("/user/login").anonymous() //对于登录接口 允许匿名访问
         .antMatchers("/static/**").permitAll()
         .antMatchers("/swagger-ui.html").permitAll()
@@ -60,5 +67,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //指定添加的过滤器 及添加的位置
         .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
+        //配置异常处理器
+      /*  http
+        .exceptionHandling()
+        .authenticationEntryPoint(authenticationEntryPoint)
+        .accessDeniedHandler(accessDeniedHandler);*/
+
+        //允许跨域
+        http.cors();
     }
 }

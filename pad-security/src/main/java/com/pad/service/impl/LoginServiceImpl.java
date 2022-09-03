@@ -8,6 +8,7 @@ import com.pad.service.LoginService;
 import com.pad.utils.JwtUtils;
 import com.pad.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
         Authentication authenticate = manager.authenticate(authenticationToken);
         //认证失败 抛出异常
         if (ObjectUtils.isEmpty(authenticate)){
-            throw new PadException(-1,"登录失败");
+            throw new PadException(HttpStatus.UNAUTHORIZED.value(),"登录失败");
         }
         //认证成功 使用userId生成jwt 存入R
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();

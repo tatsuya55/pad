@@ -13,13 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class GlobalExceptionHandler {
     //全局异常处理
     //指定出现什么异常执行这个方法
-    @ExceptionHandler(Exception.class)
-    @ResponseBody  //返回数据
-    public R error(Exception e){
-        e.printStackTrace();
-        return R.error().message("执行了全局异常处理");
-    }
-
     @ExceptionHandler(PadException.class)
     @ResponseBody  //返回数据
     public R error(PadException e){
