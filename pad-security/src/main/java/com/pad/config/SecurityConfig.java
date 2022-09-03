@@ -5,6 +5,7 @@ import com.pad.service.impl.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -45,7 +46,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
-        .antMatchers("/login").anonymous() //对于登录接口 允许匿名访问
+        .antMatchers("/user/login").anonymous() //对于登录接口 允许匿名访问
+        .antMatchers("/static/**").permitAll()
+        .antMatchers("/swagger-ui.html").permitAll()
+        .antMatchers("/webjars/**").permitAll()
+        .antMatchers("/swagger-resources/**").permitAll()
+        .antMatchers("/v2/*").permitAll()
+        .antMatchers("/druid/**").anonymous()
         .anyRequest().authenticated();//其他所有请求全部需要鉴权认证
 
         //设置jwt认证过滤器
