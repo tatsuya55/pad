@@ -1,7 +1,10 @@
 package com.pad.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -40,6 +43,7 @@ public class Overdue implements Serializable {
     private Double money;
 
     @ApiModelProperty(value = "逾期开始时间")
+    @TableField(fill = FieldFill.INSERT)
     private Date beginTime;
 
     @ApiModelProperty(value = "逾期结束时间")
