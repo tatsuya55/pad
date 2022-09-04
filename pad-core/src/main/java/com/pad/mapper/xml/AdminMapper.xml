@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pad.mapper.AdminMapper">
     <!--根据用户id查询对应角色列表-->
-    <select id="selectRoleByUserId" resultType="com.pad.entity.Role">
-        select r.*
+    <select id="selectRoleByUserId" resultType="java.lang.String">
+        select r.`name`
         from admin_role ar
         left join role r on r.id=ar.role_id
         where ar.id=#{userId}
     </select>
 
     <!--根据用户id查询对应权限列表-->
-    <select id="selectPermissionByUserId" resultType="com.pad.entity.Permission">
-        select p.*
+    <select id="selectPermissionByUserId" resultType="java.lang.String">
+        select p.permission_value
         from role_permission rp
         left join role r on r.id=rp.role_id
         left join permission p on p.id=rp.permission_id

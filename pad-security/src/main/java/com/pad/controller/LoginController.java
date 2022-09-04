@@ -4,10 +4,13 @@ import com.pad.entity.Admin;
 import com.pad.exceptionhandler.PadException;
 import com.pad.response.R;
 import com.pad.service.LoginService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+@Api(tags = "用户登录")
 @RestController
 @RequestMapping("/user")
 public class LoginController {
@@ -15,13 +18,13 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    //登录
+    @ApiOperation("登录接口")
     @PostMapping("/login")
-    public R login(@RequestBody Admin admin){
+    public R login(@ApiParam(value = "后台用户")@RequestBody Admin admin){
         return loginService.login(admin);
     }
 
-    //退出
+    @ApiOperation("退出接口")
     @GetMapping("/logout")
     public R logout(){
         return loginService.logout();
