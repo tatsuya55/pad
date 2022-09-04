@@ -54,12 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         //.antMatchers("/a").hasAuthority("a") //配置文件中指定权限
         .antMatchers("/user/login").anonymous() //对于登录接口 允许匿名访问
-        .antMatchers("/static/**").permitAll()
-        .antMatchers("/swagger-ui.html").permitAll()
-        .antMatchers("/webjars/**").permitAll()
-        .antMatchers("/swagger-resources/**").permitAll()
-        .antMatchers("/v2/*").permitAll()
-        .antMatchers("/druid/**").anonymous()
+        .antMatchers(HttpMethod.GET, "/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**").permitAll()
+        .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs", "/druid/**").permitAll()
         .anyRequest().authenticated();//其他所有请求全部需要鉴权认证
 
         //设置jwt认证过滤器

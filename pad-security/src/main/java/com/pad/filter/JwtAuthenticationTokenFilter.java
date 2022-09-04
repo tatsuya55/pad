@@ -49,7 +49,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throw new PadException(HttpStatus.FORBIDDEN.value(),"用户未登录");
         }
         //存入securityContextHolder 后面的过滤器都是从这里获取信息
-        //TODO 获取权限信息
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);

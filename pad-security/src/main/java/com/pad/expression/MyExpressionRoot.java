@@ -12,11 +12,16 @@ import java.util.List;
  */
 @Component("me")
 public class MyExpressionRoot {
-    public boolean hasAuthority(String authority){
+    /**
+     * 验证用户是否具备某权限
+     * @param permission 权限字符串
+     * @return
+     */
+    public boolean hasAuthority(String permission){
         //获取当前用户权限
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         List<String> permissions = loginUser.getPermissions();
-        return permissions.contains(authority);
+        return permissions.contains(permission);
     }
 }
