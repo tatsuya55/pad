@@ -17,8 +17,8 @@ import java.util.List;
  */
 public interface AdminMapper extends BaseMapper<Admin> {
     //根据用户id查询对应角色列表
-    List<Role> selectRoleByUserId(String userId);
+    List<String> selectRoleByUserId(String userId);
 
     //根据用户id查询对应权限列表
-    List<Permission> selectPermissionByUserId(String userId);
+    List<String> selectPermissionByUserId(String userId);
 }
