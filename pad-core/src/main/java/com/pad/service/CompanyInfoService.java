@@ -12,5 +12,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-09-02
  */
 public interface CompanyInfoService extends IService<CompanyInfo> {
-
 }

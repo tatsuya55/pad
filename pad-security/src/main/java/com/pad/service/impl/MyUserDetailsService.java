@@ -32,7 +32,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //查询用户信息
-        LambdaQueryWrapper<Admin> wrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<Admin> wrapper = new LambdaQueryWrapper<Admin>();
         //引入lambda，避免写类似name的硬编码
         wrapper.eq(Admin::getName,username);
         Admin admin = adminMapper.selectOne(wrapper);
@@ -40,7 +40,7 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new PadException(-1,"用户名或密码错误");
         }
         //构造权限角色列表
-        List<GrantedAuthority> auths = new ArrayList<>();
+        List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
         //查询用户角色
         List<Role> roleList = adminMapper.selectRoleByUserId(admin.getId());
         //查询用户权限
