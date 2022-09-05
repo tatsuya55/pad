@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pad.mapper.CompanyDetailMapper">
+    <resultMap id="DetailMap" type="com.pad.entity.CompanyDetail">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="cNo" column="c_no" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="legalName" column="legal_name" jdbcType="VARCHAR"/>
+        <result property="legalId" column="legal_id" jdbcType="VARCHAR"/>
+        <result property="province" column="province" jdbcType="INTEGER"/>
+        <result property="city" column="city" jdbcType="INTEGER"/>
+        <result property="area" column="area" jdbcType="INTEGER"/>
+        <result property="credit" column="credit" jdbcType="INTEGER"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="license" column="license" jdbcType="VARCHAR"/>
+        <result property="licTime" column="lic_time" jdbcType="DATE"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
 
+        <!--企业用户基本信息 一对一-->
+        <association property="companyInfo" javaType="com.pad.entity.CompanyInfo"
+                     select=""
+                     column="c_no"
+        >
+        </association>
+
+
+    </resultMap>
+
+    <!--外键查询-->
+    <select id="selectByPK" resultMap="DetailMap">
+        select * from  company_detail where c_no=#{cNo,jdbcType=VARCHAR}
+    </select>
 </mapper>

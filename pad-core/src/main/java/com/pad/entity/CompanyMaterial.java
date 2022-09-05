@@ -63,4 +63,7 @@ public class CompanyMaterial implements Serializable {
     private Integer status;
 
 
+    private CompanyInfo companyInfo;
+
+
 }

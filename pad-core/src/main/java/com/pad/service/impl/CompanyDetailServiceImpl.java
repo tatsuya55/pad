@@ -26,9 +26,10 @@ public class CompanyDetailServiceImpl extends ServiceImpl<CompanyDetailMapper, C
     @Autowired
     private CompanyDetailMapper mapper;
 
-    public List<CompanyDetail> selectList(@Param(Constants.WRAPPER) Wrapper<CompanyDetail> queryWrapper) {
-        return mapper.selectList(queryWrapper);
+
+
+    //外键查询
+    public List<CompanyDetail> selectByPK(String cNo) {
+        return mapper.selectByPK(cNo);
     }
-
-
 }

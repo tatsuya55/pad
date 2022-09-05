@@ -18,5 +18,9 @@ import java.util.List;
  */
 public interface CompanyDetailService extends IService<CompanyDetail> {
 
-    List<CompanyDetail> selectList(@Param(Constants.WRAPPER) Wrapper<CompanyDetail> queryWrapper);
+
+    /**
+     * 外键查询
+     */
+    List<CompanyDetail> selectByPK(String cNo);
 }

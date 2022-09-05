@@ -4,6 +4,8 @@ import com.pad.entity.CompanyDetail;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 企业用户详细信息表 Mapper 接口
@@ -14,5 +16,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CompanyDetailMapper extends BaseMapper<CompanyDetail> {
+
+    /**
+     * 外键查询
+     */
+    List<CompanyDetail> selectByPK(String cNo);
 
 }

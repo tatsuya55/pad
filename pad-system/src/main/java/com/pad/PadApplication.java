@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-        //(exclude = SecurityAutoConfiguration.class)
+        (exclude = SecurityAutoConfiguration.class)
 public class PadApplication {
     public static void main(String[] args) {
         SpringApplication.run(PadApplication.class);

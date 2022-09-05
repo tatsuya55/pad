@@ -70,4 +70,7 @@ public class CompanyDetail implements Serializable {
     private Integer isDeleted;
 
 
+    private CompanyInfo companyInfo;
+
+
 }
