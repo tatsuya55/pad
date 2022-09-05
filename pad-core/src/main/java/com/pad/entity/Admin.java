@@ -1,8 +1,12 @@
 package com.pad.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -44,5 +48,9 @@ public class Admin implements Serializable {
     @ApiModelProperty(value = "0已删除，1未删除")
     private Integer isDeleted;
 
-
+    //新加属性 不映射到数据库 不添加到redis 忽略该字段
+    @JSONField(serialize = false)
+    @ApiModelProperty(value = "用户对应角色ids")
+    @TableField(exist = false)
+    private List<Integer> roleIds;
 }
