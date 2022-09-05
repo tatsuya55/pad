@@ -6,7 +6,7 @@
         select r.`name`
         from admin_role ar
         left join role r on r.id=ar.role_id
-        where ar.id=#{userId}
+        where ar.admin_id=#{userId}
     </select>
 
     <!--根据用户id查询对应权限列表-->

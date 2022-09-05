@@ -4,12 +4,19 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.Admin;
+import com.pad.entity.AdminRole;
 import com.pad.mapper.AdminMapper;
+import com.pad.mapper.AdminRoleMapper;
+import com.pad.response.R;
 import com.pad.service.AdminService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -22,6 +29,10 @@ import org.springframework.util.StringUtils;
 @Service
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements AdminService {
 
+    @Autowired
+    private AdminRoleMapper adminRoleMapper;
+
+    //用户列表分页显示
     @Override
     public void pageQuery(Page<Admin> adminPage, Admin admin) {
         //构造条件

@@ -1,6 +1,7 @@
 package com.pad.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.Admin;
 import com.pad.entity.AdminRole;
@@ -75,27 +76,77 @@ public class AdminController {
     @PreAuthorize("@me.hasAuthority('system:user:add')")
     @ApiOperation("添加后台用户")
     @PostMapping("/add")
-    public R addAdmin(@ApiParam(name = "admin",value = "添加的用户",required = true)
-                      @RequestBody Admin admin){
+    public R addAdmin(
+        @ApiParam(name = "admin",value = "添加的用户",required = true)
+        @RequestBody Admin admin
+    ){
         //密码加密
         String encode = passwordEncoder.encode(admin.getPassword());
         admin.setPassword(encode);
         //添加用户
         adminService.save(admin);
         //添加用户对应角色
-        List<Integer> roleIds = admin.getRoleIds();
+        this.insertUserRole(admin.getId(),admin.getRoleIds());
+        return R.ok().message("添加成功");
+    }
+
+    @PreAuthorize("@me.hasAuthority('system:user:edit')")
+    @ApiOperation("修改用户信息")
+    @PutMapping("/edit")
+    public R editAdmin(
+        @ApiParam(name = "admin",value = "要修改的用户信息",required = true)
+        @RequestBody Admin admin
+    ){
+        String adminId = admin.getId();
+        //删除用户角色
+        adminRoleService.remove(
+                new LambdaQueryWrapper<AdminRole>()
+                .eq(AdminRole::getAdminId,adminId));
+
+        //重新添加用户角色
+        this.insertUserRole(admin.getId(),admin.getRoleIds());
+        //更新
+        adminService.updateById(admin);
+        return R.ok();
+    }
+
+    @PreAuthorize("@me.hasAuthority('system:user:edit')")
+    @ApiOperation("修改用户状态")
+    @PutMapping("/changeStatus")
+    public R changeStatus(
+            @ApiParam(name = "admin",value = "要修改的用户信息",required = true)
+            @RequestBody Admin admin
+    ){
+        adminService.updateById(admin);
+        return R.ok().message("更改状态成功");
+    }
+
+    @PreAuthorize("@me.hasAuthority('system:user:query')")
+    @ApiOperation("根据id查询用户")
+    @GetMapping("/{id}")
+    public R getAdminById(
+            @ApiParam(name = "id",value = "用户id",required = true)
+            @PathVariable String id
+    ){
+        Admin admin = adminService.getById(id);
+        //TODO 查询用户角色
+        return R.ok().data("admin",admin);
+    }
+
+
+    //添加用户对应角色
+    public void insertUserRole(String adminId, List<Integer> roleIds){
         if (roleIds.isEmpty()){
-            return R.ok().message("添加成功");
+            return;
         }
         List<AdminRole> adminRoleList = new ArrayList<>();
         for (Integer roleId : roleIds) {
             AdminRole adminRole = new AdminRole();
-            adminRole.setAdminId(admin.getId());
+            adminRole.setAdminId(adminId);
             adminRole.setRoleId(roleId);
             adminRoleList.add(adminRole);
         }
         adminRoleService.saveBatch(adminRoleList);
-        return R.ok().message("添加成功");
     }
 }
 
