@@ -8,15 +8,18 @@ import com.pad.entity.AdminRole;
 import com.pad.response.R;
 import com.pad.service.AdminRoleService;
 import com.pad.service.AdminService;
+import com.pad.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -35,9 +38,6 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private AdminRoleService adminRoleService;
@@ -81,7 +81,7 @@ public class AdminController {
         @RequestBody Admin admin
     ){
         //密码加密
-        String encode = passwordEncoder.encode(admin.getPassword());
+        String encode = SecurityUtils.encryptPassword(admin.getPassword());
         admin.setPassword(encode);
         //添加用户
         adminService.save(admin);
@@ -97,14 +97,13 @@ public class AdminController {
         @ApiParam(name = "admin",value = "要修改的用户信息",required = true)
         @RequestBody Admin admin
     ){
-        String adminId = admin.getId();
+        String id = admin.getId();
         //删除用户角色
         adminRoleService.remove(
                 new LambdaQueryWrapper<AdminRole>()
-                .eq(AdminRole::getAdminId,adminId));
-
+                .eq(AdminRole::getAdminId,id));
         //重新添加用户角色
-        this.insertUserRole(admin.getId(),admin.getRoleIds());
+        this.insertUserRole(id,admin.getRoleIds());
         //更新
         adminService.updateById(admin);
         return R.ok();
@@ -129,10 +128,32 @@ public class AdminController {
             @PathVariable String id
     ){
         Admin admin = adminService.getById(id);
-        //TODO 查询用户角色
+        //查询用户角色ids
+        List<Integer> roleIds = adminService.getRoleIds(id);
+        admin.setRoleIds(roleIds);
         return R.ok().data("admin",admin);
     }
 
+    @PreAuthorize("@me.hasAuthority('system:user:remove')")
+    @ApiOperation("根据id删除用户")
+    @DeleteMapping("/{id}")
+    public R removeAdmin(
+            @ApiParam(name = "id",value = "要删除的用户id",required = true)
+            @PathVariable String[] id
+    ){
+        //不能删除自己
+        if (Arrays.asList(id).contains(SecurityUtils.getUserId())){
+            return R.error().message("当前用户无法删除");
+        }
+        List<String> asList = Arrays.asList(id);
+        //删除用户对应角色关联
+        adminRoleService.remove(
+                new LambdaQueryWrapper<AdminRole>()
+                .in(AdminRole::getAdminId,asList));
+        //逻辑删除用户
+        adminService.removeAdmin(asList);
+        return R.ok().message("删除成功");
+    }
 
     //添加用户对应角色
     public void insertUserRole(String adminId, List<Integer> roleIds){

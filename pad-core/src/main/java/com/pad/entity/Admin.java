@@ -45,6 +45,9 @@ public class Admin implements Serializable {
     @ApiModelProperty(value = "邮箱")
     private String email;
 
+    @ApiModelProperty(value = "0已停用，1未停用")
+    private Integer status;
+
     @ApiModelProperty(value = "0已删除，1未删除")
     private Integer isDeleted;
 

@@ -37,10 +37,12 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     public void pageQuery(Page<Admin> adminPage, Admin admin) {
         //构造条件
         LambdaQueryWrapper<Admin> wrapper = new LambdaQueryWrapper<>();
+        //显示未删除的用户
+        wrapper.eq(Admin::getIsDeleted,1);
         //判断条件是否为空
         if (ObjectUtils.isEmpty(admin)){
             //条件为空 直接分页查询
-            baseMapper.selectPage(adminPage,null);
+            baseMapper.selectPage(adminPage,wrapper);
             return;
         }
         //判断单个条件是否为空
@@ -61,5 +63,17 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         }
         //查询
         baseMapper.selectPage(adminPage,wrapper);
+    }
+
+    //根据用户id查询对应角色列表 返回角色id
+    @Override
+    public List<Integer> getRoleIds(String userId) {
+        return baseMapper.selectRoleIdsByUserId(userId);
+    }
+
+    //逻辑删除用户
+    @Override
+    public void removeAdmin(List<String> ids) {
+        baseMapper.deleteAdminByIds(ids);
     }
 }
