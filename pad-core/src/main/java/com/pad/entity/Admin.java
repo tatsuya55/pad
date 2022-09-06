@@ -56,4 +56,8 @@ public class Admin implements Serializable {
     @ApiModelProperty(value = "用户对应角色ids")
     @TableField(exist = false)
     private List<Integer> roleIds;
+
+    @JSONField(serialize = false)
+    @TableField(exist = false)
+    private boolean rememberMe;
 }

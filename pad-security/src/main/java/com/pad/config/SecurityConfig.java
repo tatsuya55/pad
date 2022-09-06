@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -23,6 +24,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+    //注入PersistentTokenRepository 实现记住我
+    @Autowired
+    private PersistentTokenRepository tokenRepository;
+
+    @Autowired
+    private MyUserDetailsService userDetailsService;
 
     @Autowired
     private AuthenticationEntryPoint authenticationEntryPoint;
@@ -45,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //设置登录接口
+        //设置白名单
         http
         .csrf().disable() //关闭csrf防护
         //不通过session获取SecurityContext
@@ -64,10 +72,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         //配置异常处理器
-      /*  http
+        http
         .exceptionHandling()
         .authenticationEntryPoint(authenticationEntryPoint)
-        .accessDeniedHandler(accessDeniedHandler);*/
+        .accessDeniedHandler(accessDeniedHandler);
+
+        //记住我
+        http
+        .rememberMe()
+        .rememberMeParameter("rememberMe")
+        .rememberMeCookieName("rememberMe")
+        .tokenValiditySeconds(3600) //指定有效时间 默认两周
+        .tokenRepository(tokenRepository)
+        .userDetailsService(userDetailsService);
+
+        //注销  注销后persistent_logins表中记录删除 记住我失效
+        http
+        .logout()
+        .logoutUrl("/logout") //注销时访问的路径
+        .logoutSuccessUrl("/user/logout") //注销成功时访问的路径
+        .permitAll();
 
         //允许跨域
         http.cors();

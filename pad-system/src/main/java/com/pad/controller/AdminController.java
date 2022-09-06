@@ -106,7 +106,7 @@ public class AdminController {
         this.insertUserRole(id,admin.getRoleIds());
         //更新
         adminService.updateById(admin);
-        return R.ok();
+        return R.ok().message("修改用户信息成功");
     }
 
     @PreAuthorize("@me.hasAuthority('system:user:edit')")
