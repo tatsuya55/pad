@@ -7,6 +7,7 @@ import com.pad.response.R;
 import com.pad.service.LoginService;
 import com.pad.utils.JwtUtils;
 import com.pad.utils.RedisUtil;
+import com.pad.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -57,11 +58,8 @@ public class LoginServiceImpl implements LoginService {
     //退出
     @Override
     public R logout() {
-        //获取SecurityContextHolder
-        UsernamePasswordAuthenticationToken authentication =
-                (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        LoginUser loginUser = (LoginUser)authentication.getPrincipal();
-        String userId = loginUser.getAdmin().getId();
+        //获取userId
+        String userId = SecurityUtils.getUserId();
         //删除redis中的值
         redisUtil.deleteObject("login:"+userId);
         return R.ok().code(200).message("退出成功");

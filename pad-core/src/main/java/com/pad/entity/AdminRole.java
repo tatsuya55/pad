@@ -33,7 +33,7 @@ public class AdminRole implements Serializable {
     private Integer roleId;
 
     @ApiModelProperty(value = "用户id")
-    private Integer adminId;
+    private String adminId;
 
     @ApiModelProperty(value = "逻辑删除0已删除，1未删除")
     private Integer isDeleted;

@@ -16,9 +16,15 @@ import java.util.List;
  * @since 2022-09-02
  */
 public interface AdminMapper extends BaseMapper<Admin> {
-    //根据用户id查询对应角色列表
-    List<String> selectRoleByUserId(String userId);
+    //根据用户id查询对应角色列表 返回角色名称
+    List<String> selectRoleNameByUserId(String userId);
+
+    //根据用户id查询对应角色列表 返回角色id
+    List<Integer> selectRoleIdsByUserId(String userId);
 
     //根据用户id查询对应权限列表
     List<String> selectPermissionByUserId(String userId);
+
+    //逻辑删除用户
+    void deleteAdminByIds(List<String> ids);
 }
