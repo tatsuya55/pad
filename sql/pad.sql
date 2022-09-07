@@ -11,7 +11,7 @@
  Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 05/09/2022 17:04:26
+ Date: 07/09/2022 14:33:09
 */
 
 SET NAMES utf8mb4;
@@ -3792,15 +3792,16 @@ CREATE TABLE `admin`  (
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
-  `is_deleted` int NULL DEFAULT 1 COMMENT '0已删除，1未删除',
+  `is_deleted` int NOT NULL DEFAULT 1 COMMENT '0已删除，1未删除',
+  `status` int NOT NULL COMMENT '0已停用，1未停用',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', '110', '$2a$10$bAmAajbN1YLWhD7NHqEhg.KjIFjV2rnmbkG.fX674O6YVrJ4wPUoW', 'ee', 1);
-INSERT INTO `admin` VALUES ('1566711476608647170', 'test', '18070100188', '$2a$10$evbC4TByHy5qqJCJk0AhLuY6btJw6dcEAZ.PWl7tmXEJqBBRHbBtq', 'test@gmail.com', 1);
+INSERT INTO `admin` VALUES ('1', 'admin', '110', '$2a$10$bAmAajbN1YLWhD7NHqEhg.KjIFjV2rnmbkG.fX674O6YVrJ4wPUoW', 'ee', 1, 1);
+INSERT INTO `admin` VALUES ('1566711476608647170', 'test', '18070100188', '$2a$10$evbC4TByHy5qqJCJk0AhLuY6btJw6dcEAZ.PWl7tmXEJqBBRHbBtq', 'test@gmail.com', 1, 1);
 
 -- ----------------------------
 -- Table structure for admin_role
@@ -3820,6 +3821,7 @@ CREATE TABLE `admin_role`  (
 -- Records of admin_role
 -- ----------------------------
 INSERT INTO `admin_role` VALUES (1, 1, '1', 1);
+INSERT INTO `admin_role` VALUES (2, 2, '1566711476608647170', 1);
 
 -- ----------------------------
 -- Table structure for approval_record
@@ -4085,7 +4087,7 @@ CREATE TABLE `permission`  (
   `is_deleted` tinyint UNSIGNED NOT NULL DEFAULT 1 COMMENT '逻辑删除0已删除，1未删除\r\n',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_pid`(`pid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 207 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of permission
@@ -4093,13 +4095,34 @@ CREATE TABLE `permission`  (
 INSERT INTO `permission` VALUES (1, 0, '系统管理', 1, 'system', 'system', 1, 1);
 INSERT INTO `permission` VALUES (100, 1, '用户管理', 1, 'system:user:list', 'system/user/index', 1, 1);
 INSERT INTO `permission` VALUES (101, 1, '角色管理', 1, 'system:role:list', 'system/role/list', 1, 1);
-INSERT INTO `permission` VALUES (200, 100, '添加', 2, 'system:user:add', '', 1, 1);
-INSERT INTO `permission` VALUES (201, 100, '修改', 2, 'system:user:edit', NULL, 1, 1);
-INSERT INTO `permission` VALUES (202, 100, '删除', 2, 'system:user:remove', NULL, 1, 1);
-INSERT INTO `permission` VALUES (203, 100, '导入', 2, 'system:user:import', NULL, 1, 1);
-INSERT INTO `permission` VALUES (204, 100, '导出', 2, 'system:user:export', NULL, 1, 1);
+INSERT INTO `permission` VALUES (200, 100, '用户添加', 2, 'system:user:add', '', 1, 1);
+INSERT INTO `permission` VALUES (201, 100, '用户修改', 2, 'system:user:edit', NULL, 1, 1);
+INSERT INTO `permission` VALUES (202, 100, '用户删除', 2, 'system:user:remove', NULL, 1, 1);
+INSERT INTO `permission` VALUES (203, 100, '用户导入', 2, 'system:user:import', NULL, 1, 1);
+INSERT INTO `permission` VALUES (204, 100, '用户导出', 2, 'system:user:export', NULL, 1, 1);
 INSERT INTO `permission` VALUES (205, 100, '重置密码', 2, 'system:user:resetPwd', NULL, 1, 1);
-INSERT INTO `permission` VALUES (206, 101, '查询', 2, 'system:role:query', NULL, 1, 1);
+INSERT INTO `permission` VALUES (206, 100, '用户查询', 2, 'system:user:query', NULL, 1, 1);
+INSERT INTO `permission` VALUES (207, 101, '角色添加', 2, 'system:role:add', '', 1, 1);
+INSERT INTO `permission` VALUES (208, 101, '角色修改', 2, 'system:role:edit', NULL, 1, 1);
+INSERT INTO `permission` VALUES (209, 101, '角色删除', 2, 'system:role:remove', NULL, 1, 1);
+INSERT INTO `permission` VALUES (210, 101, '角色导出', 2, 'system:role:export', NULL, 1, 1);
+INSERT INTO `permission` VALUES (211, 101, '角色查询', 2, 'system:role:query', NULL, 1, 1);
+
+-- ----------------------------
+-- Table structure for persistent_logins
+-- ----------------------------
+DROP TABLE IF EXISTS `persistent_logins`;
+CREATE TABLE `persistent_logins`  (
+  `username` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `series` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `token` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `last_used` timestamp NOT NULL,
+  PRIMARY KEY (`series`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of persistent_logins
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for profit
@@ -4143,14 +4166,15 @@ CREATE TABLE `role`  (
   `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '角色名称',
   `value` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色值',
   `is_deleted` tinyint UNSIGNED NOT NULL DEFAULT 1 COMMENT '逻辑删除 0已删除，1未删除\r\n',
+  `status` tinyint NOT NULL DEFAULT 1 COMMENT '0已停用，1未停用',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES (1, '平台管理员', 'platform', 1);
-INSERT INTO `role` VALUES (2, '银行管理员', 'bank', 1);
+INSERT INTO `role` VALUES (1, '平台管理员', 'platform', 1, 1);
+INSERT INTO `role` VALUES (2, '银行管理员', 'bank', 1, 1);
 
 -- ----------------------------
 -- Table structure for role_permission
@@ -4164,7 +4188,7 @@ CREATE TABLE `role_permission`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_role_id`(`role_id`) USING BTREE,
   INDEX `idx_permission_id`(`permission_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色对应权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色对应权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role_permission
@@ -4179,5 +4203,10 @@ INSERT INTO `role_permission` VALUES (7, 1, 204, 1);
 INSERT INTO `role_permission` VALUES (8, 1, 205, 1);
 INSERT INTO `role_permission` VALUES (9, 1, 101, 1);
 INSERT INTO `role_permission` VALUES (10, 1, 206, 1);
+INSERT INTO `role_permission` VALUES (11, 1, 207, 1);
+INSERT INTO `role_permission` VALUES (12, 1, 208, 1);
+INSERT INTO `role_permission` VALUES (13, 1, 209, 1);
+INSERT INTO `role_permission` VALUES (14, 1, 210, 1);
+INSERT INTO `role_permission` VALUES (15, 1, 211, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
