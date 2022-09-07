@@ -17,3 +17,6 @@ mybatis-plus:
   #开启日志
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#logging:
+#  level:
+#    root: debug

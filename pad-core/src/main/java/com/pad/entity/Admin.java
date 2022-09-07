@@ -57,7 +57,4 @@ public class Admin implements Serializable {
     @TableField(exist = false)
     private List<Integer> roleIds;
 
-    @JSONField(serialize = false)
-    @TableField(exist = false)
-    private boolean rememberMe;
 }

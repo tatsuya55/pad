@@ -81,7 +81,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
         .rememberMe()
         .rememberMeParameter("rememberMe")
-        .rememberMeCookieName("rememberMe")
         .tokenValiditySeconds(3600) //指定有效时间 默认两周
         .tokenRepository(tokenRepository)
         .userDetailsService(userDetailsService);
