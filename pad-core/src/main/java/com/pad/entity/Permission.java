@@ -1,8 +1,12 @@
 package com.pad.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -50,5 +54,8 @@ public class Permission implements Serializable {
     @ApiModelProperty(value = "逻辑删除0已删除，1未删除")
     private Integer isDeleted;
 
+    @TableField(exist = false)
+    @ApiModelProperty(value = "children")
+    private List<Permission> children;
 
 }

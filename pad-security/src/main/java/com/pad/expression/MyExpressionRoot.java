@@ -1,6 +1,6 @@
 package com.pad.expression;
 
-import com.pad.entity.LoginUser;
+import com.pad.vo.LoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
