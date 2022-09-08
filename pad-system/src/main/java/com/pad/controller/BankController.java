@@ -51,5 +51,20 @@ public class BankController {
         return R.ok().data("total",total).data("bankList",bankList);
     }
 
+
+    @PreAuthorize("@me.hasAuthority('system:bank:list')")
+    @ApiOperation("根据id查询银行")
+    @GetMapping("/{id}")
+    public R getBankById(
+            @ApiParam(name = "id",value = "银行编号",required = true)
+            @PathVariable String id
+    ){
+        Bank bank = bankService.getById(id);
+        //查询用户角色ids
+        List<String> banks = (List<String>) bankService.getById(id);
+        bank.setBankNo(String.valueOf(banks));
+        return R.ok().data("bank",bank);
+    }
+
 }
 

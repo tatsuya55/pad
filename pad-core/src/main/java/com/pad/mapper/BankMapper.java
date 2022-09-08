@@ -14,7 +14,7 @@ import java.util.List;
  * @since 2022-09-02
  */
 public interface BankMapper extends BaseMapper<Bank> {
-    //根据用户id查询对应银行列表
-    void selectRoleByUserId(List<String> id);
+    //根据用户id查询对应银行
+    String selectBankByBankId(List<String> id);
 
 }

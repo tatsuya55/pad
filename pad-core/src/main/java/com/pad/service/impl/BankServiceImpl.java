@@ -55,7 +55,7 @@ public class BankServiceImpl extends ServiceImpl<BankMapper, Bank> implements Ba
     }
 
     @Override
-    public void selectRoleByUserId(List<String> id) {
-        bankMapper.selectRoleByUserId(id);
+    public String selectBankByBankId(List<String> id) {
+        return bankMapper.selectBankByBankId(id);
     }
 }
