@@ -1,7 +1,11 @@
 package com.pad.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pad.entity.Admin;
 import com.pad.entity.Bank;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +16,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-09-02
  */
 public interface BankService extends IService<Bank> {
-
+    //银行列表分页显示
+    void pageQuery(Page<Bank> bankPage, Bank bank);
+    //根据用户id查询对应银行列表
+    void selectRoleByUserId(List<String> id);
 }

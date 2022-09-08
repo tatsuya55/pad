@@ -59,5 +59,4 @@ public class Bank implements Serializable {
     @ApiModelProperty(value = "逻辑删除   0已删除，1未删除   默认是1未删除")
     private Integer isDeleted;
 
-
 }
