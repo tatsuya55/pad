@@ -2,7 +2,6 @@ package com.pad.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.pad.entity.Admin;
 import com.pad.entity.Bank;
 import com.pad.response.R;
 import com.pad.service.BankService;
@@ -60,9 +59,6 @@ public class BankController {
             @PathVariable String id
     ){
         Bank bank = bankService.getById(id);
-        //查询用户角色ids
-        List<String> banks = (List<String>) bankService.getById(id);
-        bank.setBankNo(String.valueOf(banks));
         return R.ok().data("bank",bank);
     }
 

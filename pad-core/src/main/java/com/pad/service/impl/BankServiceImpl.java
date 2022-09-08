@@ -54,8 +54,4 @@ public class BankServiceImpl extends ServiceImpl<BankMapper, Bank> implements Ba
         baseMapper.selectPage(bankPage,wrapper);
     }
 
-    @Override
-    public String selectBankByBankId(List<String> id) {
-        return bankMapper.selectBankByBankId(id);
-    }
 }

@@ -17,6 +17,4 @@ import java.util.List;
 public interface BankService extends IService<Bank> {
     //银行列表分页显示
     void pageQuery(Page<Bank> bankPage, Bank bank);
-    //根据用户id查询对应银行
-    String selectBankByBankId(List<String> id);
 }
