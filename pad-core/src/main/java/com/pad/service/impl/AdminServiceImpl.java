@@ -25,7 +25,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Override
     public void pageQuery(Page<Admin> adminPage, Admin admin) {
         //构造条件
-        LambdaQueryWrapper<Admin> wrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<Admin> wrapper = new LambdaQueryWrapper<Admin>();
         //判断条件是否为空
         if (ObjectUtils.isEmpty(admin)){
             //条件为空 直接分页查询

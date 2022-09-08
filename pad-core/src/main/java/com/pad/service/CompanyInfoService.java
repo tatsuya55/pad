@@ -1,5 +1,7 @@
 package com.pad.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pad.entity.Admin;
 import com.pad.entity.CompanyInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,4 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-09-02
  */
 public interface CompanyInfoService extends IService<CompanyInfo> {
+
+    //企业用户基本信息表分页显示
+    void pageQuery(Page<CompanyInfo> Page, CompanyInfo companyInfo);
 }
