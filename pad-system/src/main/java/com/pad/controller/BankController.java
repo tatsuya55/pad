@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.Bank;
 import com.pad.response.R;
 import com.pad.service.BankService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.List;
  * @author F4
  * @since 2022-09-02
  */
+@Api(tags = "银行管理")
 @RestController
 @RequestMapping("/bank")
 public class BankController {
@@ -30,14 +32,14 @@ public class BankController {
 
 
     @PreAuthorize("@me.hasAuthority('system:bank:list')")
-    @ApiOperation("用户列表分页显示")
+    @ApiOperation("银行列表分页显示")
     @PostMapping("/list/{current}/{limit}")
     public R adminListPage(
             @ApiParam(name = "current",value = "当前页",required = true)
             @PathVariable long current,
             @ApiParam(name = "limit",value = "每页记录数",required = true)
             @PathVariable long limit,
-            @ApiParam(name = "bankName",value = "查询条件",required = false)
+            @ApiParam(name = "Bank",value = "查询条件",required = false)
             @RequestBody(required = false) Bank bank
     ){
         //创建page对象
@@ -51,7 +53,7 @@ public class BankController {
     }
 
 
-    @PreAuthorize("@me.hasAuthority('system:bank:list')")
+    @PreAuthorize("@me.hasAuthority('system:bank:query')")
     @ApiOperation("根据id查询银行")
     @GetMapping("/{id}")
     public R getBankById(
