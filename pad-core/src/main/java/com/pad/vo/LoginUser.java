@@ -1,6 +1,7 @@
-package com.pad.entity;
+package com.pad.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.pad.entity.Admin;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

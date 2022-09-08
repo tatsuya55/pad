@@ -1,7 +1,7 @@
 package com.pad.service.impl;
 
 import com.pad.entity.Admin;
-import com.pad.entity.LoginUser;
+import com.pad.vo.LoginUser;
 import com.pad.exceptionhandler.PadException;
 import com.pad.response.R;
 import com.pad.service.LoginService;
@@ -13,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
