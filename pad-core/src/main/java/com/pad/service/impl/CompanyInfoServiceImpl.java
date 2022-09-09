@@ -55,7 +55,7 @@ public class CompanyInfoServiceImpl extends ServiceImpl<CompanyInfoMapper, Compa
             wrapper.like(CompanyInfo::getPhone,phone);
         }
         if (StringUtils.hasText(email)){
-            wrapper.like(CompanyInfo::getEmail,phone);
+            wrapper.like(CompanyInfo::getEmail,email);
         }
         if (createTime !=null){
             wrapper.eq(CompanyInfo::getCreateTime,createTime);
@@ -64,7 +64,7 @@ public class CompanyInfoServiceImpl extends ServiceImpl<CompanyInfoMapper, Compa
             wrapper.eq(CompanyInfo::getIsDeleted,isDeleted);
         }
         if (authStatus !=null){
-            wrapper.eq(CompanyInfo::getAuthStatus,phone);
+            wrapper.eq(CompanyInfo::getAuthStatus,authStatus);
         }
         //查询
         baseMapper.selectPage(page,wrapper);
