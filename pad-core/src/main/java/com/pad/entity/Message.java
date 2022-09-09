@@ -44,7 +44,7 @@ public class Message implements Serializable {
     private String context;
 
     @ApiModelProperty(value = "回复内容")
-    private String reTime;
+    private String reply;
 
     @ApiModelProperty(value = "回复时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)

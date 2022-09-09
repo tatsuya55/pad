@@ -64,11 +64,11 @@ public class MessageController {
         return R.ok().data("message",message);
     }
 
-    @PreAuthorize("@me.hasAuthority('system:bank:remove')")
-    @ApiOperation("根据id删除银行列表")
+    @PreAuthorize("@me.hasAuthority('system:message:remove')")
+    @ApiOperation("根据id删除留言")
     @DeleteMapping("/{id}")
     public R removeMessage(
-            @ApiParam(name = "id",value = "要删除的银行id",required = true)
+            @ApiParam(name = "id",value = "要删除的留言id",required = true)
             @PathVariable String[] id
     ){
         //根据银行id删除银行
