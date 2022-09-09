@@ -1,6 +1,6 @@
 package com.pad.filter;
 
-import com.pad.entity.LoginUser;
+import com.pad.vo.LoginUser;
 import com.pad.exceptionhandler.PadException;
 import com.pad.utils.JwtUtils;
 import com.pad.utils.RedisUtil;

@@ -43,7 +43,7 @@ public class AdminMapperTest {
 
     @Test
     public void permissionListTest(){
-        List<String> permissionList = adminMapper.selectPermissionByUserId("1");
+        List<String> permissionList = adminMapper.selectPerValueByUserId("1");
         System.out.println(permissionList);
     }
 }
