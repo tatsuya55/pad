@@ -17,4 +17,6 @@ import java.util.List;
 public interface BankService extends IService<Bank> {
     //银行列表分页显示
     void pageQuery(Page<Bank> bankPage, Bank bank);
+    //根据银行id删除银行
+    void deleteByIds(List<String> id);
 }

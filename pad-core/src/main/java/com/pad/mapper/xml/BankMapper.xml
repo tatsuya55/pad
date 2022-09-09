@@ -3,4 +3,12 @@
 <mapper namespace="com.pad.mapper.BankMapper">
 
 
+    <!-- 根据银行id删除银行-->
+    <update id="updateNo" parameterType="list" >
+        update bank
+set is_deleted = 0 where bank_no in
+<foreach collection="list" item="id" open="(" close=")" separator=",">
+    #{id}
+</foreach>
+    </update>
 </mapper>

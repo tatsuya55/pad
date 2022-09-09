@@ -54,4 +54,9 @@ public class BankServiceImpl extends ServiceImpl<BankMapper, Bank> implements Ba
         baseMapper.selectPage(bankPage,wrapper);
     }
 
+    //根据银行id删除银行
+    @Override
+    public void deleteByIds(List<String> id) {
+        bankMapper.updateNo(id);
+    }
 }

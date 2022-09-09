@@ -14,4 +14,6 @@ import java.util.List;
  * @since 2022-09-02
  */
 public interface BankMapper extends BaseMapper<Bank> {
+    //根据银行id删除银行
+    void updateNo(List<String> id);
 }

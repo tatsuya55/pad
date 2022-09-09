@@ -1,10 +1,15 @@
 package com.pad.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pad.entity.Admin;
+import com.pad.entity.AdminRole;
 import com.pad.entity.Bank;
+import com.pad.entity.Role;
 import com.pad.response.R;
 import com.pad.service.BankService;
+import com.pad.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -12,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -64,5 +70,30 @@ public class BankController {
         return R.ok().data("bank",bank);
     }
 
+    @PreAuthorize("@me.hasAuthority('system:bank:remove')")
+    @ApiOperation("根据id删除银行列表")
+    @DeleteMapping("/{id}")
+    public R removeBank(
+            @ApiParam(name = "id",value = "要删除的银行id",required = true)
+            @PathVariable String[] id
+    ){
+        //根据银行id删除银行
+        bankService.deleteByIds(Arrays.asList(id));
+        return R.ok().message("删除成功");
+    }
+
+
+
+    @PreAuthorize("@me.hasAuthority('system:bank:add')")
+    @ApiOperation("添加银行列表")
+    @PostMapping("/add")
+    public R addAdmin(
+            @ApiParam(name = "bank",value = "添加的银行",required = true)
+            @RequestBody Bank bank
+    ){
+        //添加用户
+        bankService.save(bank);
+        return R.ok().message("添加成功");
+    }
 }
 
