@@ -11,4 +11,18 @@
             #{cNo}
         </foreach>
     </update>
+
+    <!--企业用户基本信息认证状态通过-->
+    <update id="statusSuccess" parameterType="String">
+        update `company_info`
+        set auth_status= 2
+        where c_no = #{cNo}
+    </update>
+
+    <!--企业用户基本信息认证状态失败-->
+    <update id="statusError" parameterType="String">
+        update `company_info`
+        set auth_status= -1
+        where c_no = #{cNo}
+    </update>
 </mapper>
