@@ -87,7 +87,7 @@ public class BankController {
     @PreAuthorize("@me.hasAuthority('system:bank:add')")
     @ApiOperation("添加银行列表")
     @PostMapping("/add")
-    public R addAdmin(
+    public R addBank(
             @ApiParam(name = "bank",value = "添加的银行",required = true)
             @RequestBody Bank bank
     ){
