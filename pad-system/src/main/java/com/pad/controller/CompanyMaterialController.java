@@ -2,7 +2,6 @@ package com.pad.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.github.pagehelper.PageInfo;
 import com.pad.entity.CompanyMaterial;
 import com.pad.response.R;
 import com.pad.service.CompanyMaterialService;
@@ -27,22 +26,13 @@ public class CompanyMaterialController {
     @Autowired
     private CompanyMaterialService service;
 
-/*
-    //模糊查询
-    @ApiOperation("企业用户材料查询接口")
-    @PostMapping("findBy")
-    public R findByComplex(@ApiParam(value = "材料信息") @RequestBody CompanyMaterial companyMaterial,
-                           @RequestParam(value = "pageNum",required = false,defaultValue = "1")Integer pageNum,
-                           @RequestParam(value = "pageSize",required = false,defaultValue = "5") Integer pageSize){
-        PageInfo<CompanyMaterial> Info=service.findByComplex(pageNum,pageSize,companyMaterial);
-        return R.ok().data("Info",Info);
-    }*/
-
 
     //修改
-    @ApiOperation("材料修改审批接口")
+    @ApiOperation("材料修改状态")
     @PutMapping("update")
-    public R update(@ApiParam(value = "材料信息") @RequestBody CompanyMaterial companyMaterial, Wrapper<CompanyMaterial> companyMaterialWrapper){
+    public R update(
+            @ApiParam(value = "材料信息")
+            @RequestBody CompanyMaterial companyMaterial, Wrapper<CompanyMaterial> companyMaterialWrapper){
         boolean a= service.update(companyMaterial,companyMaterialWrapper);
         if (a){
             return R.ok().message("更新成功");
@@ -56,8 +46,8 @@ public class CompanyMaterialController {
     @GetMapping("/findMaterialByPK/{id}")
     @ResponseBody
     public R findByPK(@ApiParam(value = "企业用户外键") @PathVariable("id") String cNo){
-        System.out.println(service.selectByPK(cNo));
-        return R.ok().data("material",service.selectByPK(cNo));
+        System.out.println(service.selectByFK(cNo));
+        return R.ok().data("material",service.selectByFK(cNo));
     }
 
 }

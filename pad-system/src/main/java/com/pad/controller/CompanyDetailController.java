@@ -12,6 +12,9 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * <p>
  * 企业用户详细信息表 前端控制器
@@ -46,8 +49,8 @@ public class CompanyDetailController {
     @GetMapping("/findDetailByPK/{id}")
     @ResponseBody
     public R findByPK(@ApiParam(value = "企业用户外键") @PathVariable("id") String cNo){
-        System.out.println(service.selectByPK(cNo));
-        return R.ok().data("detail",service.selectByPK(cNo));
+        System.out.println(service.selectByFK(cNo));
+        return R.ok().data("detail",service.selectByFK(cNo));
     }
 
 
@@ -60,6 +63,19 @@ public class CompanyDetailController {
             return R.ok().message("更新成功");
         }
         return R.error().message("更新失败");
+    }
+
+
+    @ApiOperation("根据编号删除企业用户基本信息")
+    @DeleteMapping("/{id}")
+    public R updateCompanyDetailByIds(
+            @ApiParam(name = "id",value = "要删除的详情编号",required = true)
+            @PathVariable String[] id
+    ){
+        List<String> asList = Arrays.asList(id);
+        //逻辑删除企业用户基本信息
+        service.updateCompanyDetailByIds(asList);
+        return R.ok().message("删除成功");
     }
 
 }

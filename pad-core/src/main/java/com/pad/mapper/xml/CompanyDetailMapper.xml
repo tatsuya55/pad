@@ -18,16 +18,25 @@
 
         <!--企业用户基本信息 一对一-->
         <association property="companyInfo" javaType="com.pad.entity.CompanyInfo"
-                     select=""
+                     select="com.pad.mapper.CompanyInfoMapper.selectById"
                      column="c_no"
         >
         </association>
 
 
     </resultMap>
+    <!--逻辑删除用户-->
+    <update id="updateCompanyDetailByIds" parameterType="list">
+        update `company_detail`
+        set is_deleted=0
+        where id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
 
     <!--外键查询-->
-    <select id="selectByPK" resultMap="DetailMap">
+    <select id="selectByFK" resultMap="DetailMap">
         select * from  company_detail where c_no=#{cNo,jdbcType=VARCHAR}
     </select>
 </mapper>

@@ -20,6 +20,13 @@ public interface CompanyDetailMapper extends BaseMapper<CompanyDetail> {
     /**
      * 外键查询
      */
-    List<CompanyDetail> selectByPK(String cNo);
+    List<CompanyDetail> selectByFK(String cNo);
+
+
+    /**
+     * 逻辑删除企业用户详细信息
+     * @param id
+     */
+    void updateCompanyDetailByIds(List<String> id);
 
 }

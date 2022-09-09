@@ -24,16 +24,9 @@ public class CompanyMaterialServiceImpl extends ServiceImpl<CompanyMaterialMappe
     @Autowired
     private CompanyMaterialMapper mapper;
 
-    //模糊查询
-    public PageInfo<CompanyMaterial> findByComplex(Integer pageNum, Integer pageSize, CompanyMaterial companyMaterial) {
-        PageHelper.startPage(pageNum,pageSize);
-        List<CompanyMaterial> list= mapper.findByComplex(companyMaterial);
-        PageInfo<CompanyMaterial> info=PageInfo.of(list);
-        return info;
-    }
 
     //外键查询
-    public List<CompanyMaterial> selectByPK(String cNo) {
-        return mapper.selectByPK(cNo);
+    public List<CompanyMaterial> selectByFK(String cNo) {
+        return mapper.selectByFK(cNo);
     }
 }

@@ -17,31 +17,12 @@
         <result property="status" column="status" jdbcType="INTEGER"/>
         <!--企业用户基本信息  一对一-->
         <association property="companyInfo" javaType="com.pad.entity.CompanyInfo"
-                     select=""
+                     select="com.pad.mapper.CompanyInfoMapper.selectById"
                      column="cNo"/>
     </resultMap>
 
-    <!--模糊查询-->
-    <select id="findByComplex" resultMap="MaterialMap">
-        select * from company_material
-        <where>
-            <if test="cNo!=null">
-                and c_no like concat('%',#{cNo},'%')
-            </if>
-            <if test="legalPhone!=null">
-                and legal_phone like concat('%',#{legalPhone},'%')
-            </if>
-            <if test="legalName!=null">
-                and legal_name like concat('%',#{legalName},'%')
-            </if>
-            <if test="status!=null">
-                and status like concat('%',#{status},'%')
-            </if>
-        </where>
-    </select>
-
     <!--外键查询-->
-    <select id="selectByPK" resultMap="MaterialMap">
+    <select id="selectByFK" resultMap="MaterialMap">
         select * from company_material where c_no=#{cNo,jdbcType=VARCHAR}
     </select>
 </mapper>

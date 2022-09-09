@@ -16,14 +16,11 @@ import java.util.List;
  */
 public interface CompanyMaterialService extends IService<CompanyMaterial> {
 
-    /**
-     * 模糊查询
-     */
-    PageInfo<CompanyMaterial> findByComplex(Integer pageNum, Integer pageSize, CompanyMaterial companyMaterial);
+
 
     /**
      * 外键查询
      */
-    List<CompanyMaterial> selectByPK(String cNo);
+    List<CompanyMaterial> selectByFK(String cNo);
 
 }

@@ -17,15 +17,11 @@ import java.util.List;
  */
 @Mapper
 public interface CompanyMaterialMapper extends BaseMapper<CompanyMaterial> {
-    /**
-     * 模糊查询
-     */
 
-    List<CompanyMaterial> findByComplex(CompanyMaterial companyMaterial);
 
     /**
      * 外键查询
      */
-    List<CompanyMaterial> selectByPK(String cNo);
+    List<CompanyMaterial> selectByFK(String cNo);
 
 }
