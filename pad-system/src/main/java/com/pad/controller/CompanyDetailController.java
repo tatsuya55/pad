@@ -2,7 +2,6 @@ package com.pad.controller;
 
 
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.pad.entity.CompanyDetail;
 import com.pad.response.R;
 import com.pad.service.CompanyDetailService;
@@ -37,12 +36,6 @@ public class CompanyDetailController {
     @Autowired
     private CompanyDetailService service;
 
-    //按主键查询
-    @GetMapping("/find/{id}")
-    public R selectByPrimaryKey(@PathVariable("id") String id){
-        return R.ok().data("detail",service.getById(id));
-    }
-
 
     @ApiOperation("企业用户详情查询接口")
     //按外键查询
@@ -57,8 +50,8 @@ public class CompanyDetailController {
     //修改
     @ApiOperation("企业用户详情修改")
     @PutMapping("/update")
-    public R update(@ApiParam(value = "详细信息") @RequestBody CompanyDetail companyDetail,  Wrapper<CompanyDetail> companyDetailWrapper){
-        boolean a= service.update(companyDetail,companyDetailWrapper);
+    public R update(@ApiParam(name = "companyDetail" ,value = "详细信息") @RequestBody CompanyDetail companyDetail){
+        boolean a= service.updateById(companyDetail);
         if (a){
             return R.ok().message("更新成功");
         }

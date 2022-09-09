@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -28,18 +29,18 @@ public class CompanyMaterialController {
 
 
     //修改
+
     @ApiOperation("材料修改状态")
     @PutMapping("update")
     public R update(
-            @ApiParam(value = "材料信息")
-            @RequestBody CompanyMaterial companyMaterial, Wrapper<CompanyMaterial> companyMaterialWrapper){
-        boolean a= service.update(companyMaterial,companyMaterialWrapper);
+            @ApiParam(name="companyMaterial" ,value = "材料信息")
+            @RequestBody CompanyMaterial companyMaterial){
+        boolean a= service.updateById(companyMaterial);
         if (a){
             return R.ok().message("更新成功");
         }
         return R.error().message("更新失败");
     }
-
 
     @ApiOperation("企业用户材料查询接口")
     //按外键查询

@@ -21,6 +21,8 @@ import java.util.List;
  */
 @Service
 public class CompanyMaterialServiceImpl extends ServiceImpl<CompanyMaterialMapper, CompanyMaterial> implements CompanyMaterialService {
+
+
     @Autowired
     private CompanyMaterialMapper mapper;
 
