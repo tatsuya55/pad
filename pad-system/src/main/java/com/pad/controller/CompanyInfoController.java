@@ -102,18 +102,28 @@ public class CompanyInfoController {
         return R.ok().message("添加成功");
     }
 
-    @PreAuthorize("@me.hasAuthority('system:companyInfo:edit')")
-    @ApiOperation("根据编号修改企业用户基本信息的认证状态值")
-    @PutMapping("/{cNo}")
-    public R updateCompanyInfoStatus(
-            @ApiParam(name = "cNo",value = "要修改的企业用户编号",required = true)
-            @PathVariable String cNo,
-            @ApiParam(name = "auth_status",value = "要修改的企业用户基本信息认证状态值",required = true)
-            @RequestBody CompanyInfo companyInfo
+    @PreAuthorize("@me.hasAuthority('system:companyInfo:success')")
+    @ApiOperation("根据编号查询企业用户基本信息认证状态通过")
+    @PutMapping("/statusSuccess/{cNo}")
+    public R StatusSuccess(
+            @ApiParam(name = "cNo",value = "要查询的企业用户编号的认证状态",required = true)
+            @PathVariable String cNo
     ){
         //修改企业用户基本信息的认证状态值
-        companyInfoService.updateCompanyInfoStatus(companyInfo.getAuthStatus(),cNo);
-        return R.ok().message("修改状态值成功");
+        companyInfoService.statusSuccess(cNo);
+        return R.ok().message("认证状态通过");
+    }
+
+    @PreAuthorize("@me.hasAuthority('system:companyInfo:error')")
+    @ApiOperation("根据编号查询企业用户基本信息认证状态失败")
+    @PutMapping("/statusError/{cNo}")
+    public R statusError(
+            @ApiParam(name = "cNo",value = "要查询的企业用户编号的认证状态",required = true)
+            @PathVariable String cNo
+    ){
+        //修改企业用户基本信息的认证状态值
+        companyInfoService.statusError(cNo);
+        return R.ok().message("认证状态失败");
     }
 }
 

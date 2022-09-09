@@ -23,6 +23,9 @@ public interface CompanyInfoService extends IService<CompanyInfo> {
     //逻辑删除企业用户基本信息
     void deleteCompanyInfoByIds(List<String> cNo);
 
-    //修改企业用户基本信息的认证状态值
-    void updateCompanyInfoStatus(Integer authStatus,String cNo);
+    //企业用户基本信息认证状态通过
+    void statusSuccess(String cNo);
+
+    //企业用户基本信息认证状态失败
+    void statusError(String cNo);
 }

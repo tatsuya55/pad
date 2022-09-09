@@ -76,7 +76,12 @@ public class CompanyInfoServiceImpl extends ServiceImpl<CompanyInfoMapper, Compa
     }
 
     @Override
-    public void updateCompanyInfoStatus(Integer authStatus,String cNo) {
-        baseMapper.updateCompanyInfoStatus(authStatus, cNo);
+    public void statusSuccess(String cNo) {
+        baseMapper.statusSuccess(cNo);
+    }
+
+    @Override
+    public void statusError(String cNo) {
+        baseMapper.statusError(cNo);
     }
 }

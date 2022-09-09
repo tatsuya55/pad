@@ -12,10 +12,17 @@
         </foreach>
     </update>
 
-    <!--修改企业用户基本信息的认证状态值-->
-    <update id="updateCompanyInfoStatus">
+    <!--企业用户基本信息认证状态通过-->
+    <update id="statusSuccess" parameterType="String">
         update `company_info`
-        set auth_status= #{param1}
-        where c_no = #{param2}
+        set auth_status= 2
+        where c_no = #{cNo}
+    </update>
+
+    <!--企业用户基本信息认证状态失败-->
+    <update id="statusError" parameterType="String">
+        update `company_info`
+        set auth_status= -1
+        where c_no = #{cNo}
     </update>
 </mapper>
