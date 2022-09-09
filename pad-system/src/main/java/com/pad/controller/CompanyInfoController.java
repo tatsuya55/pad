@@ -14,7 +14,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -64,7 +66,7 @@ public class CompanyInfoController {
     @ApiOperation("根据编号删除企业用户基本信息")
     @DeleteMapping("/{cNo}")
     public R deleteCompanyInfoByIds(
-            @ApiParam(name = "cNo",value = "要删除的用户编号",required = true)
+            @ApiParam(name = "cNo",value = "要删除的企业用户编号",required = true)
             @PathVariable String[] cNo
     ){
         List<String> asList = Arrays.asList(cNo);
@@ -98,6 +100,20 @@ public class CompanyInfoController {
         //添加
         companyInfoService.save(companyInfo);
         return R.ok().message("添加成功");
+    }
+
+    @PreAuthorize("@me.hasAuthority('system:companyInfo:edit')")
+    @ApiOperation("根据编号修改企业用户基本信息的认证状态值")
+    @PutMapping("/{cNo}")
+    public R updateCompanyInfoStatus(
+            @ApiParam(name = "cNo",value = "要修改的企业用户编号",required = true)
+            @PathVariable String cNo,
+            @ApiParam(name = "auth_status",value = "要修改的企业用户基本信息认证状态值",required = true)
+            @RequestBody CompanyInfo companyInfo
+    ){
+        //修改企业用户基本信息的认证状态值
+        companyInfoService.updateCompanyInfoStatus(companyInfo.getAuthStatus(),cNo);
+        return R.ok().message("修改状态值成功");
     }
 }
 

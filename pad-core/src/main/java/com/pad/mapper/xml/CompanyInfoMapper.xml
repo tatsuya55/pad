@@ -11,4 +11,11 @@
             #{cNo}
         </foreach>
     </update>
+
+    <!--修改企业用户基本信息的认证状态值-->
+    <update id="updateCompanyInfoStatus">
+        update `company_info`
+        set auth_status= #{param1}
+        where c_no = #{param2}
+    </update>
 </mapper>

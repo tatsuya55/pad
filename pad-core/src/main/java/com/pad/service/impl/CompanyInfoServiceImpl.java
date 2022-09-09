@@ -74,4 +74,9 @@ public class CompanyInfoServiceImpl extends ServiceImpl<CompanyInfoMapper, Compa
     public void deleteCompanyInfoByIds(List<String> cNo) {
         baseMapper.deleteCompanyInfoByIds(cNo);
     }
+
+    @Override
+    public void updateCompanyInfoStatus(Integer authStatus,String cNo) {
+        baseMapper.updateCompanyInfoStatus(authStatus, cNo);
+    }
 }
