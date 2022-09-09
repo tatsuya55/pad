@@ -3,10 +3,7 @@ package com.pad.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.pad.entity.Admin;
-import com.pad.entity.AdminRole;
-import com.pad.entity.Bank;
-import com.pad.entity.Role;
+import com.pad.entity.*;
 import com.pad.response.R;
 import com.pad.service.BankService;
 import com.pad.utils.SecurityUtils;
@@ -94,6 +91,18 @@ public class BankController {
         //添加用户
         bankService.save(bank);
         return R.ok().message("添加成功");
+    }
+
+    @PreAuthorize("@me.hasAuthority('system:bank:edit')")
+    @ApiOperation("修改银行信息")
+    @PutMapping("/update")
+    public R editBank(
+            @ApiParam(name = "bank",value = "要修改的银行信息",required = true)
+            @RequestBody Bank bank
+    ){
+        //更新
+        bankService.updateById(bank);
+        return R.ok().message("修改银行信息成功");
     }
 }
 
