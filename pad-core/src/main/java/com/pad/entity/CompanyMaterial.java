@@ -59,8 +59,11 @@ public class CompanyMaterial implements Serializable {
     @ApiModelProperty(value = "纳税记录")
     private String records;
 
-    @ApiModelProperty(value = "状态 0未审核，1审核通过，-1审核失败")
+    @ApiModelProperty(value = "状态 审核通过，审核不通过")
     private Integer status;
+
+    @ApiModelProperty(value = "抵押物证明")
+    private String collateralPhoto;
 
 
     private CompanyInfo companyInfo;

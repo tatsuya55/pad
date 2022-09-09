@@ -12,6 +12,7 @@
         <result property="value" column="value" jdbcType="DOUBLE"/>
         <result property="credit" column="credit" jdbcType="VARCHAR"/>
         <result property="collateral" column="collateral" jdbcType="VARCHAR"/>
+        <result property="collateralPhoto" column="collateral_photo" jdbcType="VARCHAR"/>
         <result property="records" column="records" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
         <!--企业用户基本信息  一对一-->
