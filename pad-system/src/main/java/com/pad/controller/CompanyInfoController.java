@@ -2,16 +2,17 @@ package com.pad.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.pad.entity.Admin;
 import com.pad.entity.CompanyInfo;
 import com.pad.response.R;
 import com.pad.service.CompanyInfoService;
+import com.pad.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -54,6 +55,43 @@ public class CompanyInfoController {
     @GetMapping("/findBy/{id}")
     public R findBy(@PathVariable("id") String cNo){
         return R.ok().data("id",companyInfoService.getById(cNo));
+    }
+
+    @ApiOperation("根据编号删除企业用户基本信息")
+    @DeleteMapping("/{cNo}")
+    public R deleteCompanyInfoByIds(
+            @ApiParam(name = "cNo",value = "要删除的用户编号",required = true)
+            @PathVariable String[] cNo
+    ){
+        List<String> asList = Arrays.asList(cNo);
+        //逻辑删除企业用户基本信息
+        companyInfoService.deleteCompanyInfoByIds(asList);
+        return R.ok().message("删除成功");
+    }
+
+    @ApiOperation("修改企业用户基本信息")
+    @PutMapping("/edit")
+    public R editCompanyInfo(
+            @ApiParam(name = "companyInfo",value = "要修改的企业用户基本信息",required = true)
+            @RequestBody CompanyInfo companyInfo
+    ){
+        //更新
+        companyInfoService.updateById(companyInfo);
+        return R.ok().message("修改企业用户基本信息成功");
+    }
+
+    @ApiOperation("添加企业用户基本信息")
+    @PostMapping("/add")
+    public R addCompanyInfo(
+            @ApiParam(name = "companyInfo",value = "添加的企业用户基本信息",required = true)
+            @RequestBody CompanyInfo companyInfo
+    ){
+        //密码加密
+        String encode = SecurityUtils.encryptPassword(companyInfo.getPassword());
+        companyInfo.setPassword(encode);
+        //添加
+        companyInfoService.save(companyInfo);
+        return R.ok().message("添加成功");
     }
 }
 

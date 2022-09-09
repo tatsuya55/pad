@@ -5,6 +5,8 @@ import com.pad.entity.Admin;
 import com.pad.entity.CompanyInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 企业用户基本信息表company_info 服务类
@@ -17,4 +19,7 @@ public interface CompanyInfoService extends IService<CompanyInfo> {
 
     //企业用户基本信息表分页显示
     void pageQuery(Page<CompanyInfo> Page, CompanyInfo companyInfo);
+
+    //逻辑删除企业用户基本信息
+    void deleteCompanyInfoByIds(List<String> cNo);
 }

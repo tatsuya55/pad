@@ -11,6 +11,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -67,5 +68,10 @@ public class CompanyInfoServiceImpl extends ServiceImpl<CompanyInfoMapper, Compa
         }
         //查询
         baseMapper.selectPage(page,wrapper);
+    }
+
+    @Override
+    public void deleteCompanyInfoByIds(List<String> cNo) {
+        baseMapper.deleteCompanyInfoByIds(cNo);
     }
 }
