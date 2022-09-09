@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pad.mapper.CompanyInfoMapper">
 
+    <!--逻辑删除用户-->
+    <update id="deleteCompanyInfoByIds" parameterType="list">
+        update `company_info`
+        set is_deleted=0
+        where c_no in
+        <foreach collection="list" item="cNo" separator="," open="(" close=")">
+            #{cNo}
+        </foreach>
+    </update>
 </mapper>
