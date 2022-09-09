@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -31,6 +32,7 @@ public class CompanyInfoController {
     @Autowired
     private CompanyInfoService companyInfoService;
 
+    @PreAuthorize("@me.hasAuthority('system:companyInfo:list')")
     @ApiOperation("企业用户基本信息表分页显示")
     @PostMapping("/list/{current}/{limit}")
     public R companyInfoListPage(
@@ -51,12 +53,14 @@ public class CompanyInfoController {
         return R.ok().data("total",total).data("companyInfoList",companyInfoList);
     }
 
+    @PreAuthorize("@me.hasAuthority('system:companyInfo:query')")
     @ApiOperation("按主键查询每个企业用户基本信息")
     @GetMapping("/findBy/{id}")
     public R findBy(@PathVariable("id") String cNo){
         return R.ok().data("id",companyInfoService.getById(cNo));
     }
 
+    @PreAuthorize("@me.hasAuthority('system:companyInfo:remove')")
     @ApiOperation("根据编号删除企业用户基本信息")
     @DeleteMapping("/{cNo}")
     public R deleteCompanyInfoByIds(
@@ -69,6 +73,7 @@ public class CompanyInfoController {
         return R.ok().message("删除成功");
     }
 
+    @PreAuthorize("@me.hasAuthority('system:companyInfo:edit')")
     @ApiOperation("修改企业用户基本信息")
     @PutMapping("/edit")
     public R editCompanyInfo(
@@ -80,6 +85,7 @@ public class CompanyInfoController {
         return R.ok().message("修改企业用户基本信息成功");
     }
 
+    @PreAuthorize("@me.hasAuthority('system:companyInfo:add')")
     @ApiOperation("添加企业用户基本信息")
     @PostMapping("/add")
     public R addCompanyInfo(
