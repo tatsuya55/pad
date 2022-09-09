@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pad.mapper.CompanyDetailMapper">
+    <!--逻辑删除用户-->
+    <update id="updateCompanyDetailByIds" parameterType="list">
+        update `company_detail`
+        set is_deleted=0
+        where id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+    <select id="selectByFK" resultType="com.pad.entity.CompanyDetail">
+        select * from company_detail d left join company_info i  on d.c_no=i.c_no  where i.c_no=#{cNo,jdbcType=VARCHAR}
+    </select>
 
 </mapper>

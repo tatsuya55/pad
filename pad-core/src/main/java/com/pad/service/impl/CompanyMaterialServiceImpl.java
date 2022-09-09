@@ -4,7 +4,10 @@ import com.pad.entity.CompanyMaterial;
 import com.pad.mapper.CompanyMaterialMapper;
 import com.pad.service.CompanyMaterialService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class CompanyMaterialServiceImpl extends ServiceImpl<CompanyMaterialMapper, CompanyMaterial> implements CompanyMaterialService {
 
+
+    @Autowired
+    private CompanyMaterialMapper mapper;
+
+
+    //外键查询
+    public List<CompanyMaterial> selectByFK(String cNo) {
+        return mapper.selectByFK(cNo);
+    }
 }
