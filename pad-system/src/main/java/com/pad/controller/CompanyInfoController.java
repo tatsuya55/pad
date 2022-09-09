@@ -14,7 +14,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -64,7 +66,7 @@ public class CompanyInfoController {
     @ApiOperation("根据编号删除企业用户基本信息")
     @DeleteMapping("/{cNo}")
     public R deleteCompanyInfoByIds(
-            @ApiParam(name = "cNo",value = "要删除的用户编号",required = true)
+            @ApiParam(name = "cNo",value = "要删除的企业用户编号",required = true)
             @PathVariable String[] cNo
     ){
         List<String> asList = Arrays.asList(cNo);
@@ -98,6 +100,30 @@ public class CompanyInfoController {
         //添加
         companyInfoService.save(companyInfo);
         return R.ok().message("添加成功");
+    }
+
+    @PreAuthorize("@me.hasAuthority('system:companyInfo:success')")
+    @ApiOperation("根据编号查询企业用户基本信息认证状态通过")
+    @PutMapping("/statusSuccess/{cNo}")
+    public R StatusSuccess(
+            @ApiParam(name = "cNo",value = "要查询的企业用户编号的认证状态",required = true)
+            @PathVariable String cNo
+    ){
+        //调用企业用户基本信息认证状态通过的方法
+        companyInfoService.statusSuccess(cNo);
+        return R.ok().message("认证状态通过");
+    }
+
+    @PreAuthorize("@me.hasAuthority('system:companyInfo:error')")
+    @ApiOperation("根据编号查询企业用户基本信息认证状态失败")
+    @PutMapping("/statusError/{cNo}")
+    public R statusError(
+            @ApiParam(name = "cNo",value = "要查询的企业用户编号的认证状态",required = true)
+            @PathVariable String cNo
+    ){
+        //调用企业用户基本信息认证状态失败的方法
+        companyInfoService.statusError(cNo);
+        return R.ok().message("认证状态失败");
     }
 }
 
