@@ -21,7 +21,7 @@ public class UUIDUtils {
      * @return
      */
     public static List<String> getUUID(Integer count){
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         while (0 <= (count--) ){
             list.add(getUUID());
         }
@@ -42,7 +42,7 @@ public class UUIDUtils {
      * @return
      */
     public static List<String> getSimpleUUID(Integer count){
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         while (0 <= (count--) ){
             list.add(getSimpleUUID());
         }

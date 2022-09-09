@@ -50,7 +50,7 @@ public class RoleController {
             @RequestBody(required = false) Role role
     ){
         //创建page对象
-        Page<Role> rolePage = new Page<Role>(current,limit);
+        Page<Role> rolePage = new Page<>(current,limit);
         //查询条件封装在service中
         roleService.queryPage(rolePage,role);
         //获取分页后的列表和总记录数

@@ -106,7 +106,7 @@ public class RedisUtil {
      * @return 缓存键值对应的数据
      */
     public List<Object> getCacheList(String key) {
-        List<Object> dataList = new ArrayList<Object>();
+        List<Object> dataList = new ArrayList<>();
         ListOperations<Object, Object> listOperation = redisTemplate.opsForList();
         Long size = listOperation.size(key);
         if (null != size) {
@@ -139,7 +139,7 @@ public class RedisUtil {
      * @return
      */
     public Set<Object> getCacheSet(Object key) {
-        Set<Object> dataSet = new HashSet<Object>();
+        Set<Object> dataSet = new HashSet<>();
         BoundSetOperations<Object, Object> operation = redisTemplate.boundSetOps(key);
         dataSet = operation.members();
         return dataSet;

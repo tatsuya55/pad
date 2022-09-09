@@ -43,7 +43,7 @@ public class LoginServiceImpl implements LoginService {
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         String id = loginUser.getAdmin().getId();
         String jwt = JwtUtils.acquireJWT(id);
-        Map<String,Object> map = new HashMap<String,Object>();
+        Map<String,Object> map = new HashMap<>();
         map.put("token",jwt);
         map.put("user",loginUser.getAdmin());
         map.put("permissions",loginUser.getPermissions());

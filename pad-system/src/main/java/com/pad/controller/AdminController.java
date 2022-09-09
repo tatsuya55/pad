@@ -64,7 +64,7 @@ public class AdminController {
         @RequestBody(required = false) Admin admin
     ){
         //创建page对象
-        Page<Admin> adminPage = new Page<Admin>(current, limit);
+        Page<Admin> adminPage = new Page<>(current, limit);
         //查询条件封装在service中
         adminService.pageQuery(adminPage,admin);
         //获取分页后的列表和总记录数
