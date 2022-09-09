@@ -3,6 +3,8 @@ package com.pad.mapper;
 import com.pad.entity.Bank;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 合作银行表bank Mapper 接口
@@ -12,5 +14,4 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2022-09-02
  */
 public interface BankMapper extends BaseMapper<Bank> {
-
 }
