@@ -1,7 +1,5 @@
 package com.pad.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.pad.entity.CompanyMaterial;
 import com.pad.mapper.CompanyMaterialMapper;
 import com.pad.service.CompanyMaterialService;

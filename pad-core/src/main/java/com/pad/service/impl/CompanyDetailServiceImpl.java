@@ -1,12 +1,10 @@
 package com.pad.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.toolkit.Constants;
+
 import com.pad.entity.CompanyDetail;
 import com.pad.mapper.CompanyDetailMapper;
 import com.pad.service.CompanyDetailService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
