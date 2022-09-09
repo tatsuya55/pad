@@ -20,7 +20,7 @@ public class LoginController {
 
     @ApiOperation("登录接口")
     @PostMapping("/login")
-    public R login(@ApiParam(value = "后台用户")@RequestBody Admin admin){
+    public R login(@ApiParam(value = "后台用户")Admin admin){
         return loginService.login(admin);
     }
 

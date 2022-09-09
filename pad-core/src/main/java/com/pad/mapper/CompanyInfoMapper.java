@@ -3,6 +3,8 @@ package com.pad.mapper;
 import com.pad.entity.CompanyInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 企业用户基本信息表company_info Mapper 接口
@@ -13,4 +15,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface CompanyInfoMapper extends BaseMapper<CompanyInfo> {
 
+    //逻辑删除企业用户基本信息
+    void deleteCompanyInfoByIds(List<String> cNo);
 }

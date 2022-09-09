@@ -1,19 +1,18 @@
 package com.pad.service.impl;
 
 import com.pad.entity.Admin;
-import com.pad.entity.LoginUser;
+import com.pad.vo.LoginUser;
 import com.pad.exceptionhandler.PadException;
 import com.pad.response.R;
 import com.pad.service.LoginService;
 import com.pad.utils.JwtUtils;
 import com.pad.utils.RedisUtil;
+import com.pad.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -57,11 +56,8 @@ public class LoginServiceImpl implements LoginService {
     //退出
     @Override
     public R logout() {
-        //获取SecurityContextHolder
-        UsernamePasswordAuthenticationToken authentication =
-                (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        LoginUser loginUser = (LoginUser)authentication.getPrincipal();
-        String userId = loginUser.getAdmin().getId();
+        //获取userId
+        String userId = SecurityUtils.getUserId();
         //删除redis中的值
         redisUtil.deleteObject("login:"+userId);
         return R.ok().code(200).message("退出成功");

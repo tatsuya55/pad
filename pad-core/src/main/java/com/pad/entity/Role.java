@@ -32,6 +32,12 @@ public class Role implements Serializable {
     @ApiModelProperty(value = "角色名称")
     private String name;
 
+    @ApiModelProperty(value = "角色值")
+    private String value;
+
+    @ApiModelProperty(value = "0已停用，1未停用")
+    private Integer status;
+
     @ApiModelProperty(value = "逻辑删除 0已删除，1未删除")
     private Integer isDeleted;
 

@@ -17,3 +17,7 @@ mybatis-plus:
   #开启日志
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.pad.entity
+#logging:
+#  level:
+#    root: debug

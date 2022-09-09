@@ -3,6 +3,8 @@ package com.pad.mapper;
 import com.pad.entity.Message;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 留言表 Mapper 接口
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface MessageMapper extends BaseMapper<Message> {
 
+    void updateNo(List<String> id);
 }
