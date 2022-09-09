@@ -1,6 +1,6 @@
 package com.pad.utils;
 
-import com.pad.entity.LoginUser;
+import com.pad.vo.LoginUser;
 import com.pad.exceptionhandler.PadException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
