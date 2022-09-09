@@ -109,7 +109,7 @@ public class CompanyInfoController {
             @ApiParam(name = "cNo",value = "要查询的企业用户编号的认证状态",required = true)
             @PathVariable String cNo
     ){
-        //修改企业用户基本信息的认证状态值
+        //调用企业用户基本信息认证状态通过的方法
         companyInfoService.statusSuccess(cNo);
         return R.ok().message("认证状态通过");
     }
@@ -121,7 +121,7 @@ public class CompanyInfoController {
             @ApiParam(name = "cNo",value = "要查询的企业用户编号的认证状态",required = true)
             @PathVariable String cNo
     ){
-        //修改企业用户基本信息的认证状态值
+        //调用企业用户基本信息认证状态失败的方法
         companyInfoService.statusError(cNo);
         return R.ok().message("认证状态失败");
     }
