@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.Admin;
 import com.pad.entity.AdminRole;
 import com.pad.entity.Role;
+import com.pad.entity.RolePermission;
 import com.pad.response.R;
 import com.pad.service.AdminRoleService;
+import com.pad.service.RolePermissionService;
 import com.pad.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,6 +39,9 @@ public class RoleController {
 
     @Autowired
     private AdminRoleService adminRoleService;
+
+    @ApiParam
+    private RolePermissionService rolePermissionService;
 
     @PreAuthorize("@me.hasAuthority('system:role:list')")
     @ApiOperation("角色列表分页显示")
@@ -87,9 +92,19 @@ public class RoleController {
             @PathVariable String id
     ){
         Role role = roleService.getById(id);
-        //TODO 查询角色对应权限id列表
         return R.ok().data("role",role);
     }
+
+    @ApiOperation("查询角色对应权限id列表")
+    @GetMapping("/getMenuIds/{id}")
+    public R getMenuIdsByRoleId(
+            @ApiParam(name = "id",value = "角色id",required = true)
+            @PathVariable String id
+    ){
+        List<Integer> menuIds = roleService.getMenuIdsByRoleId(id);
+        return R.ok().data("menuIds",menuIds);
+    }
+
 
     @PreAuthorize("@me.hasAuthority('system:role:remove')")
     @ApiOperation("根据id删除角色")
@@ -106,8 +121,11 @@ public class RoleController {
         if (count > 0){
             return R.error().message("当前角色已被分配，无法删除，请先删除分配");
         }
-        //TODO 删除角色与权限关联
+        rolePermissionService.remove(
+                new LambdaQueryWrapper<RolePermission>()
+                .in(RolePermission::getRoleId,asList));
         //逻辑删除角色
+        roleService.removeRole(asList);
         return R.ok();
     }
 
