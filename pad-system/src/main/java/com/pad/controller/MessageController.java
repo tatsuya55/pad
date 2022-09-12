@@ -35,7 +35,7 @@ public class MessageController {
     @PreAuthorize("@me.hasAuthority('system:message:list')")
     @ApiOperation("留言列表分页显示")
     @PostMapping("/list/{current}/{limit}")
-    public R adminListPage(
+    public R messageListPage(
             @ApiParam(name = "current",value = "当前页",required = true)
             @PathVariable long current,
             @ApiParam(name = "limit",value = "每页记录数",required = true)
@@ -71,7 +71,7 @@ public class MessageController {
             @ApiParam(name = "id",value = "要删除的留言id",required = true)
             @PathVariable String[] id
     ){
-        //根据银行id删除银行
+        //根据银行id删除留言
         messageService.deleteByIds(Arrays.asList(id));
         return R.ok().message("删除成功");
     }
