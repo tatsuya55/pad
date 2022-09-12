@@ -1,6 +1,7 @@
 package com.pad.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.LoanInfo;
 import com.pad.mapper.LoanInfoMapper;
@@ -24,53 +25,17 @@ import java.util.List;
 @Service
 public class LoanInfoServiceImpl extends ServiceImpl<LoanInfoMapper, LoanInfo> implements LoanInfoService {
     @Override
-    public void pageQuery(Page<LoanInfo> Page, LoanInfo LoanInfo) {
-        //构造条件
-        LambdaQueryWrapper<LoanInfo> wrapper = new LambdaQueryWrapper<LoanInfo>();
-        //判断条件是否为空
-        if (ObjectUtils.isEmpty(LoanInfo)){
-            //条件为空 直接分页查询
-            baseMapper.selectPage(Page,null);
-            return;
-        }
-        //判断单个条件是否为空
-        //企业编号
-        String name = LoanInfo.getName();
-        //银行编号
-        String bankName = LoanInfo.getBankName();
-        //贷款金额
-        Double amount = LoanInfo.getAmount();
-        //贷款用途
-        String purpose = LoanInfo.getPurpose();
-        //借款期限
-        Date period = LoanInfo.getPeriod();
-        //状态
-        Integer status = LoanInfo.getStatus();
-
-        if (StringUtils.hasText(name)){
-            wrapper.like(LoanInfo::getName,name);
-        }
-        if (StringUtils.hasText(bankName)){
-            wrapper.like(LoanInfo::getBankName,bankName);
-        }
-        if (amount != null){
-            wrapper.like(LoanInfo::getAmount,amount);
-        }
-        if (StringUtils.hasText(purpose)){
-            wrapper.like(LoanInfo::getPurpose,purpose);
-        }
-        if (period !=null){
-            wrapper.like(LoanInfo::getPeriod,period);
-        }
-        if (status !=null){
-            wrapper.like(LoanInfo::getStatus,status);
-        }
-        //查询
-        baseMapper.selectPage(Page,wrapper);
+    public void pageQuery(Page<LoanInfo> page, LoanInfo loanInfo) {
+        baseMapper.pageQuery(page, loanInfo);
     }
 
     @Override
     public void deleteLoanInfoByIds(List<String> ids) {
         baseMapper.deleteLoanInfoByIds(ids);
+    }
+
+    @Override
+    public LoanInfo findById(String id) {
+        return baseMapper.findById(id);
     }
 }
