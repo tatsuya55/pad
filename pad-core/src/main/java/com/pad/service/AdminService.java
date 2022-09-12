@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.Admin;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -21,4 +23,6 @@ public interface AdminService extends IService<Admin> {
     List<Integer> getRoleIds(String userId);
     //逻辑删除用户
     void removeAdmin(List<String> ids);
+    //导出后台用户
+    List<Admin> exportAdminExcel(List<String> ids);
 }

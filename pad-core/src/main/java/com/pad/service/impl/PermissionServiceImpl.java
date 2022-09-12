@@ -32,6 +32,58 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     @Autowired
     private AdminMapper adminMapper;
 
+    //判断是否有子菜单
+    @Override
+    public boolean hasChildren(String id) {
+        Integer count = baseMapper.hasChildrenById(id);
+        return count>0;
+    }
+
+    //判断是否已被关联
+    @Override
+    public boolean hasRole(String id) {
+        Integer count = baseMapper.hasRoleById(id);
+        return count>0;
+    }
+
+    //逻辑删除菜单
+    @Override
+    public void removeMenu(String id) {
+        baseMapper.deleteMenuById(id);
+    }
+
+    //父菜单禁用 子菜单也变禁用
+    @Override
+    public void updateSubmenu(Permission permission) {
+        Integer status = permission.getStatus();
+        //构造条件
+        LambdaQueryWrapper<Permission> wrapper = new LambdaQueryWrapper<>();
+        //不修改已经被禁用的菜单
+        wrapper.eq(Permission::getStatus,1);
+        List<Permission> permissionList = baseMapper.selectList(wrapper);
+        //获得子菜单
+        List<Permission> childList = getChild(permission.getId(), permissionList);
+        for (Permission child : childList) {
+            child.setStatus(status);
+            //修改子菜单
+            baseMapper.updateById(child);
+        }
+    }
+
+    //获取树形选择菜单 不显示被禁用 被删除的
+    @Override
+    public List<Permission> getListTree() {
+        //构造条件
+        LambdaQueryWrapper<Permission> wrapper = new LambdaQueryWrapper<>();
+        //不显示被删除的菜单
+        wrapper.eq(Permission::getIsDeleted,1);
+        //不显示被禁用菜单
+        wrapper.eq(Permission::getStatus,1);
+        List<Permission> permissionList = baseMapper.selectList(wrapper);
+        List<Permission> tree = getTree(permissionList);
+        return tree;
+    }
+
     //获取菜单列表
     @Override
     public List<Permission> getList(PermissionQuery permission) {
@@ -41,6 +93,8 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         List<Permission> permissionList = null;
         //构造条件
         LambdaQueryWrapper<Permission> wrapper = new LambdaQueryWrapper<>();
+        //不显示被删除的菜单
+        wrapper.eq(Permission::getIsDeleted,1);
         //如果条件不为空
         if (!ObjectUtils.isEmpty(permission)){
             String name = permission.getName();
