@@ -1,10 +1,15 @@
 package com.pad.controller;
 
 
+import cn.afterturn.easypoi.entity.vo.NormalExcelConstants;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import cn.afterturn.easypoi.view.PoiBaseView;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.Admin;
 import com.pad.entity.AdminRole;
+import com.pad.exceptionhandler.PadException;
 import com.pad.response.R;
 import com.pad.service.AdminRoleService;
 import com.pad.service.AdminService;
@@ -15,11 +20,18 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -153,6 +165,39 @@ public class AdminController {
         //逻辑删除用户
         adminService.removeAdmin(asList);
         return R.ok().message("删除成功");
+    }
+
+    @PreAuthorize("@me.hasAuthority('system:user:export')")
+    @ApiOperation("导出后台用户")
+    @GetMapping("/export/{ids}")
+    public void exportAdmin(
+            @ApiParam(name = "ids",value = "要导出的用户id",required = true)
+            @PathVariable String[] ids,
+            ModelMap map, HttpServletRequest request, HttpServletResponse response){
+        try {
+            //获取数据源
+            List<Admin> adminList = adminService.exportAdminExcel(Arrays.asList(ids));
+            long time = new Date().getTime();
+            String sheetName = "后台用户信息";
+            String fileName = sheetName + "_" + time;
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+            ExportParams params = new ExportParams(sheetName, sheetName, ExcelType.XSSF);
+            //设置 数据源
+            map.put(NormalExcelConstants.DATA_LIST, adminList);
+            //设置导出类型
+            map.put(NormalExcelConstants.CLASS, Admin.class);
+            //设置导出参数
+            map.put(NormalExcelConstants.PARAMS, params);
+            //设置文件,名
+            map.put(NormalExcelConstants.FILE_NAME,fileName);
+            //导出xlsx
+            PoiBaseView.render(map, request, response,
+                    NormalExcelConstants.EASYPOI_EXCEL_VIEW);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     //添加用户对应角色

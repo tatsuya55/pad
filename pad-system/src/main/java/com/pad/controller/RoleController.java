@@ -3,7 +3,6 @@ package com.pad.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.pad.entity.Admin;
 import com.pad.entity.AdminRole;
 import com.pad.entity.Role;
 import com.pad.entity.RolePermission;
@@ -18,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class RoleController {
     @Autowired
     private AdminRoleService adminRoleService;
 
-    @ApiParam
+    @Autowired
     private RolePermissionService rolePermissionService;
 
     @PreAuthorize("@me.hasAuthority('system:role:list')")
@@ -109,7 +109,7 @@ public class RoleController {
     @PreAuthorize("@me.hasAuthority('system:role:remove')")
     @ApiOperation("根据id删除角色")
     @DeleteMapping("/{id}")
-    public R removeAdmin(
+    public R removeRole(
             @ApiParam(name = "id",value = "要删除的角色id",required = true)
             @PathVariable String[] id
     ){
@@ -129,5 +129,52 @@ public class RoleController {
         return R.ok();
     }
 
+    @PreAuthorize("@me.hasAuthority('system:role:add')")
+    @ApiOperation("添加角色")
+    @PostMapping("/add")
+    public R addRole(
+            @ApiParam(name = "role",value = "要添加的角色信息",required = true)
+            @RequestBody Role role
+    ){
+        //添加角色
+        roleService.save(role);
+        //添加角色对应权限关系
+        this.insertRoleMenu(role.getId(),role.getMenuIds());
+        return R.ok().message("添加成功");
+    }
+
+    @PreAuthorize("@me.hasAuthority('system:role:edit')")
+    @ApiOperation("修改角色")
+    @PutMapping("/edit")
+    public R editRole(
+            @ApiParam(name = "role",value = "要修改的角色信息",required = true)
+            @RequestBody Role role
+    ){
+        Integer roleId = role.getId();
+        //删除关联权限
+        rolePermissionService.remove(
+                new LambdaQueryWrapper<RolePermission>()
+                .eq(RolePermission::getRoleId,roleId));
+        //重新添加关联权限
+        this.insertRoleMenu(roleId,role.getMenuIds());
+        //更新
+        roleService.updateById(role);
+        return R.ok().message("修改成功");
+    }
+
+    //添加角色对应权限关系
+    public void insertRoleMenu(Integer roleId, List<Integer> menuIds){
+        if (menuIds.isEmpty()){
+            return;
+        }
+        List<RolePermission> rolePermissionList = new ArrayList<>();
+        for (Integer menuId : menuIds) {
+            RolePermission rolePermission = new RolePermission();
+            rolePermission.setPermissionId(menuId);
+            rolePermission.setRoleId(roleId);
+            rolePermissionList.add(rolePermission);
+        }
+        rolePermissionService.saveBatch(rolePermissionList);
+    }
 }
 

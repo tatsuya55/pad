@@ -54,6 +54,7 @@ public class Permission implements Serializable {
     @ApiModelProperty(value = "逻辑删除0已删除，1未删除")
     private Integer isDeleted;
 
+    @JSONField(serialize = false)
     @TableField(exist = false)
     @ApiModelProperty(value = "children")
     private List<Permission> children;

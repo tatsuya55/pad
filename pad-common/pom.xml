@@ -12,6 +12,7 @@
     <artifactId>pad-common</artifactId>
 
    <dependencies>
+       <!--mybatis-plus-->
        <dependency>
            <groupId>com.baomidou</groupId>
            <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -65,9 +66,23 @@
            <groupId>org.apache.httpcomponents</groupId>
            <artifactId>httpclient</artifactId>
        </dependency>
+       <!--spring-security-->
        <dependency>
            <groupId>org.springframework.boot</groupId>
            <artifactId>spring-boot-starter-security</artifactId>
+       </dependency>
+       <!--poi-->
+       <dependency>
+           <groupId>org.apache.poi</groupId>
+           <artifactId>poi</artifactId>
+       </dependency>
+       <dependency>
+           <groupId>org.apache.poi</groupId>
+           <artifactId>poi-ooxml</artifactId>
+       </dependency>
+       <dependency>
+           <groupId>cn.afterturn</groupId>
+           <artifactId>easypoi-spring-boot-starter</artifactId>
        </dependency>
    </dependencies>
 </project>

@@ -1,13 +1,10 @@
 package com.pad.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.Admin;
-import com.pad.entity.AdminRole;
 import com.pad.mapper.AdminMapper;
 import com.pad.mapper.AdminRoleMapper;
-import com.pad.response.R;
 import com.pad.service.AdminService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+
 
 /**
  * <p>
@@ -75,5 +75,13 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Override
     public void removeAdmin(List<String> ids) {
         baseMapper.deleteAdminByIds(ids);
+    }
+
+    //导出后台用户
+    @Override
+    public List<Admin> exportAdminExcel(List<String> ids){
+        //不导出已经删除的用户
+        List<Admin> adminList = baseMapper.selectBatchIds(ids);
+       return adminList;
     }
 }
