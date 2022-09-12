@@ -1,7 +1,10 @@
 package com.pad.service;
 
+import com.github.pagehelper.PageInfo;
 import com.pad.entity.CompanyMaterial;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-09-02
  */
 public interface CompanyMaterialService extends IService<CompanyMaterial> {
+
+
+
+    /**
+     * 外键查询
+     */
+    List<CompanyMaterial> selectByFK(String cNo);
 
 }
