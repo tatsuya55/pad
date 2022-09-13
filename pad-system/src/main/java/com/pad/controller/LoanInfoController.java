@@ -6,7 +6,8 @@ import com.pad.entity.CompanyInfo;
 import com.pad.entity.LoanInfo;
 import com.pad.response.R;
 import com.pad.service.LoanInfoService;
-import com.pad.vo.LoanInfo;
+import com.pad.entity.LoanInfo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import java.util.List;
  * @author F4
  * @since 2022-09-02
  */
+@Api(tags = "贷款管理")
 @RestController
 @RequestMapping("/loan-info")
 public class LoanInfoController {
@@ -31,7 +33,7 @@ public class LoanInfoController {
     @Autowired
     private LoanInfoService loanInfoService;
 
-    //@PreAuthorize("@me.hasAuthority('system:loanInfo:list')")
+    @PreAuthorize("@me.hasAuthority('system:loanInfo:list')")
     @ApiOperation("贷款信息表分页显示")
     @PostMapping("/list/{current}/{limit}")
     public R loanInfoListPage(
@@ -39,7 +41,7 @@ public class LoanInfoController {
             @PathVariable long current,
             @ApiParam(name = "limit",value = "每页记录数",required = true)
             @PathVariable long limit,
-            @ApiParam(name = "companyInfoVo",value = "查询条件",required = false)
+            @ApiParam(name = "companyInfo",value = "查询条件",required = false)
             @RequestBody(required = false) LoanInfo LoanInfo
     ){
         //创建page对象
@@ -63,6 +65,13 @@ public class LoanInfoController {
         //逻辑删除贷款表信息
         loanInfoService.deleteLoanInfoByIds(asList);
         return R.ok().message("删除成功");
+    }
+
+    @PreAuthorize("@me.hasAuthority('system:loanInfo:query')")
+    @ApiOperation("按主键查询每个贷款信息")
+    @GetMapping("/findBy/{id}")
+    public R findBy(@PathVariable("id") String id){
+        return R.ok().data("id",loanInfoService.findById(id));
     }
 }
 
