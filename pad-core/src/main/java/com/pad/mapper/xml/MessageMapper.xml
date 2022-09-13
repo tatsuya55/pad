@@ -10,4 +10,12 @@
             #{id}
         </foreach>
     </update>
+
+    <!-- 回复留言-->
+    <update id="updateMe" parameterType="message" >
+        update message
+        set context = #{context},
+            update_time= #{updateTime}
+        where id =#{id}
+    </update>
 </mapper>
