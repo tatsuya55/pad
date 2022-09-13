@@ -34,7 +34,7 @@ public class CompanyInfoController {
     @Autowired
     private CompanyInfoService companyInfoService;
 
-    @PreAuthorize("@me.hasAuthority('system:companyInfo:list')")
+    @PreAuthorize("@me.hasAuthority('company:info:list')")
     @ApiOperation("企业用户基本信息表分页显示")
     @PostMapping("/list/{current}/{limit}")
     public R companyInfoListPage(
@@ -55,14 +55,14 @@ public class CompanyInfoController {
         return R.ok().data("total",total).data("companyInfoList",companyInfoList);
     }
 
-    @PreAuthorize("@me.hasAuthority('system:companyInfo:query')")
+    @PreAuthorize("@me.hasAuthority('company:info:query')")
     @ApiOperation("按主键查询每个企业用户基本信息")
     @GetMapping("/findBy/{id}")
     public R findBy(@PathVariable("id") String cNo){
         return R.ok().data("id",companyInfoService.getById(cNo));
     }
 
-    @PreAuthorize("@me.hasAuthority('system:companyInfo:remove')")
+    @PreAuthorize("@me.hasAuthority('company:info:remove')")
     @ApiOperation("根据编号删除企业用户基本信息")
     @DeleteMapping("/{cNo}")
     public R deleteCompanyInfoByIds(
@@ -75,7 +75,7 @@ public class CompanyInfoController {
         return R.ok().message("删除成功");
     }
 
-    @PreAuthorize("@me.hasAuthority('system:companyInfo:edit')")
+    @PreAuthorize("@me.hasAuthority('company:info:edit')")
     @ApiOperation("修改企业用户基本信息")
     @PutMapping("/edit")
     public R editCompanyInfo(
@@ -87,7 +87,7 @@ public class CompanyInfoController {
         return R.ok().message("修改企业用户基本信息成功");
     }
 
-    @PreAuthorize("@me.hasAuthority('system:companyInfo:add')")
+    @PreAuthorize("@me.hasAuthority('company:info:add')")
     @ApiOperation("添加企业用户基本信息")
     @PostMapping("/add")
     public R addCompanyInfo(
@@ -102,7 +102,7 @@ public class CompanyInfoController {
         return R.ok().message("添加成功");
     }
 
-    @PreAuthorize("@me.hasAuthority('system:companyInfo:success')")
+    @PreAuthorize("@me.hasAuthority('company:info:success')")
     @ApiOperation("根据编号查询企业用户基本信息认证状态通过")
     @PutMapping("/statusSuccess/{cNo}")
     public R StatusSuccess(
@@ -114,7 +114,7 @@ public class CompanyInfoController {
         return R.ok().message("认证状态通过");
     }
 
-    @PreAuthorize("@me.hasAuthority('system:companyInfo:error')")
+    @PreAuthorize("@me.hasAuthority('company:info:error')")
     @ApiOperation("根据编号查询企业用户基本信息认证状态失败")
     @PutMapping("/statusError/{cNo}")
     public R statusError(
