@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : student
+ Source Server         : localhost_3306
  Source Server Type    : MySQL
- Source Server Version : 80030
+ Source Server Version : 80026
  Source Host           : localhost:3306
  Source Schema         : pad
 
  Target Server Type    : MySQL
- Target Server Version : 80030
+ Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 09/09/2022 14:44:57
+ Date: 13/09/2022 08:45:49
 */
 
 SET NAMES utf8mb4;
@@ -22,13 +22,13 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `address`;
 CREATE TABLE `address`  (
-  `address_areaId` char(6) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '编号',
-  `address_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '名称',
-  `address_regionId` char(6) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '父id',
+  `address_areaId` char(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '编号',
+  `address_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
+  `address_regionId` char(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '父id',
   PRIMARY KEY (`address_areaId`) USING BTREE,
   INDEX `address_regionId`(`address_regionId`) USING BTREE,
   CONSTRAINT `address_ibfk_1` FOREIGN KEY (`address_regionId`) REFERENCES `address` (`address_areaId`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '地址表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '地址表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of address
@@ -3787,15 +3787,15 @@ INSERT INTO `address` VALUES ('820301', '圣方济各堂区', '820300');
 -- ----------------------------
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin`  (
-  `id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '管理员编号',
-  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '姓名',
-  `phone` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '手机号',
-  `password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '密码',
-  `email` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '邮箱',
-  `is_deleted` int(0) NOT NULL DEFAULT 1 COMMENT '0已删除，1未删除',
-  `status` int(0) NOT NULL COMMENT '0已停用，1未停用',
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '管理员编号',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
+  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号',
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+  `is_deleted` int NOT NULL DEFAULT 1 COMMENT '0已删除，1未删除',
+  `status` int NOT NULL COMMENT '0已停用，1未停用',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '管理员信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of admin
@@ -3808,14 +3808,14 @@ INSERT INTO `admin` VALUES ('1566711476608647170', 'test', '18070100188', '$2a$1
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_role`;
 CREATE TABLE `admin_role`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `role_id` int(0) NOT NULL DEFAULT 0 COMMENT '角色id',
-  `admin_id` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '0' COMMENT '用户id',
-  `is_deleted` tinyint(0) UNSIGNED NOT NULL DEFAULT 1 COMMENT '逻辑删除0已删除，1未删除\r\n',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `role_id` int NOT NULL DEFAULT 0 COMMENT '角色id',
+  `admin_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '用户id',
+  `is_deleted` tinyint UNSIGNED NOT NULL DEFAULT 1 COMMENT '逻辑删除0已删除，1未删除\r\n',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_role_id`(`role_id`) USING BTREE,
   INDEX `idx_user_id`(`admin_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户对应角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户对应角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of admin_role
@@ -3828,14 +3828,14 @@ INSERT INTO `admin_role` VALUES (2, 2, '1566711476608647170', 1);
 -- ----------------------------
 DROP TABLE IF EXISTS `approval_record`;
 CREATE TABLE `approval_record`  (
-  `id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '审批记录编号',
-  `l_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '贷款信息编号',
-  `character` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '审核人物（银行或平台）',
-  `status` int(0) NULL DEFAULT 0 COMMENT '审批状态 0未审核，1审核通过，-1审核失败',
-  `message` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '审批说明    通过不通过都写原因',
-  `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '审批记录编号',
+  `l_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '贷款信息编号',
+  `character` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '审核人物（银行或平台）',
+  `status` int NULL DEFAULT 0 COMMENT '审批状态 0未审核，1审核通过，-1审核失败',
+  `message` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '审批说明    通过不通过都写原因',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '审批记录表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '审批记录表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of approval_record
@@ -3846,47 +3846,45 @@ CREATE TABLE `approval_record`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `bank`;
 CREATE TABLE `bank`  (
-  `bank_no` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '银行编号',
-  `bank_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '银行名称',
+  `bank_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '银行编号',
+  `bank_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行名称',
   `borrow_year_rate` double(255, 10) NULL DEFAULT NULL COMMENT '年化利率',
   `overdue_rate` double(255, 10) NULL DEFAULT NULL COMMENT '逾期利率',
-  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '产品说明',
-  `phone` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '银行电话',
-  `province` int(0) NULL DEFAULT NULL COMMENT '注册省    外键',
-  `city` int(0) NULL DEFAULT NULL COMMENT '注册市    外键',
-  `area` int(0) NULL DEFAULT NULL COMMENT '注册区    外键',
-  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '银行详细地址',
-  `is_deleted` int(0) NULL DEFAULT 1 COMMENT '逻辑删除   0已删除，1未删除   默认是1未删除',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品说明',
+  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行电话',
+  `province` int NULL DEFAULT NULL COMMENT '注册省    外键',
+  `city` int NULL DEFAULT NULL COMMENT '注册市    外键',
+  `area` int NULL DEFAULT NULL COMMENT '注册区    外键',
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行详细地址',
+  `is_deleted` int NULL DEFAULT 1 COMMENT '逻辑删除   0已删除，1未删除   默认是1未删除',
   PRIMARY KEY (`bank_no`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '合作银行表bank' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '合作银行表bank' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bank
 -- ----------------------------
-INSERT INTO `bank` VALUES ('1', '中国银行', 0.1000000000, 0.2000000000, '111', '123456', 110100, 110111, 130110, '17号', 1);
-INSERT INTO `bank` VALUES ('2', '建设银行', 0.1000000000, 0.2000000000, '222', '123456789', 110100, 110112, 130110, '18号', 1);
 
 -- ----------------------------
 -- Table structure for company_detail
 -- ----------------------------
 DROP TABLE IF EXISTS `company_detail`;
 CREATE TABLE `company_detail`  (
-  `id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '详情编号',
-  `c_no` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '企业编号',
-  `type` int(0) NULL DEFAULT NULL COMMENT '企业类型 0个人独资，1合伙企业，2有限责任公司',
-  `legal_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '法人姓名',
-  `legal_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '法人证件号',
-  `province` int(0) NULL DEFAULT NULL COMMENT '注册省',
-  `city` int(0) NULL DEFAULT NULL COMMENT '注册市',
-  `area` int(0) NULL DEFAULT NULL COMMENT '注册区',
-  `credit` int(0) NULL DEFAULT NULL COMMENT '企业信誉度',
-  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '公司详情地址',
-  `license` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '营业执照图片',
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '详情编号',
+  `c_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业编号',
+  `type` int NULL DEFAULT NULL COMMENT '企业类型 0个人独资，1合伙企业，2有限责任公司',
+  `legal_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '法人姓名',
+  `legal_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '法人证件号',
+  `province` int NULL DEFAULT NULL COMMENT '注册省',
+  `city` int NULL DEFAULT NULL COMMENT '注册市',
+  `area` int NULL DEFAULT NULL COMMENT '注册区',
+  `credit` int NULL DEFAULT NULL COMMENT '企业信誉度',
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公司详情地址',
+  `license` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '营业执照图片',
   `lic_time` date NULL DEFAULT NULL COMMENT '营业执照到期时间',
-  `scope` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '经营范围',
-  `is_deleted` int(0) NULL DEFAULT NULL COMMENT '逻辑删除 0已删除，1未删除',
+  `scope` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '经营范围',
+  `is_deleted` int NULL DEFAULT NULL COMMENT '逻辑删除 0已删除，1未删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '企业用户详细信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '企业用户详细信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of company_detail
@@ -3897,60 +3895,62 @@ CREATE TABLE `company_detail`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `company_info`;
 CREATE TABLE `company_info`  (
-  `c_no` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '企业编号',
-  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '企业名称',
-  `email` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '企业邮箱',
-  `phone` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '企业电话',
-  `password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '密码',
+  `c_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '企业编号',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业名称',
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业邮箱',
+  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业电话',
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
   `create_time` date NULL DEFAULT NULL COMMENT '创建时间',
-  `auth_status` int(0) NULL DEFAULT 0 COMMENT '认证状态   0未认证，1认证中，2认证通过，-1认证失败     默认是0未认证',
-  `is_deleted` int(0) NULL DEFAULT 1 COMMENT '逻辑删除   0已删除，1未删除     默认是1未删除',
+  `auth_status` int NULL DEFAULT 0 COMMENT '认证状态   0未认证，1认证中，2认证通过，-1认证失败     默认是0未认证',
+  `is_deleted` int NULL DEFAULT 1 COMMENT '逻辑删除   0已删除，1未删除     默认是1未删除',
   PRIMARY KEY (`c_no`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '企业用户基本信息表company_info' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '企业用户基本信息表company_info' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of company_info
 -- ----------------------------
+INSERT INTO `company_info` VALUES ('Qabcd1234', '嗷嗷', 'a@gmail.com', '133', '96e79218965eb72c92a549dd5a330112', '2022-09-12', 0, 1);
 
 -- ----------------------------
 -- Table structure for company_material
 -- ----------------------------
 DROP TABLE IF EXISTS `company_material`;
 CREATE TABLE `company_material`  (
-  `id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '材料编号',
-  `c_no` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '企业编号',
-  `legal_phone` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '法人电话',
-  `legal_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '法人姓名',
-  `legal_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '法人证件号',
-  `legal_img` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '法人证件图片',
-  `turnover` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '六个月流水，财务报表图片',
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '材料编号',
+  `c_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业编号',
+  `legal_phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '法人电话',
+  `legal_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '法人姓名',
+  `legal_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '法人证件号',
+  `legal_img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '法人证件图片',
+  `turnover` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '六个月流水，财务报表图片',
   `value` double NULL DEFAULT NULL COMMENT '企业市值',
-  `credit` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '企业征信',
-  `collateral` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '抵押物',
-  `collateral_photo` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '抵押物图片',
-  `records` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '纳税记录',
-  `status` int(0) NULL DEFAULT 0 COMMENT '状态 0未审核，1审核通过',
+  `credit` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业征信',
+  `collateral` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '抵押物',
+  `collateral_photo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '抵押物图片',
+  `records` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '纳税记录',
+  `status` int NULL DEFAULT 0 COMMENT '状态 0未审核，1审核通过',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '企业用户材料信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '企业用户材料信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of company_material
 -- ----------------------------
+INSERT INTO `company_material` VALUES ('1', '1', '12233', '赵明路', '1111', '', NULL, NULL, NULL, '房产', NULL, NULL, 0);
 
 -- ----------------------------
 -- Table structure for credit
 -- ----------------------------
 DROP TABLE IF EXISTS `credit`;
 CREATE TABLE `credit`  (
-  `id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '放款编号',
-  `l_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '贷款信息编号',
-  `type` int(0) NULL DEFAULT NULL COMMENT '放款类型 0现金，1汇款',
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '放款编号',
+  `l_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '贷款信息编号',
+  `type` int NULL DEFAULT NULL COMMENT '放款类型 0现金，1汇款',
   `money` double(255, 0) NULL DEFAULT NULL COMMENT '实际放款金额',
   `service` double(255, 0) NULL DEFAULT NULL COMMENT '平台所收手续费',
   `create_time` date NULL DEFAULT NULL COMMENT '创建时间',
-  `is_deleted` int(0) NULL DEFAULT NULL COMMENT '逻辑删除 0已删除，1未删除',
+  `is_deleted` int NULL DEFAULT NULL COMMENT '逻辑删除 0已删除，1未删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '放款表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '放款表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of credit
@@ -3961,12 +3961,12 @@ CREATE TABLE `credit`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `integral`;
 CREATE TABLE `integral`  (
-  `id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '积分编号',
-  `c_no` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '企业编号',
-  `value` int(0) NULL DEFAULT NULL COMMENT '积分数值',
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '积分编号',
+  `c_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业编号',
+  `value` int NULL DEFAULT NULL COMMENT '积分数值',
   `create_time` date NULL DEFAULT NULL COMMENT '获得时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '积分表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '积分表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of integral
@@ -3977,40 +3977,42 @@ CREATE TABLE `integral`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `loan_info`;
 CREATE TABLE `loan_info`  (
-  `id` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '贷款信息编号',
-  `c_no` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '企业编号',
-  `bank_no` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '银行编号',
-  `bank_number` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '收款账户',
-  `bank_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '开户行',
+  `id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '贷款信息编号',
+  `c_no` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业编号',
+  `bank_no` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行编号',
+  `bank_number` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '收款账户',
+  `bank_type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '开户行',
   `amount` double(50, 0) NULL DEFAULT NULL COMMENT '贷款金额',
-  `purpose` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '贷款用途',
+  `purpose` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '贷款用途',
   `period` date NULL DEFAULT NULL COMMENT '借款期限',
-  `return_method` int(0) NULL DEFAULT NULL COMMENT '还款方式 1等额本息，2等额本金，3每月还息，4一次性还',
-  `status` int(0) NULL DEFAULT NULL COMMENT '状态 0未审核，1审核通过，-1审核失败',
+  `return_method` int NULL DEFAULT NULL COMMENT '还款方式 1等额本息，2等额本金，3每月还息，4一次性还',
+  `status` int NULL DEFAULT 0 COMMENT '状态 0未审核，1审核通过，-1审核失败',
   `create_time` date NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` date NULL DEFAULT NULL COMMENT '更新时间',
-  `is_deleted` int(0) NULL DEFAULT NULL COMMENT '逻辑删除 0已删除，1未删除',
+  `is_deleted` int NULL DEFAULT 1 COMMENT '逻辑删除 0已删除，1未删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '贷款信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '贷款信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of loan_info
 -- ----------------------------
+INSERT INTO `loan_info` VALUES ('1', '1', '1', '231312', '1', 2333, '花', '2022-09-06', 2, 0, '2022-08-30', '2022-08-29', 0);
+INSERT INTO `loan_info` VALUES ('2', '2', '2', '222222', '2', 222, NULL, '2022-09-06', 1, 0, '2022-08-29', '2022-08-30', 1);
 
 -- ----------------------------
 -- Table structure for message
 -- ----------------------------
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message`  (
-  `id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '留言编号',
-  `c_no` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '企业编号',
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '留言编号',
+  `c_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业编号',
   `create_time` date NULL DEFAULT NULL COMMENT '留言时间',
-  `context` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '留言内容',
-  `update_time` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复内容',
+  `context` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '留言内容',
+  `update_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '回复内容',
   `reply` date NULL DEFAULT NULL COMMENT '回复时间',
-  `is_deleted` int(0) NULL DEFAULT NULL COMMENT '逻辑删除 0已删除，1未删除',
+  `is_deleted` int NULL DEFAULT NULL COMMENT '逻辑删除 0已删除，1未删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '留言表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '留言表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of message
@@ -4021,13 +4023,13 @@ CREATE TABLE `message`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `notice`;
 CREATE TABLE `notice`  (
-  `id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '公告编号',
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告编号',
   `created_time` date NULL DEFAULT NULL COMMENT '创建时间',
-  `message` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '公告内容',
-  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '发布人',
-  `is_deleted` int(0) NULL DEFAULT 1 COMMENT '逻辑删除   0已删除，1未删除   默认是1未删除',
+  `message` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '公告内容',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发布人',
+  `is_deleted` int NULL DEFAULT 1 COMMENT '逻辑删除   0已删除，1未删除   默认是1未删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '公告表notice' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '公告表notice' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of notice
@@ -4038,14 +4040,14 @@ CREATE TABLE `notice`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `overdue`;
 CREATE TABLE `overdue`  (
-  `id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '逾期编号',
-  `r_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '还款编号',
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '逾期编号',
+  `r_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '还款编号',
   `overdue_rate` double UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '逾期利率',
   `money` double UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '逾期金额',
-  `begin_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '逾期开始时间',
-  `end_time` timestamp(0) NULL DEFAULT NULL COMMENT '逾期结束时间',
+  `begin_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '逾期开始时间',
+  `end_time` timestamp NULL DEFAULT NULL COMMENT '逾期结束时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '逾期信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '逾期信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of overdue
@@ -4056,20 +4058,20 @@ CREATE TABLE `overdue`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `periodization`;
 CREATE TABLE `periodization`  (
-  `id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '分期编号',
-  `l_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '贷款信息编号',
-  `capital` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '本金（借多少）',
-  `interest` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '利息',
-  `c-i` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '本息',
-  `money` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '还款金额',
-  `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '实际还款时间',
-  `overdue` int(0) NULL DEFAULT 1 COMMENT '是否逾期 0是 1否',
-  `number` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '还款卡号',
-  `status` int(0) NULL DEFAULT 0 COMMENT '还款状态  0待还款 1已还款 2逾期',
-  `originally_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '原定还款时间',
-  `periods` int(0) NULL DEFAULT 0 COMMENT '期数',
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '分期编号',
+  `l_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '贷款信息编号',
+  `capital` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '本金（借多少）',
+  `interest` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '利息',
+  `c-i` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '本息',
+  `money` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '还款金额',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '实际还款时间',
+  `overdue` int NULL DEFAULT 1 COMMENT '是否逾期 0是 1否',
+  `number` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '还款卡号',
+  `status` int NULL DEFAULT 0 COMMENT '还款状态  0待还款 1已还款 2逾期',
+  `originally_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '原定还款时间',
+  `periods` int NULL DEFAULT 0 COMMENT '期数',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '分期还款表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '分期还款表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of periodization
@@ -4080,25 +4082,27 @@ CREATE TABLE `periodization`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `pid` int(0) NOT NULL DEFAULT 0 COMMENT '所属上级',
-  `name` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '名称',
-  `type` int(0) NOT NULL DEFAULT 0 COMMENT '类型(1:菜单,2:按钮)',
-  `permission_value` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '权限值',
-  `path` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '访问路径',
-  `status` tinyint(0) NOT NULL DEFAULT 1 COMMENT '状态(0:禁止,1:正常)',
-  `is_deleted` tinyint(0) UNSIGNED NOT NULL DEFAULT 1 COMMENT '逻辑删除0已删除，1未删除\r\n',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `pid` int NOT NULL DEFAULT 0 COMMENT '所属上级',
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '名称',
+  `type` int NOT NULL DEFAULT 0 COMMENT '类型(1:菜单,2:按钮)',
+  `permission_value` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限值',
+  `path` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '访问路径',
+  `status` tinyint NOT NULL DEFAULT 1 COMMENT '状态(0:禁止,1:正常)',
+  `is_deleted` tinyint UNSIGNED NOT NULL DEFAULT 1 COMMENT '逻辑删除0已删除，1未删除\r\n',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_pid`(`pid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 213 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '权限' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 219 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of permission
 -- ----------------------------
 INSERT INTO `permission` VALUES (1, 0, '系统管理', 1, 'system', 'system', 1, 1);
+INSERT INTO `permission` VALUES (2, 0, 'test', 2, 'test', NULL, 1, 1);
 INSERT INTO `permission` VALUES (100, 1, '用户管理', 1, 'system:user:list', 'system/user/index', 1, 1);
 INSERT INTO `permission` VALUES (101, 1, '角色管理', 1, 'system:role:list', 'system/role/list', 1, 1);
-INSERT INTO `permission` VALUES (102, 1, '银行管理', 1, 'system:bank:list', NULL, 1, 1);
+INSERT INTO `permission` VALUES (102, 1, '菜单管理', 1, 'system:menu:list', NULL, 1, 1);
+INSERT INTO `permission` VALUES (103, 2, 'test1', 1, 'test1', 'test1', 1, 1);
 INSERT INTO `permission` VALUES (200, 100, '用户添加', 2, 'system:user:add', '', 1, 1);
 INSERT INTO `permission` VALUES (201, 100, '用户修改', 2, 'system:user:edit', NULL, 1, 1);
 INSERT INTO `permission` VALUES (202, 100, '用户删除', 2, 'system:user:remove', NULL, 1, 1);
@@ -4111,19 +4115,22 @@ INSERT INTO `permission` VALUES (208, 101, '角色修改', 2, 'system:role:edit'
 INSERT INTO `permission` VALUES (209, 101, '角色删除', 2, 'system:role:remove', NULL, 1, 1);
 INSERT INTO `permission` VALUES (210, 101, '角色导出', 2, 'system:role:export', NULL, 1, 1);
 INSERT INTO `permission` VALUES (211, 101, '角色查询', 2, 'system:role:query', NULL, 1, 1);
-INSERT INTO `permission` VALUES (212, 102, '银行查询', 2, 'system:bank:query', NULL, 1, 1);
+INSERT INTO `permission` VALUES (212, 102, '菜单添加', 2, 'system:menu:add', NULL, 1, 1);
+INSERT INTO `permission` VALUES (214, 102, '菜单删除', 2, 'system:menu:remove', NULL, 1, 1);
+INSERT INTO `permission` VALUES (215, 102, '菜单修改', 2, 'system:menu:edit', NULL, 1, 1);
+INSERT INTO `permission` VALUES (216, 102, '查询菜单', 2, 'system:menu:query', NULL, 1, 1);
 
 -- ----------------------------
 -- Table structure for persistent_logins
 -- ----------------------------
 DROP TABLE IF EXISTS `persistent_logins`;
 CREATE TABLE `persistent_logins`  (
-  `username` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `series` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `token` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `last_used` timestamp(0) NOT NULL,
+  `username` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `series` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `token` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `last_used` timestamp NOT NULL,
   PRIMARY KEY (`series`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of persistent_logins
@@ -4134,12 +4141,12 @@ CREATE TABLE `persistent_logins`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `profit`;
 CREATE TABLE `profit`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `c_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '放款编号    外键',
-  `value` int(0) NULL DEFAULT NULL COMMENT '收益金额',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `c_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '放款编号    外键',
+  `value` int NULL DEFAULT NULL COMMENT '收益金额',
   `create_time` date NULL DEFAULT NULL COMMENT '获得时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '平台收益表profit' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '平台收益表profit' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of profit
@@ -4150,13 +4157,13 @@ CREATE TABLE `profit`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `recognition`;
 CREATE TABLE `recognition`  (
-  `id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '主键',
-  `c_no` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '企业编号    外键',
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键',
+  `c_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业编号    外键',
   `create_time` date NULL DEFAULT NULL COMMENT '创建时间',
-  `img` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '人像',
-  `status` int(0) NULL DEFAULT 0 COMMENT '状态  0未审核，1审核通过，-1审核失败   默认是0未审核',
+  `img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '人像',
+  `status` int NULL DEFAULT 0 COMMENT '状态  0未审核，1审核通过，-1审核失败   默认是0未审核',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '人脸识别recognition' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '人脸识别recognition' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of recognition
@@ -4167,13 +4174,13 @@ CREATE TABLE `recognition`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '角色id',
-  `name` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '角色名称',
-  `value` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '角色值',
-  `is_deleted` tinyint(0) UNSIGNED NOT NULL DEFAULT 1 COMMENT '逻辑删除 0已删除，1未删除\r\n',
-  `status` tinyint(0) NOT NULL DEFAULT 1 COMMENT '0已停用，1未停用',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '角色id',
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '角色名称',
+  `value` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色值',
+  `is_deleted` tinyint UNSIGNED NOT NULL DEFAULT 1 COMMENT '逻辑删除 0已删除，1未删除\r\n',
+  `status` tinyint NOT NULL DEFAULT 1 COMMENT '0已停用，1未停用',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role
@@ -4186,14 +4193,14 @@ INSERT INTO `role` VALUES (2, '银行管理员', 'bank', 1, 1);
 -- ----------------------------
 DROP TABLE IF EXISTS `role_permission`;
 CREATE TABLE `role_permission`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `role_id` int(0) NOT NULL DEFAULT 0 COMMENT '角色id',
-  `permission_id` int(0) NOT NULL DEFAULT 0 COMMENT '权限id',
-  `is_deleted` tinyint(0) UNSIGNED NOT NULL DEFAULT 1 COMMENT '逻辑删除 0已删除，1未删除\r\n',
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `role_id` int NOT NULL DEFAULT 0 COMMENT '角色id',
+  `permission_id` int NOT NULL DEFAULT 0 COMMENT '权限id',
+  `is_deleted` tinyint UNSIGNED NOT NULL DEFAULT 1 COMMENT '逻辑删除 0已删除，1未删除\r\n',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_role_id`(`role_id`) USING BTREE,
   INDEX `idx_permission_id`(`permission_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '角色对应权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色对应权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role_permission
@@ -4215,31 +4222,37 @@ INSERT INTO `role_permission` VALUES (14, 1, 210, 1);
 INSERT INTO `role_permission` VALUES (15, 1, 211, 1);
 INSERT INTO `role_permission` VALUES (16, 1, 102, 1);
 INSERT INTO `role_permission` VALUES (17, 1, 212, 1);
+INSERT INTO `role_permission` VALUES (18, 1, 214, 1);
+INSERT INTO `role_permission` VALUES (19, 1, 215, 1);
+INSERT INTO `role_permission` VALUES (20, 1, 216, 1);
 
 -- ----------------------------
 -- Table structure for user_face_info
 -- ----------------------------
 DROP TABLE IF EXISTS `user_face_info`;
 CREATE TABLE `user_face_info`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `group_id` int(0) NULL DEFAULT NULL COMMENT '分组id',
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `c_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '企业ID',
+  `group_id` int NULL DEFAULT NULL COMMENT '分组id',
   `face_id` varchar(31) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '人脸唯一Id',
   `name` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '名字',
-  `age` int(0) NULL DEFAULT NULL COMMENT '年纪',
+  `age` int NULL DEFAULT NULL COMMENT '年纪',
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '邮箱地址',
-  `gender` smallint(0) NULL DEFAULT NULL COMMENT '性别，1=男，2=女',
+  `gender` smallint NULL DEFAULT NULL COMMENT '性别，1=男，2=女',
   `phone_number` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '电话号码',
   `face_feature` blob NULL COMMENT '人脸特征',
-  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `fpath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '照片路径',
+  `status` int NULL DEFAULT NULL COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `GROUP_ID`(`group_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_face_info
 -- ----------------------------
-INSERT INTO `user_face_info` VALUES (2, 101, 'v02m0gcxns', 'tom', NULL, NULL, NULL, NULL, 0x0080FA440000A04174232EBD7937533D13B5C5BC9B89DB3D1E7377BDB398EFBCB6373D3D56ED44BDE60B9FBD9E9FC4BDEABF7A3D90C3BCBB7DD081BDAD0BDC3C8A57AFBDFADF803D60C97ABD146115BC0F81063E462D13BB261320BDE7FB43BB273B95BD2F5A74BC052B0C3E9624F03C9C3794BCCCEBB23DC917CCBD29FFED3C66A309BECA0D4C3DE4B98EBCDA11C6BCCC4E99BD9D75B5BDB923FF3C81A69E3D96B6613DE352EABD711258BDB1C5F23C75B9BB3D82FD953DE08C8A3DFF1D95BDFB8E423D5CABBE3D3CA72DBE1BFA003C207BECBC4E47CC3BEE53963C056868BC05F3013E50AFEC3C361120BD94DF0FBEE768C83C7DE0AA3CC913F23CD7C6693DDD8C0EBCE262333BE4C2B23D13C53EBD17F709BD82D3DDBD15C3263C05EC2EBD952869BED10A203DB1ADD33D2ABEE03CE1CF20BD43D067BC92D0B43CB083C5BC5B4C553C14A14DBD830AFC3B0123ADBDDEC11FBD1793A33DCD73F23CC313F73D837BBBBDF97D283E99EA763D643A9EBDFA82953D31A32E3DC46E163D1931B93CCC2A20BCDD55AA3C2E54DFBA34C40B3D1DEB07BD4511013DB220C93C1DCC063D070C783DCC2153BDD0001DBCCD4C6CBC94968EBDDA098D3CFC42803DCB63EC3C957F963C144F7E3D93638E3DE4750C3DD7750A3D6DB5903D00759E3D57F73F3D091D35BD7A74A03DE96F04BD50DF983DC3079DBDACFBBF3C559E87BD73BA43BD479D37BDDD31253DD659C83D37AEB73C7AC61ABE7F22C2BC4B82A13C6CF3713BFA32933CBDCFF3BCFCD414BE7C4EA6BDF01C84BC0F9B783B4270DC3C24B63A3C0780513DEAC3003DCEC190BD2AFF3C3C25DE0DBEDF06023BED7C083EEDDA22BDFF6A6C3D693A873D03DB673D326D7E3DBC1FAC3CCAEE513D969EC23CB4ECCB3B9AD222BD245AB13CBD61B23C3F010F3D24ECD43C41D8353D52F0FEBC5F27B43B0F15E7BD87D3123C3F01903D2039DABD644815BDCE15183D8503A53D3B81463D0A57B8BD53F8E03C1200893DD8B7803DC068EABC5282C93C2ECAF93D0DBD813DA154A23B01F64ABD14340CBC542D4BBD6269C73CE2AF0A3D0449B7BA6C4A2BBDEDC08CBDC26F9BBDF0722E3C61A0B8BDA1D90D39BB13853D479E883D39E7C6BC96D45BBBBBBBCE3B05ABB8BC24A96CBD7560CDBC3D81363EF26965BD92AE4A3D693A893D67C1C93D590AA53C9D21403DD5D1C2BD728192BCA5C8063DDBBA7F3C6BD7DE3A41C867BC1EC6A63BDFC9ECBD21A2B9BDDD3C773D40EED63D6C7796BDE9C9D7BD4B060CBD237EB5BDB538193DCF36423D3F68C6BDE61B843DAC1A95BD5BBD45BD5BDD283D175B193CCE5B553CFF4B703D0321163E043EFF3CD7EC3ABD2B23A93D400AF23CCC76EBBB469B84BDF0DC0B3BB1EF113B7791253D9E2EAABCBB5DA0BC183B86BD1C382EBE0E9A3A3E4BC9FBBDD63EDA3D7147BF3C8DE8553C8EEB673D3D2F8A3C, '2022-09-03 11:07:49', '2022-09-03 11:07:49', NULL);
+INSERT INTO `user_face_info` VALUES (1, NULL, 101, 'dq55cuoatx', 'tom', NULL, NULL, NULL, NULL, 0x0080FA440000A041E76F0CBDBB87203C842C2ABC56C59E3CC173253CCDB293BCAA9D7FBDD996E2BDF2CAB1BDF7C2153CE72D9E3D0BBDAC3CC941CA3C2BB3DC3C4A1087BCACFCED3D4BE07CBDBA2BDCBC6C34E93D57247FBAB70F08BD5BDF053D196AD8BD96CB473C06F3C83D81C71C3DA0D2AABA2ABC6D3DAA0E93BDB4A15EBDB943E2BD265A323D979C8C3D502D58BD0E9F90BCF2DD94BD17EECB3D7638553D609C29BC721F93BD5E2F1EBDA90AB8BC4C80C43D62FFE53D2B14CE3C2FB341BD0E39DE3D5118413D847E09BE6F6BA5BD01C4983B0C15F4BCA631BA3C2807133D6626D03D3E3646BDAC0616BD19E579BDB626E53C65691DBCEF8A763DBE6E073DAC6BD93D084F0DBDA15EC73D3F1F56BDCA8634BD97311FBDA0BD1DBC060A25BEA5BC33BE007B9A3C7105023EC908273C96841CBDF5B72ABCF24C6C3B92FD193C18A7113D20D67CBD6C2D133CABDDC7BCF17C19BDF90EB23DF43CD83CDFCF0F3EB96CDABD7B35BE3D1CD4403DC6CA0FBD71D3D43DEC77B43D39ACA93CF3B20E3D92AC8C3C5BC6843D0416B7BA73A3133DD0F51EBBC7A8BDBA2C90863D10D6983CD4E8BE3D81AE23BE26E6723D5B6883BCAE99ABBDB26CAA3C54161A3DA5D376BD993C5E3C4C928C3C8FBCE83DC91B063D19E5A03DCA279E3D97FB943D9B61323D858C4B3C2A4A123EA4CFBBBC2EB2D43D19911ABE56CE53BDA040EFBD875F3C3D8CC258BD3EDB0ABBAC56493DA77F31BCA5F314BE5E04343DBA7742BD1A96ADBC654A4F3D41D874BC5E2C21BE7AEA98BD269AA5BABAC0593D50CCA33C4ACDFB3C73C9053D97F25C3D2C282BBD2E5ABB3CEEF0A5BD5E938A3C5CB4643D90AE143D9A78AC3D9F390B3CA5C2123D90609BBDE98B55BD4F57823DEFDCF4BCBA7EB83BF053D8BD3294F43BBC072ABCB61F1D3C4AE5443C12E9C33B739792BD9F9B33BCE56BC6BD5908FE3C72C4DC3DBBE4CBBD1E7746BDEF55483D304A953DB9DD103DCE9D4CBDF0C239BC9D480E3D7588173E2213C23CA02D3EBA59A69A3DA969543D57452FBD42A3CFBC0FA27A3D771A92BD441779BC6745B93C16C00BBD090918BDFC4C8ABDEA0731BD673E6EBCF5BEC5BDCF7384BDABF2083BCE09A83D9BB00F3B26C812BC7034093D5E2476BC9CBB02BD6F231A3D9F7A283E599CE0BC2EE4C8BC67C83F3D550FA53D52016BBD3E2C693DAB769ABDBE963E3CF1E9183DEF6500BDC5BF323D17C6B0BB369387BDE1B083BD2620C0BD4F12743DD968F53D827DB3BCC9EA8ABD84EAA2BC0ED694BD6BCED53D94DCA23DC9E453BDB1DA5D3DD1840DBE711053BD6A149B3AF3858ABD6CDBD9BC4C363D3D9DEA013DC908C4BC06BCB5BCC4D7AF3D659AA33D39F90A3D71E7CFBD81CA36BCE44294BCE2E0843D5A09D0BDF50DF3BCFC208DBCB7697EBE469E063E51C48FBD264EB23D25C53ABCF2FB523DD87D073E646A0D3C, '2022-09-12 20:09:16', '2022-09-12 20:09:16', NULL, NULL);
+INSERT INTO `user_face_info` VALUES (2, NULL, 101, '1pehfqjduv', 'tatsuya', NULL, NULL, NULL, NULL, 0x0080FA440000A04136B5963D1C9B893D4F9DDABDCED9693DF1BC093E63B3DFBC5DF9D1BCB29BF53DEF1F143DDCFDE7BB6C32273C09BC403DC61F563D82EEC43B29F2323D2439E5BDD7B73FBDAC9E78BC19F1AA3B9E5288BD220D9ABDD41402BE64987A3DEB476BBCA92480BC667123BDA0837C3D074D16BD56BD0B3D246BE03D1F1837BDB7ECB2BD337751BDF206AC3DA6B592BC7EDAA4BB04F759BC29AD913DA80855BD941B863D53D0A03C5CB34A3D0BD4B63D89ABE83CCBE6AFBDF45462BCB41157BB8438743D3DF5973D696D423D7B7C033D8921E4BDBAD991BD8B5354BCDC28963DD4E31D3D70ACEBBD65421DBD3826B2BD9BA7513DFB6939BDCE6452BD244CCCBCEBB99EBB0B2411BE1C3E4DBDAC1588BCBF45C6BD0C80633DC42046BD1EAA77BCB57B393D66E1063D147F38BC5FDD423DF9B0413D818F143D35941DBDE0E582BDCA638EBD9C87FE3A17907ABDCE37B3BBB01B17BE0438083C4C02E2BCB364253ECA4C82BB954601BE611A393D6D34203DAC6E1C3C8CAF94BD530159BDE44D72BD980CC2BD057F7D3D74D019BD651A963D85E9F4BC5165143D2FE8233D4ED9E4BCC60B133DD97C83BD271B063C72638A3D4197DFBDA6CE3CBC3C92623D093F98BC32FC173ECA24173D90847FBD5806953CD22812BC08F7D9BC9E91443D759F6ABDB7BB2DBDBF3C20BD4C4C0ABDCCC572BCE1938EBDA4C6BB3C7921903CCC8BB3BBFFBED2BC168A27BD5201B8BD7F6F1D3D5E48463D66A5493DC27336BD94A09B3D751D8B3DC1A9573C03A61FBDD75EE73DF4F5083DA93F28BD28C3C1BD59BC13BEE4D69ABCFA6521BE65031DBD47F9A33C9B257E3DD6C1063D0FF64C3DF80DC3BD8DD5183E3FEBB03D19F4A5BD38E3D03D90B3843DBE3575BD3E96543CEE82B63C595CDCBCC2B21E3D4537713D636851BD6C5EC13DC2874A3D4E3209BD010444BDE4A67EBCFFB118BD9C6915BD74C886BD877EF93BDAF7D9BC316D80BD6356263CFCFB493CA4D03A3E5C5A4E3D310E10BEC458B6BD366A20BE7B83DA3D4382023DAAB8C73DDD6A803D2942A7BD90ADD23C29C1783D06F605BDC0A3A33D205B793C9FEC003D4FF75C3D13B13A3C9C3250BD35BFB83C8ECAFF3BBBF0123D1B87F53DE59574BDDF3694BDFE731DBD24751EBE73FF09BE12FA9D3DFA57823D9AFC853D10E0213CF26400BD8F2ECEBC02201F3AB213753D99964CBD7D3ABBBD21AE4BBDD1D931BC506D073D64DDF73BAB22B6BCEC18223D441B6CBDBC092F3DE450A3BDEC540FBD14018E3BE02AFB3C88250E3DD54AC23C9461C6BC7C55ABBDE7B12BBD97AF0E3D6473A5BD29F30ABDA38805BDAB1785BCC8C7A3BDC6B78A3D5D04063EAB4ED73C33A09D3DF4FCF9BBFC5E7EBB0CB1323AC69EB3BD3A3BB1BDCBB986BCA8BE59BDCCEDAABC5989F4BCFFBF19BD303A4CBD3D2BA6BD5C92AC3D2558573BE7710C3C, '2022-09-12 22:39:12', '2022-09-12 22:39:12', NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
