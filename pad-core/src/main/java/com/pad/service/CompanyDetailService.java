@@ -21,7 +21,7 @@ public interface CompanyDetailService extends IService<CompanyDetail> {
     /**
      * 外键查询
      */
-    List<CompanyDetail> selectByFK(String cNo);
+    CompanyDetail selectByFK(String cNo);
 
     /**
      * 逻辑删除企业用户详细信息
