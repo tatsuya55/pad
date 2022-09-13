@@ -1,6 +1,7 @@
 package com.pad.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -64,6 +65,10 @@ public class CompanyMaterial implements Serializable {
 
     @ApiModelProperty(value = "状态 审核通过，审核不通过")
     private Integer status;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "企业名称")
+    private String name;
 
 
 

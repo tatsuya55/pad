@@ -25,7 +25,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="Recognition对象", description="人脸识别recognition")
-public class Recognition implements Serializable {
+public class UserFaceInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,12 +36,42 @@ public class Recognition implements Serializable {
     @ApiModelProperty(value = "企业编号")
     private String cNo;
 
+    @ApiModelProperty(value = "分组id")
+    private String groupId;
+
+    @ApiModelProperty(value = "姓名")
+    private String name;
+
+    @ApiModelProperty(value = "人脸唯一ID")
+    private String faceId;
+
+    @ApiModelProperty(value = "年龄")
+    private Integer age;
+
+    @ApiModelProperty(value = "邮箱")
+    private Integer email;
+
+    @ApiModelProperty(value = "性别")
+    private Integer gender;
+
+    @ApiModelProperty(value = "电话")
+    private String phoneNumber;
+
+
+
+    @ApiModelProperty(value = "人脸特征")
+    private byte[] faceFeature;
+
+
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
-    @ApiModelProperty(value = "人像")
-    private String img;
+    @ApiModelProperty(value = "修改时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Date updateTime;
+
+
 
     @ApiModelProperty(value = "状态  0未审核，1审核通过，-1审核失败   默认是0未审核")
     private Integer status;

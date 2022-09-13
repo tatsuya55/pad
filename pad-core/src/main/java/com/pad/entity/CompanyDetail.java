@@ -1,9 +1,14 @@
 package com.pad.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -61,6 +66,7 @@ public class CompanyDetail implements Serializable {
     private String license;
 
     @ApiModelProperty(value = "营业执照到期时间")
+    @JsonFormat(locale = "zh",timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date licTime;
 
     @ApiModelProperty(value = "经营范围")
@@ -69,6 +75,13 @@ public class CompanyDetail implements Serializable {
     @ApiModelProperty(value = "逻辑删除 0已删除，1未删除")
     private Integer isDeleted;
 
+    @TableField(exist = false)
+    @ApiModelProperty(value = "企业名称")
+    private String name;
 
+    @TableField(exist = false)
+    @JsonFormat(locale = "zh",timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
 }
