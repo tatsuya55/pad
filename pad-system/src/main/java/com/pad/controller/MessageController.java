@@ -54,7 +54,7 @@ public class MessageController {
     }
 
 
-    @PreAuthorize("@me.hasAuthority('system:message:remove')")
+    @PreAuthorize("@me.hasAuthority('system:message:edit')")
     @ApiOperation("根据id删除留言")
     @DeleteMapping("/{id}")
     public R removeMessage(
@@ -80,7 +80,7 @@ public class MessageController {
 
     @PreAuthorize("@me.hasAuthority('system:message:update')")
     @ApiOperation("回复留言")
-    @PostMapping("/update")
+    @PutMapping("/update")
     public R updateMessage(
             @ApiParam(name = "message",value = "回复的留言",required = true)
             @RequestBody Message message
