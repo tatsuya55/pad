@@ -7,6 +7,8 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -77,6 +79,7 @@ public class CompanyDetail implements Serializable {
     private String name;
 
     @TableField(exist = false)
+    @JsonFormat(locale = "zh",timezone = "GMT+8",pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
