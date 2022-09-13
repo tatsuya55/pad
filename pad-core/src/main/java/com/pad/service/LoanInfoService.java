@@ -22,4 +22,7 @@ public interface LoanInfoService extends IService<LoanInfo> {
     //逻辑删除用户
     void deleteLoanInfoByIds(List<String> ids);
 
+    //按贷款编号查询每个贷款信息
+    LoanInfo findById(String id);
+
 }
