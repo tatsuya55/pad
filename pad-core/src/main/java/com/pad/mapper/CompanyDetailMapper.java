@@ -20,7 +20,7 @@ public interface CompanyDetailMapper extends BaseMapper<CompanyDetail> {
     /**
      * 外键查询
      */
-    List<CompanyDetail> selectByFK(String cNo);
+    CompanyDetail selectByFK(String cNo);
 
 
     /**

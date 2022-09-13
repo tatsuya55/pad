@@ -1,7 +1,10 @@
 package com.pad.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -69,6 +72,12 @@ public class CompanyDetail implements Serializable {
     @ApiModelProperty(value = "逻辑删除 0已删除，1未删除")
     private Integer isDeleted;
 
+    @TableField(exist = false)
+    @ApiModelProperty(value = "企业名称")
+    private String name;
 
+    @TableField(exist = false)
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
 }
