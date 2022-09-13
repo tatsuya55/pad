@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.CompanyInfo;
 import com.pad.response.R;
 import com.pad.service.CompanyInfoService;
+import com.pad.utils.MD5;
 import com.pad.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -94,8 +95,8 @@ public class CompanyInfoController {
             @ApiParam(name = "companyInfo",value = "添加的企业用户基本信息",required = true)
             @RequestBody CompanyInfo companyInfo
     ){
-        //密码加密
-        String encode = SecurityUtils.encryptPassword(companyInfo.getPassword());
+        //密码加密 MD5
+        String encode =MD5.encrypt(companyInfo.getPassword());
         companyInfo.setPassword(encode);
         //添加
         companyInfoService.save(companyInfo);

@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pad.mapper.PermissionMapper">
+    <!--逻辑删除菜单-->
+    <update id="deleteMenuById">
+        update permission
+        set is_deleted=0
+        where id=#{id}
+    </update>
 
+    <!--判断是否有子菜单-->
+    <select id="hasChildrenById" resultType="java.lang.Integer">
+        select count(*) from permission where pid=#{id}
+    </select>
+
+    <!--判断是否已被关联-->
+    <select id="hasRoleById" resultType="java.lang.Integer">
+        select count(*) from role_permission where permission_id=#{id}
+    </select>
 </mapper>

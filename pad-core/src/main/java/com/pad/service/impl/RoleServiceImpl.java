@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色表 服务实现类
@@ -48,5 +50,17 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         }
         //查询
         baseMapper.selectPage(rolePage,wrapper);
+    }
+
+    //查询角色对应权限id列表
+    @Override
+    public List<Integer> getMenuIdsByRoleId(String id) {
+        return baseMapper.selectMenuIdsByRoleId(id);
+    }
+
+    //逻辑删除角色
+    @Override
+    public void removeRole(List<String> asList) {
+        baseMapper.deleteRoleByIds(asList);
     }
 }
