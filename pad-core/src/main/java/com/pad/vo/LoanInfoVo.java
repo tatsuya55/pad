@@ -1,33 +1,23 @@
-package com.pad.entity;
+package com.pad.vo;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+import lombok.NoArgsConstructor;
 
-/**
- * <p>
- * 贷款信息表
- * </p>
- *
- * @author F4
- * @since 2022-09-02
- */
+import java.io.Serializable;
+import java.util.Date;
+
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@ApiModel(value="LoanInfo对象", description="贷款信息表")
-public class LoanInfo implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@AllArgsConstructor
+@NoArgsConstructor
+@ApiModel(value="LoanInfoVo对象", description="贷款信息表")
+public class LoanInfoVo implements Serializable {
 
     @ApiModelProperty(value = "贷款信息编号")
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
@@ -71,12 +61,9 @@ public class LoanInfo implements Serializable {
     @ApiModelProperty(value = "逻辑删除 0已删除，1未删除")
     private Integer isDeleted;
 
-    @TableField(exist = false)
     @ApiModelProperty(value = "企业名称")
     private String name;
 
-    @TableField(exist = false)
     @ApiModelProperty(value = "银行名称")
     private String bankName;
-
 }
