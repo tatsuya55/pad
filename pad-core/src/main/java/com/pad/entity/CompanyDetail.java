@@ -66,6 +66,7 @@ public class CompanyDetail implements Serializable {
     private String license;
 
     @ApiModelProperty(value = "营业执照到期时间")
+    @JsonFormat(locale = "zh",timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date licTime;
 
     @ApiModelProperty(value = "经营范围")
