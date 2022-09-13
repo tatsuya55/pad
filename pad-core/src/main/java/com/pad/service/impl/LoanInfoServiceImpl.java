@@ -1,8 +1,10 @@
 package com.pad.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.pad.entity.LoanInfo;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pad.entity.LoanInfo;
+import com.pad.mapper.LoanInfoMapper;
+import com.pad.service.LoanInfoService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
