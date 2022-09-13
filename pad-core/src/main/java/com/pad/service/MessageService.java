@@ -20,4 +20,7 @@ public interface MessageService extends IService<Message> {
 
     //根据留言id删除留言
     void deleteByIds(List<String> id);
+
+    //回复留言
+    void updateMe(Message message);
 }

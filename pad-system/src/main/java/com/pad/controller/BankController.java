@@ -37,7 +37,7 @@ public class BankController {
     @PreAuthorize("@me.hasAuthority('system:bank:list')")
     @ApiOperation("银行列表分页显示")
     @PostMapping("/list/{current}/{limit}")
-    public R adminListPage(
+    public R bankListPage(
             @ApiParam(name = "current",value = "当前页",required = true)
             @PathVariable long current,
             @ApiParam(name = "limit",value = "每页记录数",required = true)
