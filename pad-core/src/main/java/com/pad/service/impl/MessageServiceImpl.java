@@ -56,5 +56,10 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     public void deleteByIds(List<String> id) {
         messageMapper.updateNo(id);
     }
+
+    @Override
+    public void updateMe(Message message) {
+        messageMapper.updateMe(message);
+    }
 }
 
