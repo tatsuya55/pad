@@ -1,5 +1,6 @@
 package com.pad.service;
 
+
 import com.pad.entity.CompanyMaterial;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -20,6 +21,6 @@ public interface CompanyMaterialService extends IService<CompanyMaterial> {
     /**
      * 外键查询
      */
-    List<CompanyMaterial> selectByFK(String cNo);
+    CompanyMaterial selectByFK(String cNo);
 
 }

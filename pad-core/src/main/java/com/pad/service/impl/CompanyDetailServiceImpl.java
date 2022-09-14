@@ -27,7 +27,7 @@ public class CompanyDetailServiceImpl extends ServiceImpl<CompanyDetailMapper, C
 
 
     //外键查询
-    public List<CompanyDetail> selectByFK(String cNo) {
+    public CompanyDetail selectByFK(String cNo) {
         return mapper.selectByFK(cNo);
     }
 

@@ -35,7 +35,7 @@ public class MessageController {
     @PreAuthorize("@me.hasAuthority('system:message:list')")
     @ApiOperation("留言列表分页显示")
     @PostMapping("/list/{current}/{limit}")
-    public R adminListPage(
+    public R messageListPage(
             @ApiParam(name = "current",value = "当前页",required = true)
             @PathVariable long current,
             @ApiParam(name = "limit",value = "每页记录数",required = true)
@@ -53,39 +53,32 @@ public class MessageController {
         return R.ok().data("total",total).data("messageList",messageList);
     }
 
-    @PreAuthorize("@me.hasAuthority('system:message:query')")
-    @ApiOperation("根据id查询留言")
-    @GetMapping("/{id}")
-    public R getMessageById(
-            @ApiParam(name = "id",value = "留言编号",required = true)
-            @PathVariable String id
-    ){
-        Message message = messageService.getById(id);
-        return R.ok().data("message",message);
-    }
 
-    @PreAuthorize("@me.hasAuthority('system:message:remove')")
+    @PreAuthorize("@me.hasAuthority('system:message:edit')")
     @ApiOperation("根据id删除留言")
     @DeleteMapping("/{id}")
     public R removeMessage(
             @ApiParam(name = "id",value = "要删除的留言id",required = true)
             @PathVariable String[] id
     ){
-        //根据银行id删除银行
+        //根据银行id删除留言
         messageService.deleteByIds(Arrays.asList(id));
         return R.ok().message("删除成功");
     }
 
-    @PreAuthorize("@me.hasAuthority('system:message:add')")
-    @ApiOperation("添加留言")
-    @PostMapping("/add")
-    public R addMessage(
-            @ApiParam(name = "message",value = "添加的留言",required = true)
+    @PreAuthorize("@me.hasAuthority('system:message:update')")
+    @ApiOperation("回复留言")
+    @PutMapping("/update")
+    public R updateMessage(
+            @ApiParam(name = "message",value = "回复的留言",required = true)
             @RequestBody Message message
     ){
-        //添加用户
-        messageService.save(message);
-        return R.ok().message("添加成功");
+        int i = messageService.updateMe(message);
+        if (i>0){
+            return R.ok().message("回复成功");
+        } else
+            return R.error().message("回复失败");
     }
+
 }
 

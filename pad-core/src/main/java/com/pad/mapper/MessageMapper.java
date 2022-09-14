@@ -16,4 +16,6 @@ import java.util.List;
 public interface MessageMapper extends BaseMapper<Message> {
 
     void updateNo(List<String> id);
+
+    int updateMe(Message message);
 }

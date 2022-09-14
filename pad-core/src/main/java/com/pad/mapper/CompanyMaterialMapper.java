@@ -22,6 +22,6 @@ public interface CompanyMaterialMapper extends BaseMapper<CompanyMaterial> {
     /**
      * 外键查询
      */
-    List<CompanyMaterial> selectByFK(String cNo);
+    CompanyMaterial selectByFK(String cNo);
 
 }
