@@ -22,5 +22,5 @@ public interface MessageService extends IService<Message> {
     void deleteByIds(List<String> id);
 
     //回复留言
-    void updateMe(Message message);
+    int updateMe(Message message);
 }

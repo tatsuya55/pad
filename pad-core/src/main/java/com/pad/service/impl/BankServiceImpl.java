@@ -47,9 +47,7 @@ public class BankServiceImpl extends ServiceImpl<BankMapper, Bank> implements Ba
         if (StringUtils.hasText(bankName)){
             wrapper.like(Bank::getBankName,bankName);
         }
-        if (isDeleted !=null){
-            wrapper.eq(Bank::getIsDeleted,isDeleted);
-        }
+            wrapper.eq(Bank::getIsDeleted,1);
         //查询
         baseMapper.selectPage(bankPage,wrapper);
     }

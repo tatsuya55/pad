@@ -14,7 +14,7 @@
     <!-- 回复留言-->
     <update id="updateMe" parameterType="message" >
         update message
-        set context = #{context},
+        set reply = #{reply},
             update_time= #{updateTime}
         where id =#{id}
     </update>
