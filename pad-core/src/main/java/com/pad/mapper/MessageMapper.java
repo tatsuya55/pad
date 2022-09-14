@@ -17,5 +17,5 @@ public interface MessageMapper extends BaseMapper<Message> {
 
     void updateNo(List<String> id);
 
-    void updateMe(Message message);
+    int updateMe(Message message);
 }

@@ -71,10 +71,13 @@ public class MessageController {
     @PutMapping("/update")
     public R updateMessage(
             @ApiParam(name = "message",value = "回复的留言",required = true)
-             Message message
+            @RequestBody Message message
     ){
-        messageService.updateMe(message);
-        return R.ok().message("回复成功");
+        int i = messageService.updateMe(message);
+        if (i>0){
+            return R.ok().message("回复成功");
+        } else
+            return R.error().message("回复失败");
     }
 
 }
