@@ -1,9 +1,13 @@
 package com.pad;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.Admin;
 import com.pad.entity.AdminRole;
+import com.pad.entity.LoanInfo;
 import com.pad.mapper.AdminMapper;
+import com.pad.mapper.LoanInfoMapper;
 import com.pad.service.AdminRoleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,17 @@ public class AdminMapperTest {
 
     @Autowired
     AdminRoleService adminRoleService;
+
+    @Autowired
+    LoanInfoMapper loanInfoMapper;
+
+    @Test
+    public void loanInfoMapper(){
+        Page<LoanInfo> page = new Page<>(1, 5);
+        IPage<LoanInfo> loanInfoIPage = loanInfoMapper.pageQuery(page, null);
+        List<LoanInfo> records = loanInfoIPage.getRecords();
+        System.out.println(records);
+    }
 
     @Test
     public void remove(){

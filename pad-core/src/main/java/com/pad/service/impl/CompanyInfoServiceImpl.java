@@ -28,6 +28,7 @@ public class CompanyInfoServiceImpl extends ServiceImpl<CompanyInfoMapper, Compa
     public void pageQuery(Page<CompanyInfo> page, CompanyInfo companyInfo) {
         //构造条件
         LambdaQueryWrapper<CompanyInfo> wrapper = new LambdaQueryWrapper<CompanyInfo>();
+        wrapper.eq(CompanyInfo::getIsDeleted,1);
         //判断条件是否为空
         if (ObjectUtils.isEmpty(companyInfo)){
             //条件为空 直接分页查询
