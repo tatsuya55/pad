@@ -49,13 +49,13 @@ public class Bank implements Serializable {
     private String phone;
 
     @ApiModelProperty(value = "注册省    外键")
-    private Integer province;
+    private String province;
 
     @ApiModelProperty(value = "注册市    外键")
-    private Integer city;
+    private String city;
 
     @ApiModelProperty(value = "注册区    外键")
-    private Integer area;
+    private String area;
 
     @ApiModelProperty(value = "银行详细地址")
     private String address;
