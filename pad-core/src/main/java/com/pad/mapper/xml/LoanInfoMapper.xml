@@ -11,21 +11,16 @@
         <trim prefix="where" prefixOverrides="and">
              <if test="param2!=null">
                  <if test="param2.name!=null">
-                     and c.`name`=#{param2.name}
+                     and c.`name`like concat('%',#{param2.name},'%')
                  </if>
                  <if test="param2.bankName!=null">
-                     and b.bank_name=#{param2.bankName}
-                 </if>
-                 <if test="param2.amount!=null">
-                     and l.amount=#{param2.amount}
+                     and b.bank_name like concat('%',#{param2.bankName},'%')
                  </if>
                  <if test="param2.purpose!=null">
-                     and l.purpose=#{param2.purpose}
-                 </if>
-                 <if test="param2.period!=null">
-                     and l.period=#{param2.period}
+                     and l.purpose like concat('%',#{param2.purpose},'%')
                  </if>
              </if>
+          and  l.is_deleted=1
         </trim>
     </select>
 

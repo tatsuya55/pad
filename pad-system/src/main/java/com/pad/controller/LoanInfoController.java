@@ -7,6 +7,7 @@ import com.pad.entity.LoanInfo;
 import com.pad.response.R;
 import com.pad.service.LoanInfoService;
 import com.pad.entity.LoanInfo;
+import com.pad.utils.MD5;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -33,7 +34,7 @@ public class LoanInfoController {
     @Autowired
     private LoanInfoService loanInfoService;
 
-    @PreAuthorize("@me.hasAuthority('system:loanInfo:list')")
+    @PreAuthorize("@me.hasAuthority('company:loanInfo:list')")
     @ApiOperation("贷款信息表分页显示")
     @PostMapping("/list/{current}/{limit}")
     public R loanInfoListPage(
@@ -54,7 +55,7 @@ public class LoanInfoController {
         return R.ok().data("total",total).data("loanInfoList",loanInfoList);
     }
 
-    @PreAuthorize("@me.hasAuthority('system:loanInfo:remove')")
+    @PreAuthorize("@me.hasAuthority('company:loanInfo:remove')")
     @ApiOperation("根据编号删除贷款表信息")
     @DeleteMapping("/{id}")
     public R deleteLoanInfoByIds(
@@ -67,11 +68,35 @@ public class LoanInfoController {
         return R.ok().message("删除成功");
     }
 
-    @PreAuthorize("@me.hasAuthority('system:loanInfo:query')")
+    @PreAuthorize("@me.hasAuthority('company:loanInfo:query')")
     @ApiOperation("按主键查询每个贷款信息")
     @GetMapping("/findBy/{id}")
     public R findBy(@PathVariable("id") String id){
         return R.ok().data("id",loanInfoService.findById(id));
+    }
+
+    @PreAuthorize("@me.hasAuthority('company:loanInfo:edit')")
+    @ApiOperation("修改贷款信息")
+    @PutMapping("/edit")
+    public R editLoanInfo(
+            @ApiParam(name = "loanInfo",value = "要修改的贷款信息",required = true)
+            @RequestBody LoanInfo loanInfo
+    ){
+        //更新
+        loanInfoService.updateById(loanInfo);
+        return R.ok().message("修改贷款信息成功");
+    }
+
+    @PreAuthorize("@me.hasAuthority('company:loanInfo:add')")
+    @ApiOperation("添加贷款信息")
+    @PostMapping("/add")
+    public R addLoanInfo(
+            @ApiParam(name = "loanInfo",value = "添加的贷款信息",required = true)
+            @RequestBody LoanInfo loanInfo
+    ){
+        //添加
+        loanInfoService.save(loanInfo);
+        return R.ok().message("添加成功");
     }
 }
 

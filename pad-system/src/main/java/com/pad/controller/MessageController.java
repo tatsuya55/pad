@@ -66,18 +66,6 @@ public class MessageController {
         return R.ok().message("删除成功");
     }
 
-    @PreAuthorize("@me.hasAuthority('system:message:add')")
-    @ApiOperation("添加留言")
-    @PostMapping("/add")
-    public R addMessage(
-            @ApiParam(name = "message",value = "添加的留言",required = true)
-            @RequestBody Message message
-    ){
-        //添加用户
-        messageService.save(message);
-        return R.ok().message("添加成功");
-    }
-
     @PreAuthorize("@me.hasAuthority('system:message:update')")
     @ApiOperation("回复留言")
     @PutMapping("/update")
@@ -85,9 +73,11 @@ public class MessageController {
             @ApiParam(name = "message",value = "回复的留言",required = true)
             @RequestBody Message message
     ){
-        //添加用户
-        messageService.updateMe(message);
-        return R.ok().message("回复成功");
+        int i = messageService.updateMe(message);
+        if (i>0){
+            return R.ok().message("回复成功");
+        } else
+            return R.error().message("回复失败");
     }
 
 }

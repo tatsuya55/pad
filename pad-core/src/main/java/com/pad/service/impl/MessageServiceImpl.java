@@ -45,9 +45,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         if (StringUtils.hasText(context)){
             wrapper.like(Message::getContext,context);
         }
-        if (isDeleted !=null){
-            wrapper.eq(Message::getIsDeleted,isDeleted);
-        }
+            wrapper.eq(Message::getIsDeleted,1);
         //查询
         messageMapper.selectPage(messagePage,wrapper);
     }
@@ -58,8 +56,8 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     }
 
     @Override
-    public void updateMe(Message message) {
-        messageMapper.updateMe(message);
+    public int updateMe(Message message) {
+        return messageMapper.updateMe(message);
     }
 }
 
