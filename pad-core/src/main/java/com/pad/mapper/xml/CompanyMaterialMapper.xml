@@ -6,6 +6,6 @@
         select m.*,i.name
         from company_material m
         left  join company_info i on  m.c_no=i.c_no
-        and i.c_no=#{cNo,jdbcType=VARCHAR}
+        where i.c_no=#{cNo,jdbcType=VARCHAR}
     </select>
 </mapper>
