@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.Message;
 import com.pad.response.R;
 import com.pad.service.MessageService;
+import com.pad.service.WebSocket;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +32,9 @@ public class MessageController {
 
     @Resource
     private MessageService messageService;
+
+    @Autowired
+    private WebSocket webSocket;
 
 
     @PreAuthorize("@me.hasAuthority('system:message:list')")
@@ -74,6 +79,8 @@ public class MessageController {
             @RequestBody Message message
     ){
         int i = messageService.updateMe(message);
+        //发送websocket消息
+        webSocket.sendMessage("收到新的回复");
         if (i>0){
             return R.ok().message("回复成功");
         } else
