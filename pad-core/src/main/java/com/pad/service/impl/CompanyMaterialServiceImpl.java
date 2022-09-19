@@ -26,6 +26,7 @@ public class CompanyMaterialServiceImpl extends ServiceImpl<CompanyMaterialMappe
 
 
     //外键查询
+    @Override
     public CompanyMaterial selectByFK(String cNo) {
         return mapper.selectByFK(cNo);
     }
