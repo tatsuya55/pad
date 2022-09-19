@@ -11,7 +11,7 @@
  Target Server Version : 50719
  File Encoding         : 65001
 
- Date: 15/09/2022 11:01:39
+ Date: 19/09/2022 11:35:41
 */
 
 SET NAMES utf8mb4;
@@ -3851,9 +3851,9 @@ CREATE TABLE `bank`  (
   `overdue_rate` double(255, 10) NULL DEFAULT NULL COMMENT '逾期利率',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品说明',
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行电话',
-  `province` int(11) NULL DEFAULT NULL COMMENT '注册省    外键',
-  `city` int(11) NULL DEFAULT NULL COMMENT '注册市    外键',
-  `area` int(11) NULL DEFAULT NULL COMMENT '注册区    外键',
+  `province` char(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注册省    外键',
+  `city` char(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注册市    外键',
+  `area` char(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注册区    外键',
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行详细地址',
   `is_deleted` int(11) NULL DEFAULT 1 COMMENT '逻辑删除   0已删除，1未删除   默认是1未删除',
   PRIMARY KEY (`bank_no`) USING BTREE
@@ -3867,6 +3867,9 @@ INSERT INTO `bank` VALUES ('2', '渤海银行', NULL, NULL, NULL, NULL, NULL, NU
 INSERT INTO `bank` VALUES ('3', '华夏银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
 INSERT INTO `bank` VALUES ('4', '农业银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
 INSERT INTO `bank` VALUES ('5', '中国银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `bank` VALUES ('6', '北京银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `bank` VALUES ('7', '华夏银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `bank` VALUES ('8', '渤海银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
 
 -- ----------------------------
 -- Table structure for company_detail
@@ -3913,14 +3916,14 @@ CREATE TABLE `company_info`  (
 -- ----------------------------
 -- Records of company_info
 -- ----------------------------
-INSERT INTO `company_info` VALUES ('Q/123 1394-2241', '哇唧唧哇', '6730123124@qq.com', '14290123562', 'bcbe3365e6ac95ea2c0343a2395834dd', '2022-09-13', 2, 1);
-INSERT INTO `company_info` VALUES ('Q/123 2467-3655', '满庭芳', '1803013124@qq.com', '18790125262', '670b14728ad9902aecba32e22fa4f6bd', '2022-09-13', 2, 1);
-INSERT INTO `company_info` VALUES ('Q/123 3124-0941', '九州', '1304212124@qq.com', '13890123562', '525', '2022-09-19', 0, 1);
-INSERT INTO `company_info` VALUES ('Q/123 3424-2181', '云间来客', '1243123124@qq.com', '12690123562', '5432', '2022-08-30', -1, 1);
-INSERT INTO `company_info` VALUES ('Q/123 5235-2522', '宇宙第一', '9030123124@qq.com', '13790633562', '1', '2022-08-30', 0, 1);
-INSERT INTO `company_info` VALUES ('Q/123 5411-2341', '先锋者', '1630123124@qq.com', '18690123562', '111', '2022-09-19', -1, 1);
-INSERT INTO `company_info` VALUES ('Q/123 7346-5246', '杰尼斯', '1630197124@qq.com', '15590122362', '$2a$10$JxkAocd0grVk8D338x.phuXQytTAEwM3bVs9yeFZwYn7vK6VoXuIa', '2022-09-09', 0, 1);
-INSERT INTO `company_info` VALUES ('Q/123 8965-5448', '超级无敌', '1090123124@qq.com', '18990533562', '11', '2022-08-30', 2, 1);
+INSERT INTO `company_info` VALUES ('Q12313942241', '哇唧唧哇', '6730123124@qq.com', '14290123562', 'bcbe3365e6ac95ea2c0343a2395834dd', '2022-02-01', 2, 0);
+INSERT INTO `company_info` VALUES ('Q12324673655', '满庭芳', '1803013124@qq.com', '18790125262', '670b14728ad9902aecba32e22fa4f6bd', '2022-01-21', 2, 1);
+INSERT INTO `company_info` VALUES ('Q12331240941', '九州', '1304212124@qq.com', '13890123562', '525', '2022-03-02', 0, 1);
+INSERT INTO `company_info` VALUES ('Q12334242181', '云间来客', '1243123124@qq.com', '12690123562', '5432', '2022-04-14', -1, 1);
+INSERT INTO `company_info` VALUES ('Q12352352522', '宇宙第一', '9030123124@qq.com', '13790633562', '1', '2022-05-19', 0, 1);
+INSERT INTO `company_info` VALUES ('Q12354112341', '先锋者', '1630123124@qq.com', '18690123562', '111', '2022-07-07', -1, 1);
+INSERT INTO `company_info` VALUES ('Q12373465246', '杰尼斯', '1630197124@qq.com', '15590122362', '$2a$10$JxkAocd0grVk8D338x.phuXQytTAEwM3bVs9yeFZwYn7vK6VoXuIa', '2022-11-16', 0, 1);
+INSERT INTO `company_info` VALUES ('Q12389655448', '超级无敌', '1090123124@qq.com', '18990533562', '11', '2022-09-02', 2, 1);
 
 -- ----------------------------
 -- Table structure for company_material
@@ -4007,11 +4010,14 @@ CREATE TABLE `loan_info`  (
 -- ----------------------------
 -- Records of loan_info
 -- ----------------------------
-INSERT INTO `loan_info` VALUES ('1', 'Q/123 1394-2241', '1', '62220236 02034647198\n', '中国银行天津市分行北辰支行', 80000, '买天花板', '2022-09-06', 2, 1, '2022-08-30', '2022-09-14', 1);
-INSERT INTO `loan_info` VALUES ('2', 'Q/123 2467-3655', '2', '62226007 1001 4694 287\n', '渤海银行北京市分行海淀支行', 100000, '买车', '2022-09-06', 1, 0, '2022-08-29', '2022-09-14', 1);
-INSERT INTO `loan_info` VALUES ('3', 'Q/123 3124-0941', '3', '62166119 0000 9484 112\n', '华夏银行天津市分行西青支行', 55000, '买三手车', '2022-09-05', 0, -1, '2022-09-14', '2022-09-14', 1);
-INSERT INTO `loan_info` VALUES ('4', 'Q/123 3424-2181', '4', '62261903 0294 2515\n', '农业银行天津市分行静海支行', 8900, '买摩托', '1970-01-01', 4, -1, '2022-09-14', '2022-09-14', 1);
-INSERT INTO `loan_info` VALUES ('5', 'Q/123 5235-2522', '5', '6952023602034647198', '中国银行天津市分行东丽支行', 52000, '买标准间', '1970-01-01', 3, 1, '2022-09-14', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('1', 'Q12313942241', '1', '6222023602034647198\n', '中国银行天津市分行北辰支行', 80000, '按揭贷款', '2022-09-06', 2, 1, '2022-08-30', '2022-09-14', 0);
+INSERT INTO `loan_info` VALUES ('2', 'Q12324673655', '2', '6222600710014694287\n', '渤海银行北京市分行海淀支行', 100000, '经营贷款', '2022-09-06', 1, 0, '2022-08-29', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('3', 'Q12331240941', '3', '6216611900009484112\n', '华夏银行天津市分行西青支行', 55000, '个人消费贷款', '2022-09-05', 0, -1, '2022-09-14', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('4', 'Q12334242181', '4', '6226190302942515142\n', '农业银行天津市分行静海支行', 8900, '经营贷款', '1970-01-01', 4, -1, '2022-09-14', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('5', 'Q12352352522', '5', '6952023602034647198', '中国银行天津市分行东丽支行', 52000, '按揭贷款', '1970-01-01', 3, 1, '2022-09-14', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('6', 'Q12354112341', '6', '6217003810026896707\n', '北京银行北京市分行海淀支行', 11111, '经营贷款', '2022-08-30', 2, 0, '2022-09-06', '2022-09-27', 1);
+INSERT INTO `loan_info` VALUES ('7', 'Q12373465246', '7', '6217003810023896707', '华夏银行天津市分行红桥支行', 33333, '按揭贷款', '2022-08-30', 1, 0, '2022-09-05', '2022-09-15', 1);
+INSERT INTO `loan_info` VALUES ('8', 'Q12389655448', '8', '6217003810023896709', '渤海银行天津市分行河东支行', 22222, '经营罚款', '2022-09-05', 3, 0, '2022-09-06', '2022-09-02', 1);
 
 -- ----------------------------
 -- Table structure for message
@@ -4031,6 +4037,10 @@ CREATE TABLE `message`  (
 -- ----------------------------
 -- Records of message
 -- ----------------------------
+INSERT INTO `message` VALUES ('1570683234487377921', '1', '2022-09-16', 'sada', '2022-09-16 07:57:19.643', NULL, NULL);
+INSERT INTO `message` VALUES ('1570683316863508481', '1', '2022-09-16', 'dasda', '2022-09-16 07:57:39.286', NULL, NULL);
+INSERT INTO `message` VALUES ('1571384639430926337', '1', '2022-09-18', '11', '2022-09-18 06:24:27.613', NULL, NULL);
+INSERT INTO `message` VALUES ('1571399126997389313', '1', '2022-09-18', '1', '2022-09-18 07:22:01.718', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for notice
@@ -4172,11 +4182,25 @@ CREATE TABLE `profit`  (
   `value` int(11) NULL DEFAULT NULL COMMENT '收益金额',
   `create_time` date NULL DEFAULT NULL COMMENT '获得时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '平台收益表profit' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '平台收益表profit' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of profit
 -- ----------------------------
+INSERT INTO `profit` VALUES (1, NULL, 3000, '2022-09-16');
+INSERT INTO `profit` VALUES (2, NULL, 4000, '2022-09-29');
+INSERT INTO `profit` VALUES (3, NULL, 1000, '2022-08-17');
+INSERT INTO `profit` VALUES (4, NULL, 1222, '2022-07-14');
+INSERT INTO `profit` VALUES (5, NULL, 10000, '2022-01-08');
+INSERT INTO `profit` VALUES (6, NULL, 2000, '2022-09-02');
+INSERT INTO `profit` VALUES (7, NULL, 4500, '2022-02-01');
+INSERT INTO `profit` VALUES (8, NULL, 5000, '2022-03-10');
+INSERT INTO `profit` VALUES (9, NULL, 3800, '2022-04-14');
+INSERT INTO `profit` VALUES (10, NULL, 8800, '2022-05-13');
+INSERT INTO `profit` VALUES (11, NULL, 7500, '2022-06-23');
+INSERT INTO `profit` VALUES (12, NULL, 13000, '2022-10-07');
+INSERT INTO `profit` VALUES (13, NULL, 8900, '2022-11-12');
+INSERT INTO `profit` VALUES (14, NULL, 5000, '2022-12-23');
 
 -- ----------------------------
 -- Table structure for recognition
