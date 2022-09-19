@@ -25,4 +25,5 @@ public interface LoanInfoMapper extends BaseMapper<LoanInfo> {
 
     //按贷款编号查询每个贷款信息
     LoanInfo findById(String id);
+
 }

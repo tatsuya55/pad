@@ -1,6 +1,8 @@
 package com.pad.controller;
 
 
+import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.CompanyInfo;
 import com.pad.entity.LoanInfo;
@@ -15,8 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -97,6 +98,37 @@ public class LoanInfoController {
         //添加
         loanInfoService.save(loanInfo);
         return R.ok().message("添加成功");
+    }
+
+    //@PreAuthorize("@me.hasAuthority('company:loanInfo:purpose')")
+    @ApiOperation("贷款用途")
+    @GetMapping("/loanPurpose")
+    public R loanPurpose(){
+        LambdaQueryWrapper<LoanInfo> wrapper1 = new LambdaQueryWrapper<>();
+        wrapper1.eq(LoanInfo::getPurpose,"个人消费贷款");
+        int count1 = loanInfoService.count(wrapper1);
+
+        LambdaQueryWrapper<LoanInfo> wrapper2 = new LambdaQueryWrapper<>();
+        wrapper2.eq(LoanInfo::getPurpose,"经营贷款");
+        int count2 = loanInfoService.count(wrapper2);
+
+        LambdaQueryWrapper<LoanInfo> wrapper3 = new LambdaQueryWrapper<>();
+        wrapper3.eq(LoanInfo::getPurpose,"按揭贷款");
+        int count3 = loanInfoService.count(wrapper3);
+
+        HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("name","个人消费贷款");
+        map1.put("value",count1);
+
+        HashMap<String, Object> map2 = new HashMap<>();
+        map2.put("name","经营贷款");
+        map2.put("value",count2);
+
+        HashMap<String, Object> map3 = new HashMap<>();
+        map3.put("name","按揭贷款");
+        map3.put("value",count3);
+
+        return R.ok().data("loanPurpose", CollUtil.newArrayList(map1,map2,map3));
     }
 }
 
