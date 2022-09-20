@@ -65,6 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.GET, "/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**").permitAll()
         .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs", "/druid/**").permitAll()
         .antMatchers("/webSocket/**").permitAll()
+        .antMatchers("/img/**").permitAll()
         .anyRequest().authenticated();//其他所有请求全部需要鉴权认证
 
         //设置jwt认证过滤器
