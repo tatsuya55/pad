@@ -9,7 +9,7 @@ public class UrlConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-        .addResourceHandler("/img/")
-        .addResourceLocations("file:C:/Users/1/Desktop/pad-front/target/classes/static/images");
+        .addResourceHandler("/img/**")
+        .addResourceLocations("file:C:/Users/1/Desktop/pad-front/target/classes/static/images/");
     }
 }
