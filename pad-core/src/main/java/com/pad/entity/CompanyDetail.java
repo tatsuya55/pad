@@ -57,7 +57,7 @@ public class CompanyDetail implements Serializable {
     private Integer area;
 
     @ApiModelProperty(value = "企业信誉度")
-    private Integer credit;
+    private String credit;
 
     @ApiModelProperty(value = "公司详情地址")
     private String address;
@@ -78,6 +78,10 @@ public class CompanyDetail implements Serializable {
     @TableField(exist = false)
     @ApiModelProperty(value = "企业名称")
     private String name;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "认证状态   0未认证，1认证中，2认证通过，-1认证失败     默认是0未认证")
+    private Integer authStatus;
 
     @TableField(exist = false)
     @JsonFormat(locale = "zh",timezone = "GMT+8",pattern = "yyyy-MM-dd")

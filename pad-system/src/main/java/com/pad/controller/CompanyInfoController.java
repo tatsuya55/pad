@@ -4,10 +4,12 @@ package com.pad.controller;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.Quarter;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.CompanyInfo;
 import com.pad.response.R;
 import com.pad.service.CompanyInfoService;
+import com.pad.service.WebSocket;
 import com.pad.utils.MD5;
 import com.pad.utils.SecurityUtils;
 import io.swagger.annotations.Api;
@@ -34,6 +36,9 @@ public class CompanyInfoController {
 
     @Autowired
     private CompanyInfoService companyInfoService;
+
+    @Autowired
+    private WebSocket webSocket;
 
     @ApiOperation("查询每个季度的企业用户的人数")
     @GetMapping("/userData")
@@ -127,14 +132,20 @@ public class CompanyInfoController {
 
     @PreAuthorize("@me.hasAuthority('company:info:modify')")
     @ApiOperation("根据编号修改认证状态")
-    @PutMapping("/modify/{cNo}")
-    public R StatusSuccess(
+    @PutMapping("/modify/{cNo}/{authStatus}")
+    public R modifyStatus(
             @ApiParam(name = "cNo",value = "要查询的企业用户编号",required = true)
-            @PathVariable String cNo
+            @PathVariable String cNo,
+            @ApiParam(name = "authStatus",value = "认证状态",required = true)
+            @PathVariable Integer authStatus
     ){
-        //调用企业用户基本信息认证状态通过的方法
-
-        return R.ok().message("认证状态通过");
+        //修改认证状态
+        CompanyInfo companyInfo = new CompanyInfo();
+        companyInfo.setCNo(cNo);
+        companyInfo.setAuthStatus(authStatus);
+        companyInfoService.updateById(companyInfo);
+        webSocket.sendMessage("您的身份认证完毕");
+        return R.ok().message("修改认证状态成功");
     }
 }
 
