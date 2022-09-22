@@ -7,5 +7,6 @@
         from company_material m
         left  join company_info i on  m.c_no=i.c_no
         where i.c_no=#{cNo,jdbcType=VARCHAR}
+        and m.is_deleted=1
     </select>
 </mapper>
