@@ -18,4 +18,10 @@
         and d.is_deleted=1
     </select>
 
+    <update id="deleteCompanyDetailBycNo" parameterType="string">
+        update `company_detail`
+        set is_deleted=0
+        where c_no=#{cNo}
+    </update>
+
 </mapper>

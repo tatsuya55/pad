@@ -28,4 +28,11 @@ public interface CompanyDetailService extends IService<CompanyDetail> {
      * @param id
      */
     void updateCompanyDetailByIds(List<String> id);
+
+
+    /**
+     * 逻辑删除企业用户详细信息
+     * @param cNo
+     */
+    void deleteCompanyDetailBycNo(String cNo);
 }

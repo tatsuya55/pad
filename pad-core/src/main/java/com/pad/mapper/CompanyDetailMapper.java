@@ -29,4 +29,10 @@ public interface CompanyDetailMapper extends BaseMapper<CompanyDetail> {
      */
     void updateCompanyDetailByIds(List<String> id);
 
+    /**
+     * 逻辑删除企业用户详细信息
+     * @param id
+     */
+    void deleteCompanyDetailBycNo(String id);
+
 }
