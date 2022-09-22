@@ -30,4 +30,9 @@ public class CompanyMaterialServiceImpl extends ServiceImpl<CompanyMaterialMappe
     public CompanyMaterial selectByFK(String cNo) {
         return mapper.selectByFK(cNo);
     }
+
+    @Override
+    public void deleteCompanyMaterialByIds(String cNo) {
+        mapper.deleteCompanyMaterialByIds(cNo);
+    }
 }

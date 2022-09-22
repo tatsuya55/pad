@@ -15,6 +15,13 @@
         from company_detail d
         left join company_info i  on d.c_no=i.c_no
         where i.c_no=#{cNo,jdbcType=VARCHAR}
+        and d.is_deleted=1
     </select>
+
+    <update id="deleteCompanyDetailBycNo" parameterType="string">
+        update `company_detail`
+        set is_deleted=0
+        where c_no=#{cNo}
+    </update>
 
 </mapper>

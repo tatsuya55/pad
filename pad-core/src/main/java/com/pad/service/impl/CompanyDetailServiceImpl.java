@@ -27,6 +27,7 @@ public class CompanyDetailServiceImpl extends ServiceImpl<CompanyDetailMapper, C
 
 
     //外键查询
+    @Override
     public CompanyDetail selectByFK(String cNo) {
         return mapper.selectByFK(cNo);
     }
@@ -36,5 +37,10 @@ public class CompanyDetailServiceImpl extends ServiceImpl<CompanyDetailMapper, C
     @Override
     public void updateCompanyDetailByIds(List<String> id) {
         mapper.updateCompanyDetailByIds(id);
+    }
+
+    @Override
+    public void deleteCompanyDetailBycNo(String cNo) {
+        mapper.deleteCompanyDetailBycNo(cNo);
     }
 }
