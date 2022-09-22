@@ -147,5 +147,22 @@ public class CompanyInfoController {
         webSocket.sendMessage("您的身份认证完毕");
         return R.ok().message("修改认证状态成功");
     }
+
+
+    @PreAuthorize("@me.hasAuthority('company:info:modify')")
+    @ApiOperation("根据编号修改认证状态")
+    @PutMapping("/update/{cNo}")
+    public R updateStatus(
+            @ApiParam(name = "cNo",value = "要查询的企业用户编号",required = true)
+            @PathVariable String cNo
+    ){
+        //修改认证状态
+        CompanyInfo companyInfo = new CompanyInfo();
+        companyInfo.setCNo(cNo);
+        companyInfo.setAuthStatus(-1);
+        companyInfoService.updateById(companyInfo);
+        webSocket.sendMessage("您的身份认证被驳回");
+        return R.ok().message("修改认证状态成功");
+    }
 }
 
