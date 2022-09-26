@@ -48,13 +48,13 @@ public class CompanyDetail implements Serializable {
     private String legalId;
 
     @ApiModelProperty(value = "注册省")
-    private Integer province;
+    private String province;
 
     @ApiModelProperty(value = "注册市")
-    private Integer city;
+    private String city;
 
     @ApiModelProperty(value = "注册区")
-    private Integer area;
+    private String area;
 
     @ApiModelProperty(value = "企业信誉度")
     private String credit;
@@ -87,5 +87,17 @@ public class CompanyDetail implements Serializable {
     @JsonFormat(locale = "zh",timezone = "GMT+8",pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "注册省")
+    private String provinceName;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "注册市")
+    private String cityName;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "注册区")
+    private String areaName;
 
 }
