@@ -21,6 +21,13 @@
         left join address c on c.address_areaId=d.city
         left join address a on a.address_areaId=d.area
         where i.c_no=#{cNo,jdbcType=VARCHAR}
+        and d.is_deleted=1
     </select>
+
+    <update id="deleteCompanyDetailBycNo" parameterType="string">
+        update `company_detail`
+        set is_deleted=0
+        where c_no=#{cNo}
+    </update>
 
 </mapper>

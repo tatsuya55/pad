@@ -4,10 +4,15 @@ package com.pad.controller;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.Quarter;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pad.entity.CompanyDetail;
 import com.pad.entity.CompanyInfo;
+import com.pad.entity.CompanyMaterial;
 import com.pad.response.R;
+import com.pad.service.CompanyDetailService;
 import com.pad.service.CompanyInfoService;
 import com.pad.service.WebSocket;
 import com.pad.utils.MD5;
@@ -19,6 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -36,6 +44,9 @@ public class CompanyInfoController {
 
     @Autowired
     private CompanyInfoService companyInfoService;
+
+    @Autowired
+    private CompanyDetailService companyDetailService;
 
     @Autowired
     private WebSocket webSocket;
@@ -146,6 +157,59 @@ public class CompanyInfoController {
         companyInfoService.updateById(companyInfo);
         webSocket.sendMessage("您的身份认证完毕");
         return R.ok().message("修改认证状态成功");
+    }
+
+
+    @PreAuthorize("@me.hasAuthority('company:info:modify')")
+    @ApiOperation("根据编号修改认证状态")
+    @PutMapping("/update/{cNo}")
+    public R updateStatus(
+            @ApiParam(name = "cNo",value = "要查询的企业用户编号",required = true)
+            @PathVariable String cNo
+    ){
+        //修改认证状态
+        CompanyInfo companyInfo = new CompanyInfo();
+        companyInfo.setCNo(cNo);
+        companyInfo.setAuthStatus(-1);
+        companyDetailService.deleteCompanyDetailBycNo(cNo);
+        companyInfoService.updateById(companyInfo);
+        webSocket.sendMessage("您的身份认证被驳回");
+        return R.ok().message("修改认证状态成功");
+    }
+
+    /**
+     * 导出接口
+     */
+    @PreAuthorize("@me.hasAuthority('company:info:export')")
+    @GetMapping("/export")
+    public void export(
+            HttpServletResponse response) throws Exception {
+        // 从数据库查询出所有的数据
+        List<CompanyInfo> list = companyInfoService.list(null);
+        // 通过工具类创建writer 写出到磁盘路径
+//        ExcelWriter writer = ExcelUtil.getWriter(filesUploadPath + "/用户信息.xlsx");
+        // 在内存操作，写出到浏览器
+        ExcelWriter writer = ExcelUtil.getWriter(true);
+        //自定义标题别名
+        writer.addHeaderAlias("cNo", "企业编号");
+        writer.addHeaderAlias("name", "企业名称");
+        writer.addHeaderAlias("email", "企业邮箱");
+        writer.addHeaderAlias("phone", "企业电话");
+        writer.addHeaderAlias("createTime", "创建时间");
+
+        // 一次性写出list内的对象到excel，使用默认样式，强制输出标题
+        writer.write(list, true);
+
+        // 设置浏览器响应的格式  固定格式
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
+        String fileName = URLEncoder.encode("企业用户基本信息", "UTF-8");
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
+
+        //输出流，返回到浏览器对象
+        ServletOutputStream out = response.getOutputStream();
+        writer.flush(out, true);
+        out.close();
+        writer.close();
     }
 }
 

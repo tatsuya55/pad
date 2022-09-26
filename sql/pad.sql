@@ -11,7 +11,7 @@
  Target Server Version : 50719
  File Encoding         : 65001
 
- Date: 19/09/2022 11:35:41
+ Date: 26/09/2022 09:53:24
 */
 
 SET NAMES utf8mb4;
@@ -3847,8 +3847,8 @@ DROP TABLE IF EXISTS `bank`;
 CREATE TABLE `bank`  (
   `bank_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '银行编号',
   `bank_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行名称',
-  `borrow_year_rate` double(255, 10) NULL DEFAULT NULL COMMENT '年化利率',
-  `overdue_rate` double(255, 10) NULL DEFAULT NULL COMMENT '逾期利率',
+  `borrow_year_rate` double(255, 2) NULL DEFAULT NULL COMMENT '年化利率',
+  `overdue_rate` double(255, 2) NULL DEFAULT NULL COMMENT '逾期利率',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品说明',
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '银行电话',
   `province` char(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注册省    外键',
@@ -3862,14 +3862,14 @@ CREATE TABLE `bank`  (
 -- ----------------------------
 -- Records of bank
 -- ----------------------------
-INSERT INTO `bank` VALUES ('1', '中国银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `bank` VALUES ('2', '渤海银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `bank` VALUES ('3', '华夏银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `bank` VALUES ('4', '农业银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `bank` VALUES ('5', '中国银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `bank` VALUES ('6', '北京银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `bank` VALUES ('7', '华夏银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `bank` VALUES ('8', '渤海银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `bank` VALUES ('1', '中国银行', 1.75, 0.50, '作为2010年上海世博会全球合作伙伴，交通银行特别推出“展业通”系列小企业专项信贷与结算金融服务产品。流程简便快捷，三日内完成审批流程，额度500万以内更可\n直接进入“绿色通道”。中国银行龙岗支行作为龙岗地区首\nuA\n批小企业金融信贷服务中心，已成功为家具行业、眼镜行业、钟表行业、珠宝行业、商品批发业等龙岗区传统优势产业及新兴产业办理融资服务。\n', '\r\n95566', '120000', '120100', '120113', '小淀镇街道', 1);
+INSERT INTO `bank` VALUES ('2', '渤海银行', 1.46, 1.50, '“小巨人\"中小企业最佳融资方案——全面满足处于创业、成长、成熟期等各阶段企业的融资需求，包含\"创融通\"、“及时予\"、“信贷保\"、“助业桥\"四大系列49种融资产品，内含六类特色产品', '95588', '120000', '120100', '120111', '李七庄街道', 1);
+INSERT INTO `bank` VALUES ('3', '华夏银行', 1.89, 2.80, '“短贷通1.0\"是中行特别为往来三年以上的对公\"老\"客户推出的信用贷款产品。\n只要在中行连\n续对公结算三年以上，2009年全年在中行累计销售回款在1200万元以上，公司就有机会在中行获得最高300万元人民币的信用贷款额度。\n', '95533', '120000', '120100', '120110', '南大街250号街道', 1);
+INSERT INTO `bank` VALUES ('4', '农业银行', 0.78, 3.90, '工行全球现金管理业务:在国内同业中率先推出现金管理服务，通过其具有自主知识产权的全球现金管理服务系统，充分满足跨国企业统一调配境内外资金，统筹管理全球账户的需求，将工行在境内的业务优势和先进服务经验延伸到境外，通过遍布全球的分支机构和代理行网络，与境外银行建立合作，为跨国企业提供\"一站式\"现金管理。', '95599', '120000', '120100', '120102', '上杭路街道', 1);
+INSERT INTO `bank` VALUES ('5', '中国银行', 1.57, 2.58, '“好融通\"是中国银行专为中小企业量身打造的标准化融资解决方案。在客户准入标准、审批流程上均进行了全面创新，具有更客观、更高效、更灵活、更贴近中小企业的特点。\n', '95555', '120000', '120100', '120103', '柳林街道', 1);
+INSERT INTO `bank` VALUES ('6', '北京银行', 3.41, 4.31, '跨行即时转账（跨行快汇）是我行现金管理系统为企业提供的一项特色收付款服务产品，通过产品企业可享受7*24小时小额跨行即时转账，资金实时到达收款帐户的特色服务。\n', '95530', '110000', '110100', '110108', '海淀街道', 1);
+INSERT INTO `bank` VALUES ('7', '华夏银行', 2.67, 2.56, '企业通过现金管理系统跨行即时转账功能，完成每月突发性、数量多、金额小的跨行转账业务，且该业务可实现7*24小时随时办理、转账资金实时到账，减少资金在途时间，降低营运成本，有效提升企业财务处理效率和资金使用效率。\n', '95512', '120000', '120100', '120110', '张贵庄街', 1);
+INSERT INTO `bank` VALUES ('8', '渤海银行', 2.68, 1.68, '小微网贷,由农业银行与税务部门数据共享，在微信公众号或企业网银等渠道在线自助申请，自动评级、授信、审批、提款，额度内随借随还、自助可循环的信贷业务。', '95509', '120000', '120100', '120103', '陈塘庄街', 1);
 
 -- ----------------------------
 -- Table structure for company_detail
@@ -3881,15 +3881,15 @@ CREATE TABLE `company_detail`  (
   `type` int(11) NULL DEFAULT NULL COMMENT '企业类型 0个人独资，1合伙企业，2有限责任公司',
   `legal_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '法人姓名',
   `legal_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '法人证件号',
-  `province` int(11) NULL DEFAULT NULL COMMENT '注册省',
-  `city` int(11) NULL DEFAULT NULL COMMENT '注册市',
-  `area` int(11) NULL DEFAULT NULL COMMENT '注册区',
+  `province` char(6) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注册省',
+  `city` char(6) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注册市',
+  `area` char(6) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注册区',
   `credit` int(11) NULL DEFAULT NULL COMMENT '企业信誉度',
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公司详情地址',
   `license` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '营业执照图片',
   `lic_time` date NULL DEFAULT NULL COMMENT '营业执照到期时间',
   `scope` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '经营范围',
-  `is_deleted` int(11) NULL DEFAULT NULL COMMENT '逻辑删除 0已删除，1未删除',
+  `is_deleted` int(11) NULL DEFAULT 1 COMMENT '逻辑删除 0已删除，1未删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '企业用户详细信息表' ROW_FORMAT = Dynamic;
 
@@ -3916,7 +3916,7 @@ CREATE TABLE `company_info`  (
 -- ----------------------------
 -- Records of company_info
 -- ----------------------------
-INSERT INTO `company_info` VALUES ('Q12313942241', '哇唧唧哇', '6730123124@qq.com', '14290123562', 'bcbe3365e6ac95ea2c0343a2395834dd', '2022-02-01', 2, 0);
+INSERT INTO `company_info` VALUES ('Q12313942241', '哇唧唧哇', '6730123124@qq.com', '14290123562', '96e79218965eb72c92a549dd5a330112', '2022-02-01', 2, 0);
 INSERT INTO `company_info` VALUES ('Q12324673655', '满庭芳', '1803013124@qq.com', '18790125262', '670b14728ad9902aecba32e22fa4f6bd', '2022-01-21', 2, 1);
 INSERT INTO `company_info` VALUES ('Q12331240941', '九州', '1304212124@qq.com', '13890123562', '525', '2022-03-02', 0, 1);
 INSERT INTO `company_info` VALUES ('Q12334242181', '云间来客', '1243123124@qq.com', '12690123562', '5432', '2022-04-14', -1, 1);
@@ -3943,13 +3943,14 @@ CREATE TABLE `company_material`  (
   `collateral_photo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '抵押物图片',
   `records` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '纳税记录',
   `status` int(11) NULL DEFAULT 0 COMMENT '状态 0未审核，1审核通过',
+  `is_deleted` int(11) NULL DEFAULT 1 COMMENT '逻辑删除 0删除1未删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '企业用户材料信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of company_material
 -- ----------------------------
-INSERT INTO `company_material` VALUES ('1', '1', '12233', '赵明路', '1111', '', NULL, NULL, NULL, '房产', NULL, NULL, 0);
+INSERT INTO `company_material` VALUES ('1', '1', '12233', '赵明路', '1111', '', NULL, NULL, NULL, '房产', NULL, NULL, 0, 1);
 
 -- ----------------------------
 -- Table structure for credit
@@ -3997,7 +3998,7 @@ CREATE TABLE `loan_info`  (
   `bank_number` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '收款账户',
   `bank_type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '开户行',
   `amount` double(50, 0) NULL DEFAULT NULL COMMENT '贷款金额',
-  `purpose` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '贷款用途',
+  `purpose` int(50) NULL DEFAULT NULL COMMENT '贷款用途 1个人消费贷款 2经营贷款 3按揭贷款',
   `period` date NULL DEFAULT NULL COMMENT '借款期限',
   `return_method` int(11) NULL DEFAULT NULL COMMENT '还款方式 1等额本息，2等额本金，3每月还息，4一次性还',
   `status` int(11) NULL DEFAULT 0 COMMENT '状态 0未审核，1审核通过，-1审核失败',
@@ -4010,14 +4011,14 @@ CREATE TABLE `loan_info`  (
 -- ----------------------------
 -- Records of loan_info
 -- ----------------------------
-INSERT INTO `loan_info` VALUES ('1', 'Q12313942241', '1', '6222023602034647198\n', '中国银行天津市分行北辰支行', 80000, '按揭贷款', '2022-09-06', 2, 1, '2022-08-30', '2022-09-14', 0);
-INSERT INTO `loan_info` VALUES ('2', 'Q12324673655', '2', '6222600710014694287\n', '渤海银行北京市分行海淀支行', 100000, '经营贷款', '2022-09-06', 1, 0, '2022-08-29', '2022-09-14', 1);
-INSERT INTO `loan_info` VALUES ('3', 'Q12331240941', '3', '6216611900009484112\n', '华夏银行天津市分行西青支行', 55000, '个人消费贷款', '2022-09-05', 0, -1, '2022-09-14', '2022-09-14', 1);
-INSERT INTO `loan_info` VALUES ('4', 'Q12334242181', '4', '6226190302942515142\n', '农业银行天津市分行静海支行', 8900, '经营贷款', '1970-01-01', 4, -1, '2022-09-14', '2022-09-14', 1);
-INSERT INTO `loan_info` VALUES ('5', 'Q12352352522', '5', '6952023602034647198', '中国银行天津市分行东丽支行', 52000, '按揭贷款', '1970-01-01', 3, 1, '2022-09-14', '2022-09-14', 1);
-INSERT INTO `loan_info` VALUES ('6', 'Q12354112341', '6', '6217003810026896707\n', '北京银行北京市分行海淀支行', 11111, '经营贷款', '2022-08-30', 2, 0, '2022-09-06', '2022-09-27', 1);
-INSERT INTO `loan_info` VALUES ('7', 'Q12373465246', '7', '6217003810023896707', '华夏银行天津市分行红桥支行', 33333, '按揭贷款', '2022-08-30', 1, 0, '2022-09-05', '2022-09-15', 1);
-INSERT INTO `loan_info` VALUES ('8', 'Q12389655448', '8', '6217003810023896709', '渤海银行天津市分行河东支行', 22222, '经营罚款', '2022-09-05', 3, 0, '2022-09-06', '2022-09-02', 1);
+INSERT INTO `loan_info` VALUES ('1', 'Q12313942241', '1', '6222023602034647198\n', '中国银行天津市分行北辰支行', 80000, 1, '2022-09-06', 2, 1, '2022-08-30', '2022-09-14', 0);
+INSERT INTO `loan_info` VALUES ('2', 'Q12324673655', '2', '6222600710014694287\n', '渤海银行北京市分行海淀支行', 100000, 2, '2022-09-06', 1, 0, '2022-08-29', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('3', 'Q12331240941', '3', '6216611900009484112\n', '华夏银行天津市分行西青支行', 55000, 3, '2022-09-05', 0, -1, '2022-09-14', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('4', 'Q12334242181', '4', '6226190302942515142\n', '农业银行天津市分行静海支行', 8900, 1, '1970-01-01', 4, -1, '2022-09-14', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('5', 'Q12352352522', '5', '6952023602034647198', '中国银行天津市分行东丽支行', 52000, 2, '1970-01-01', 3, 1, '2022-09-14', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('6', 'Q12354112341', '6', '6217003810026896707\n', '北京银行北京市分行海淀支行', 11111, 3, '2022-08-30', 2, 0, '2022-09-06', '2022-09-27', 1);
+INSERT INTO `loan_info` VALUES ('7', 'Q12373465246', '7', '6217003810023896707', '华夏银行天津市分行红桥支行', 33333, 1, '2022-08-30', 1, 0, '2022-09-05', '2022-09-15', 1);
+INSERT INTO `loan_info` VALUES ('8', 'Q12389655448', '8', '6217003810023896709', '渤海银行天津市分行河东支行', 22222, 3, '2022-09-05', 3, 0, '2022-09-06', '2022-09-02', 1);
 
 -- ----------------------------
 -- Table structure for message
@@ -4028,19 +4029,18 @@ CREATE TABLE `message`  (
   `c_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '企业编号',
   `create_time` date NULL DEFAULT NULL COMMENT '留言时间',
   `context` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '留言内容',
-  `update_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '回复内容',
-  `reply` date NULL DEFAULT NULL COMMENT '回复时间',
-  `is_deleted` int(11) NULL DEFAULT NULL COMMENT '逻辑删除 0已删除，1未删除',
+  `update_time` date NULL DEFAULT NULL COMMENT '回复时间',
+  `reply` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '回复内容',
+  `is_deleted` int(11) NULL DEFAULT 1 COMMENT '逻辑删除 0已删除，1未删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '留言表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of message
 -- ----------------------------
-INSERT INTO `message` VALUES ('1570683234487377921', '1', '2022-09-16', 'sada', '2022-09-16 07:57:19.643', NULL, NULL);
-INSERT INTO `message` VALUES ('1570683316863508481', '1', '2022-09-16', 'dasda', '2022-09-16 07:57:39.286', NULL, NULL);
-INSERT INTO `message` VALUES ('1571384639430926337', '1', '2022-09-18', '11', '2022-09-18 06:24:27.613', NULL, NULL);
-INSERT INTO `message` VALUES ('1571399126997389313', '1', '2022-09-18', '1', '2022-09-18 07:22:01.718', NULL, NULL);
+INSERT INTO `message` VALUES ('1', '1', '2022-09-12', '真的好', '2022-09-15', '哈哈', 1);
+INSERT INTO `message` VALUES ('2', '1', '2022-09-13', '喜欢', '2022-09-15', '别叭叭', 1);
+INSERT INTO `message` VALUES ('3', '1', '2022-08-29', '喜欢', '2022-09-15', '嘻嘻', 1);
 
 -- ----------------------------
 -- Table structure for notice
@@ -4066,8 +4066,8 @@ DROP TABLE IF EXISTS `overdue`;
 CREATE TABLE `overdue`  (
   `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '逾期编号',
   `r_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '还款编号',
-  `overdue_rate` double UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '逾期利率',
-  `money` double UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '逾期金额',
+  `overdue_rate` double UNSIGNED NULL DEFAULT NULL COMMENT '逾期利率',
+  `money` double UNSIGNED NULL DEFAULT NULL COMMENT '逾期金额',
   `begin_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '逾期开始时间',
   `end_time` timestamp(0) NULL DEFAULT NULL COMMENT '逾期结束时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -4116,18 +4116,36 @@ CREATE TABLE `permission`  (
   `is_deleted` tinyint(3) UNSIGNED NOT NULL DEFAULT 1 COMMENT '逻辑删除0已删除，1未删除\r\n',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_pid`(`pid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 236 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 244 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of permission
 -- ----------------------------
 INSERT INTO `permission` VALUES (1, 0, '系统管理', 1, 'system', 'system', 1, 1);
-INSERT INTO `permission` VALUES (2, 0, 'test', 2, 'test', NULL, 1, 1);
+INSERT INTO `permission` VALUES (2, 0, '贷款信息管理', 1, 'company:loanInfo:list', 'loanInfo', 1, 1);
 INSERT INTO `permission` VALUES (3, 0, '企业用户基本信息管理', 1, 'company:info:list', 'companyInfo', 1, 1);
+INSERT INTO `permission` VALUES (4, 0, '银行管理', 1, 'system:bank:list', 'system/bank/list', 1, 1);
+INSERT INTO `permission` VALUES (5, 0, '留言管理', 1, 'system:message:list', 'system/message/list', 1, 1);
 INSERT INTO `permission` VALUES (100, 1, '用户管理', 1, 'system:user:list', 'system/user/index', 1, 1);
 INSERT INTO `permission` VALUES (101, 1, '角色管理', 1, 'system:role:list', 'system/role/list', 1, 1);
 INSERT INTO `permission` VALUES (102, 1, '菜单管理', 1, 'system:menu:list', NULL, 1, 1);
-INSERT INTO `permission` VALUES (103, 2, 'test1', 1, 'test1', 'test1', 1, 1);
+INSERT INTO `permission` VALUES (103, 2, '根据编号删除贷款表信息', 2, 'company:loanInfo:remove', NULL, 1, 1);
+INSERT INTO `permission` VALUES (104, 2, '按主键查询每个贷款信息', 2, 'company:loanInfo:query', NULL, 1, 1);
+INSERT INTO `permission` VALUES (105, 2, '修改贷款信息', 2, 'company:loanInfo:edit', NULL, 1, 1);
+INSERT INTO `permission` VALUES (106, 2, '添加贷款信息', 2, 'company:loanInfo:add', NULL, 1, 1);
+INSERT INTO `permission` VALUES (107, 3, '查询企业用户基本信息', 2, 'company:info:query', NULL, 1, 1);
+INSERT INTO `permission` VALUES (108, 3, '按主键查询每个企业用户基本信息', 2, 'company:info:query', 'companyInfo', 1, 1);
+INSERT INTO `permission` VALUES (109, 3, '企业用户基本信息表分页显示', 1, 'company:info:list', 'companyInfo', 1, 0);
+INSERT INTO `permission` VALUES (110, 3, '修改企业用户基本信息', 2, 'company:info:edit', NULL, 1, 1);
+INSERT INTO `permission` VALUES (111, 3, '删除企业用户基本信息', 2, 'company:info:remove', NULL, 1, 1);
+INSERT INTO `permission` VALUES (112, 3, '添加企业用户基本信息', 2, 'company:info:add', NULL, 1, 1);
+INSERT INTO `permission` VALUES (113, 4, '银行查询', 2, 'system:bank:query', '', 1, 1);
+INSERT INTO `permission` VALUES (114, 4, '银行删除', 2, 'system:bank:remove', '', 1, 1);
+INSERT INTO `permission` VALUES (115, 4, '银行添加', 2, 'system:bank:add', NULL, 1, 1);
+INSERT INTO `permission` VALUES (116, 4, '银行修改', 2, 'system:bank:edit', NULL, 1, 1);
+INSERT INTO `permission` VALUES (117, 5, '留言查询', 2, 'system:message:query', '', 1, 1);
+INSERT INTO `permission` VALUES (118, 5, '留言删除', 2, 'system:message:edit', NULL, 1, 1);
+INSERT INTO `permission` VALUES (119, 5, '回复留言', 2, 'system:message:update', NULL, 1, 1);
 INSERT INTO `permission` VALUES (200, 100, '用户添加', 2, 'system:user:add', '', 1, 1);
 INSERT INTO `permission` VALUES (201, 100, '用户修改', 2, 'system:user:edit', NULL, 1, 1);
 INSERT INTO `permission` VALUES (202, 100, '用户删除', 2, 'system:user:remove', NULL, 1, 1);
@@ -4141,20 +4159,10 @@ INSERT INTO `permission` VALUES (209, 101, '角色删除', 2, 'system:role:remov
 INSERT INTO `permission` VALUES (210, 101, '角色导出', 2, 'system:role:export', NULL, 1, 1);
 INSERT INTO `permission` VALUES (211, 101, '角色查询', 2, 'system:role:query', NULL, 1, 1);
 INSERT INTO `permission` VALUES (212, 102, '菜单添加', 2, 'system:menu:add', NULL, 1, 1);
-INSERT INTO `permission` VALUES (214, 102, '菜单删除', 2, 'system:menu:remove', NULL, 1, 1);
-INSERT INTO `permission` VALUES (215, 102, '菜单修改', 2, 'system:menu:edit', NULL, 1, 1);
-INSERT INTO `permission` VALUES (216, 102, '查询菜单', 2, 'system:menu:query', NULL, 1, 1);
-INSERT INTO `permission` VALUES (221, 3, '查询企业用户基本信息', 2, 'company:info:query', NULL, 1, 1);
-INSERT INTO `permission` VALUES (223, 3, '按主键查询每个企业用户基本信息', 2, 'company:info:query', 'companyInfo', 1, 1);
-INSERT INTO `permission` VALUES (225, 3, '企业用户基本信息表分页显示', 1, 'company:info:list', 'companyInfo', 1, 0);
-INSERT INTO `permission` VALUES (228, 3, '修改企业用户基本信息', 2, 'company:info:edit', NULL, 1, 1);
-INSERT INTO `permission` VALUES (229, 3, '删除企业用户基本信息', 2, 'company:info:remove', NULL, 1, 1);
-INSERT INTO `permission` VALUES (230, 3, '添加企业用户基本信息', 2, 'company:info:add', NULL, 1, 1);
-INSERT INTO `permission` VALUES (231, 0, '贷款信息管理', 1, 'company:loanInfo:list', 'loanInfo', 1, 1);
-INSERT INTO `permission` VALUES (232, 231, '根据编号删除贷款表信息', 2, 'company:loanInfo:remove', NULL, 1, 1);
-INSERT INTO `permission` VALUES (233, 231, '按主键查询每个贷款信息', 2, 'company:loanInfo:query', NULL, 1, 1);
-INSERT INTO `permission` VALUES (234, 231, '修改贷款信息', 2, 'company:loanInfo:edit', NULL, 1, 1);
-INSERT INTO `permission` VALUES (235, 231, '添加贷款信息', 2, 'company:loanInfo:add', NULL, 1, 1);
+INSERT INTO `permission` VALUES (213, 102, '菜单删除', 2, 'system:menu:remove', NULL, 1, 1);
+INSERT INTO `permission` VALUES (214, 102, '菜单修改', 2, 'system:menu:edit', NULL, 1, 1);
+INSERT INTO `permission` VALUES (215, 102, '查询菜单', 2, 'system:menu:query', NULL, 1, 1);
+INSERT INTO `permission` VALUES (243, 3, '用户基本信息导出', 2, 'system:menu:export', NULL, 1, 1);
 
 -- ----------------------------
 -- Table structure for persistent_logins
@@ -4250,42 +4258,52 @@ CREATE TABLE `role_permission`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_role_id`(`role_id`) USING BTREE,
   INDEX `idx_permission_id`(`permission_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色对应权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色对应权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_permission
 -- ----------------------------
 INSERT INTO `role_permission` VALUES (1, 1, 1, 1);
-INSERT INTO `role_permission` VALUES (2, 1, 100, 1);
-INSERT INTO `role_permission` VALUES (3, 1, 200, 1);
-INSERT INTO `role_permission` VALUES (4, 1, 201, 1);
-INSERT INTO `role_permission` VALUES (5, 1, 202, 1);
-INSERT INTO `role_permission` VALUES (6, 1, 203, 1);
-INSERT INTO `role_permission` VALUES (7, 1, 204, 1);
-INSERT INTO `role_permission` VALUES (8, 1, 205, 1);
-INSERT INTO `role_permission` VALUES (9, 1, 101, 1);
-INSERT INTO `role_permission` VALUES (10, 1, 206, 1);
-INSERT INTO `role_permission` VALUES (11, 1, 207, 1);
-INSERT INTO `role_permission` VALUES (12, 1, 208, 1);
-INSERT INTO `role_permission` VALUES (13, 1, 209, 1);
-INSERT INTO `role_permission` VALUES (14, 1, 210, 1);
-INSERT INTO `role_permission` VALUES (15, 1, 211, 1);
-INSERT INTO `role_permission` VALUES (16, 1, 102, 1);
-INSERT INTO `role_permission` VALUES (17, 1, 212, 1);
-INSERT INTO `role_permission` VALUES (18, 1, 214, 1);
-INSERT INTO `role_permission` VALUES (19, 1, 215, 1);
-INSERT INTO `role_permission` VALUES (20, 1, 216, 1);
-INSERT INTO `role_permission` VALUES (21, 1, 3, 1);
-INSERT INTO `role_permission` VALUES (22, 1, 221, 1);
-INSERT INTO `role_permission` VALUES (23, 1, 223, 1);
-INSERT INTO `role_permission` VALUES (24, 1, 225, 1);
-INSERT INTO `role_permission` VALUES (26, 1, 228, 1);
-INSERT INTO `role_permission` VALUES (27, 1, 229, 1);
-INSERT INTO `role_permission` VALUES (28, 1, 230, 1);
-INSERT INTO `role_permission` VALUES (29, 1, 231, 1);
-INSERT INTO `role_permission` VALUES (30, 1, 232, 1);
-INSERT INTO `role_permission` VALUES (31, 1, 233, 1);
-INSERT INTO `role_permission` VALUES (32, 1, 234, 1);
-INSERT INTO `role_permission` VALUES (33, 1, 235, 1);
+INSERT INTO `role_permission` VALUES (2, 1, 2, 1);
+INSERT INTO `role_permission` VALUES (3, 1, 3, 1);
+INSERT INTO `role_permission` VALUES (4, 1, 4, 1);
+INSERT INTO `role_permission` VALUES (5, 1, 5, 1);
+INSERT INTO `role_permission` VALUES (6, 1, 100, 1);
+INSERT INTO `role_permission` VALUES (7, 1, 101, 1);
+INSERT INTO `role_permission` VALUES (8, 1, 102, 1);
+INSERT INTO `role_permission` VALUES (9, 1, 103, 1);
+INSERT INTO `role_permission` VALUES (10, 1, 104, 1);
+INSERT INTO `role_permission` VALUES (11, 1, 105, 1);
+INSERT INTO `role_permission` VALUES (12, 1, 106, 1);
+INSERT INTO `role_permission` VALUES (13, 1, 107, 1);
+INSERT INTO `role_permission` VALUES (14, 1, 108, 1);
+INSERT INTO `role_permission` VALUES (15, 1, 109, 1);
+INSERT INTO `role_permission` VALUES (16, 1, 110, 1);
+INSERT INTO `role_permission` VALUES (17, 1, 111, 1);
+INSERT INTO `role_permission` VALUES (18, 1, 112, 1);
+INSERT INTO `role_permission` VALUES (19, 1, 113, 1);
+INSERT INTO `role_permission` VALUES (20, 1, 114, 1);
+INSERT INTO `role_permission` VALUES (21, 1, 115, 1);
+INSERT INTO `role_permission` VALUES (22, 1, 116, 1);
+INSERT INTO `role_permission` VALUES (23, 1, 117, 1);
+INSERT INTO `role_permission` VALUES (24, 1, 118, 1);
+INSERT INTO `role_permission` VALUES (26, 1, 119, 1);
+INSERT INTO `role_permission` VALUES (27, 1, 200, 1);
+INSERT INTO `role_permission` VALUES (28, 1, 201, 1);
+INSERT INTO `role_permission` VALUES (29, 1, 202, 1);
+INSERT INTO `role_permission` VALUES (30, 1, 203, 1);
+INSERT INTO `role_permission` VALUES (31, 1, 204, 1);
+INSERT INTO `role_permission` VALUES (32, 1, 205, 1);
+INSERT INTO `role_permission` VALUES (33, 1, 206, 1);
+INSERT INTO `role_permission` VALUES (34, 1, 207, 1);
+INSERT INTO `role_permission` VALUES (35, 1, 208, 1);
+INSERT INTO `role_permission` VALUES (36, 1, 209, 1);
+INSERT INTO `role_permission` VALUES (37, 1, 210, 1);
+INSERT INTO `role_permission` VALUES (38, 1, 211, 1);
+INSERT INTO `role_permission` VALUES (39, 1, 212, 1);
+INSERT INTO `role_permission` VALUES (40, 1, 213, 1);
+INSERT INTO `role_permission` VALUES (41, 1, 214, 1);
+INSERT INTO `role_permission` VALUES (42, 1, 215, 1);
+INSERT INTO `role_permission` VALUES (43, 1, 243, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

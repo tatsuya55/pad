@@ -9,4 +9,10 @@
         where i.c_no=#{cNo,jdbcType=VARCHAR}
         and m.is_deleted=1
     </select>
+
+    <update id="deleteCompanyMaterialByIds" parameterType="string">
+        update `company_material`
+        set is_deleted=0
+        where c_no=#{cNo}
+    </update>
 </mapper>

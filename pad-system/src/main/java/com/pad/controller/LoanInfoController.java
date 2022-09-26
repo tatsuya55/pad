@@ -105,15 +105,15 @@ public class LoanInfoController {
     @GetMapping("/loanPurpose")
     public R loanPurpose(){
         LambdaQueryWrapper<LoanInfo> wrapper1 = new LambdaQueryWrapper<>();
-        wrapper1.eq(LoanInfo::getPurpose,"个人消费贷款");
+        wrapper1.eq(LoanInfo::getPurpose,1);
         int count1 = loanInfoService.count(wrapper1);
 
         LambdaQueryWrapper<LoanInfo> wrapper2 = new LambdaQueryWrapper<>();
-        wrapper2.eq(LoanInfo::getPurpose,"经营贷款");
+        wrapper2.eq(LoanInfo::getPurpose,2);
         int count2 = loanInfoService.count(wrapper2);
 
         LambdaQueryWrapper<LoanInfo> wrapper3 = new LambdaQueryWrapper<>();
-        wrapper3.eq(LoanInfo::getPurpose,"按揭贷款");
+        wrapper3.eq(LoanInfo::getPurpose,3);
         int count3 = loanInfoService.count(wrapper3);
 
         HashMap<String, Object> map1 = new HashMap<>();

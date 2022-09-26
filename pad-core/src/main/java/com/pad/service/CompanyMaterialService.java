@@ -23,4 +23,7 @@ public interface CompanyMaterialService extends IService<CompanyMaterial> {
      */
     CompanyMaterial selectByFK(String cNo);
 
+    //逻辑删除企业用户基本信息
+    void deleteCompanyMaterialByIds(String cNo);
+
 }
