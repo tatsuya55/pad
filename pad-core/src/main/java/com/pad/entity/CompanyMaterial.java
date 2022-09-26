@@ -66,6 +66,10 @@ public class CompanyMaterial implements Serializable {
     @ApiModelProperty(value = "状态 审核通过，审核不通过")
     private Integer status;
 
+
+    @ApiModelProperty(value = "逻辑删除0删除，1未删除")
+    private Integer isDeleted;
+
     @TableField(exist = false)
     @ApiModelProperty(value = "企业名称")
     private String name;

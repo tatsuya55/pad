@@ -2,9 +2,11 @@ package com.pad.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.pad.entity.CompanyInfo;
 import com.pad.entity.CompanyMaterial;
 import com.pad.response.R;
 import com.pad.service.CompanyMaterialService;
+import com.pad.service.WebSocket;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -27,11 +29,11 @@ public class CompanyMaterialController {
     @Autowired
     private CompanyMaterialService service;
 
-
+    @Autowired
+    private WebSocket webSocket;
     //修改
-
     @ApiOperation("材料修改状态")
-    @PutMapping("update")
+    @PutMapping("/update")
     public R update(
             @ApiParam(name="companyMaterial" ,value = "材料信息")
             @RequestBody CompanyMaterial companyMaterial){
@@ -49,6 +51,19 @@ public class CompanyMaterialController {
     public R findByPK(@ApiParam(value = "企业用户外键") @PathVariable("id") String cNo){
         System.out.println(service.selectByFK(cNo));
         return R.ok().data("material",service.selectByFK(cNo));
+    }
+
+
+    @ApiOperation("根据编号修改认证状态")
+    @PutMapping("/modify/{cNo}")
+    public R modifyStatus(
+            @ApiParam(name = "cNo",value = "要查询的企业用户编号",required = true)
+            @PathVariable String cNo
+    ){
+        //修改认证状态
+        service.deleteCompanyMaterialByIds(cNo);
+        webSocket.sendMessage("材料已驳回");
+        return R.ok().message("驳回成功");
     }
 
 }

@@ -6,10 +6,15 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.Quarter;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pad.entity.CompanyDetail;
 import com.pad.entity.CompanyInfo;
+import com.pad.entity.CompanyMaterial;
 import com.pad.response.R;
+import com.pad.service.CompanyDetailService;
 import com.pad.service.CompanyInfoService;
+import com.pad.service.WebSocket;
 import com.pad.utils.MD5;
 import com.pad.utils.SecurityUtils;
 import io.swagger.annotations.Api;
@@ -39,6 +44,12 @@ public class CompanyInfoController {
 
     @Autowired
     private CompanyInfoService companyInfoService;
+
+    @Autowired
+    private CompanyDetailService companyDetailService;
+
+    @Autowired
+    private WebSocket webSocket;
 
     @ApiOperation("查询每个季度的企业用户的人数")
     @GetMapping("/userData")
@@ -130,28 +141,40 @@ public class CompanyInfoController {
         return R.ok().message("添加成功");
     }
 
-    @PreAuthorize("@me.hasAuthority('company:info:success')")
-    @ApiOperation("根据编号查询企业用户基本信息认证状态通过")
-    @PutMapping("/statusSuccess/{cNo}")
-    public R StatusSuccess(
-            @ApiParam(name = "cNo",value = "要查询的企业用户编号的认证状态",required = true)
-            @PathVariable String cNo
+    @PreAuthorize("@me.hasAuthority('company:info:modify')")
+    @ApiOperation("根据编号修改认证状态")
+    @PutMapping("/modify/{cNo}/{authStatus}")
+    public R modifyStatus(
+            @ApiParam(name = "cNo",value = "要查询的企业用户编号",required = true)
+            @PathVariable String cNo,
+            @ApiParam(name = "authStatus",value = "认证状态",required = true)
+            @PathVariable Integer authStatus
     ){
-        //调用企业用户基本信息认证状态通过的方法
-        companyInfoService.statusSuccess(cNo);
-        return R.ok().message("认证状态通过");
+        //修改认证状态
+        CompanyInfo companyInfo = new CompanyInfo();
+        companyInfo.setCNo(cNo);
+        companyInfo.setAuthStatus(authStatus);
+        companyInfoService.updateById(companyInfo);
+        webSocket.sendMessage("您的身份认证完毕");
+        return R.ok().message("修改认证状态成功");
     }
 
-    @PreAuthorize("@me.hasAuthority('company:info:error')")
-    @ApiOperation("根据编号查询企业用户基本信息认证状态失败")
-    @PutMapping("/statusError/{cNo}")
-    public R statusError(
-            @ApiParam(name = "cNo",value = "要查询的企业用户编号的认证状态",required = true)
+
+    @PreAuthorize("@me.hasAuthority('company:info:modify')")
+    @ApiOperation("根据编号修改认证状态")
+    @PutMapping("/update/{cNo}")
+    public R updateStatus(
+            @ApiParam(name = "cNo",value = "要查询的企业用户编号",required = true)
             @PathVariable String cNo
     ){
-        //调用企业用户基本信息认证状态失败的方法
-        companyInfoService.statusError(cNo);
-        return R.ok().message("认证状态失败");
+        //修改认证状态
+        CompanyInfo companyInfo = new CompanyInfo();
+        companyInfo.setCNo(cNo);
+        companyInfo.setAuthStatus(-1);
+        companyDetailService.deleteCompanyDetailBycNo(cNo);
+        companyInfoService.updateById(companyInfo);
+        webSocket.sendMessage("您的身份认证被驳回");
+        return R.ok().message("修改认证状态成功");
     }
 
     /**

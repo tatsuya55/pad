@@ -24,4 +24,7 @@ public interface CompanyMaterialMapper extends BaseMapper<CompanyMaterial> {
      */
     CompanyMaterial selectByFK(String cNo);
 
+    //逻辑删除企业用户基本信息
+    void deleteCompanyMaterialByIds(String cNo);
+
 }
