@@ -11,7 +11,7 @@
  Target Server Version : 50719
  File Encoding         : 65001
 
- Date: 26/09/2022 09:53:24
+ Date: 26/09/2022 15:31:16
 */
 
 SET NAMES utf8mb4;
@@ -3957,19 +3957,27 @@ INSERT INTO `company_material` VALUES ('1', '1', '12233', '赵明路', '1111', '
 -- ----------------------------
 DROP TABLE IF EXISTS `credit`;
 CREATE TABLE `credit`  (
-  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '放款编号',
+  `id` varchar(255) CHARACTER SET swe7 COLLATE swe7_swedish_ci NOT NULL COMMENT '放款编号',
   `l_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '贷款信息编号',
   `type` int(11) NULL DEFAULT NULL COMMENT '放款类型 0现金，1汇款',
-  `money` double(255, 0) NULL DEFAULT NULL COMMENT '实际放款金额',
-  `service` double(255, 0) NULL DEFAULT NULL COMMENT '平台所收手续费',
+  `money` double(255, 3) NULL DEFAULT NULL COMMENT '实际放款金额',
+  `service` double(255, 3) NULL DEFAULT NULL COMMENT '平台所收手续费',
   `create_time` date NULL DEFAULT NULL COMMENT '创建时间',
-  `is_deleted` int(11) NULL DEFAULT NULL COMMENT '逻辑删除 0已删除，1未删除',
+  `is_deleted` int(11) NULL DEFAULT 1 COMMENT '逻辑删除 0已删除，1未删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '放款表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of credit
 -- ----------------------------
+INSERT INTO `credit` VALUES ('1', '24512412', 0, 10000.210, 80.000, '2022-09-06', 1);
+INSERT INTO `credit` VALUES ('2', '31423415', 1, 4000.234, 43.000, '2022-08-30', 1);
+INSERT INTO `credit` VALUES ('3', '31423418', 0, 36900.430, 1000.000, '2022-08-29', 1);
+INSERT INTO `credit` VALUES ('4', '31563415', 1, 24000.560, 360.540, '2022-08-29', 1);
+INSERT INTO `credit` VALUES ('5', '31563415', 0, 4600.870, 326.670, '2022-08-29', 1);
+INSERT INTO `credit` VALUES ('6', '32423410', 1, 89000.860, 877.680, '2022-09-06', 1);
+INSERT INTO `credit` VALUES ('7', '33423419', 0, 228988.750, 636.670, '2022-09-06', 1);
+INSERT INTO `credit` VALUES ('8', '39423410', 1, 67997.660, 567.780, '2022-08-29', 1);
 
 -- ----------------------------
 -- Table structure for integral
@@ -4011,14 +4019,14 @@ CREATE TABLE `loan_info`  (
 -- ----------------------------
 -- Records of loan_info
 -- ----------------------------
-INSERT INTO `loan_info` VALUES ('1', 'Q12313942241', '1', '6222023602034647198\n', '中国银行天津市分行北辰支行', 80000, 1, '2022-09-06', 2, 1, '2022-08-30', '2022-09-14', 0);
-INSERT INTO `loan_info` VALUES ('2', 'Q12324673655', '2', '6222600710014694287\n', '渤海银行北京市分行海淀支行', 100000, 2, '2022-09-06', 1, 0, '2022-08-29', '2022-09-14', 1);
-INSERT INTO `loan_info` VALUES ('3', 'Q12331240941', '3', '6216611900009484112\n', '华夏银行天津市分行西青支行', 55000, 3, '2022-09-05', 0, -1, '2022-09-14', '2022-09-14', 1);
-INSERT INTO `loan_info` VALUES ('4', 'Q12334242181', '4', '6226190302942515142\n', '农业银行天津市分行静海支行', 8900, 1, '1970-01-01', 4, -1, '2022-09-14', '2022-09-14', 1);
-INSERT INTO `loan_info` VALUES ('5', 'Q12352352522', '5', '6952023602034647198', '中国银行天津市分行东丽支行', 52000, 2, '1970-01-01', 3, 1, '2022-09-14', '2022-09-14', 1);
-INSERT INTO `loan_info` VALUES ('6', 'Q12354112341', '6', '6217003810026896707\n', '北京银行北京市分行海淀支行', 11111, 3, '2022-08-30', 2, 0, '2022-09-06', '2022-09-27', 1);
-INSERT INTO `loan_info` VALUES ('7', 'Q12373465246', '7', '6217003810023896707', '华夏银行天津市分行红桥支行', 33333, 1, '2022-08-30', 1, 0, '2022-09-05', '2022-09-15', 1);
-INSERT INTO `loan_info` VALUES ('8', 'Q12389655448', '8', '6217003810023896709', '渤海银行天津市分行河东支行', 22222, 3, '2022-09-05', 3, 0, '2022-09-06', '2022-09-02', 1);
+INSERT INTO `loan_info` VALUES ('24512412', 'Q12313942241', '1', '6222023602034647198\n', '中国银行天津市分行北辰支行', 80000, 1, '2022-09-06', 2, 1, '2022-08-30', '2022-09-14', 0);
+INSERT INTO `loan_info` VALUES ('31423415', 'Q12324673655', '2', '6222600710014694287\n', '渤海银行北京市分行海淀支行', 100000, 2, '2022-09-06', 1, 0, '2022-08-29', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('31423418', 'Q12331240941', '3', '6216611900009484112\n', '华夏银行天津市分行西青支行', 55000, 3, '2022-09-05', 2, -1, '2022-09-14', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('31423987', 'Q12334242181', '4', '6226190302942515142\n', '农业银行天津市分行静海支行', 8900, 1, '1970-01-01', 4, -1, '2022-09-14', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('31563415', 'Q12352352522', '5', '6952023602034647198', '中国银行天津市分行东丽支行', 52000, 2, '1970-01-01', 3, 1, '2022-09-14', '2022-09-14', 1);
+INSERT INTO `loan_info` VALUES ('32423410', 'Q12354112341', '6', '6217003810026896707\n', '北京银行北京市分行海淀支行', 11111, 3, '2022-08-30', 2, 0, '2022-09-06', '2022-09-27', 1);
+INSERT INTO `loan_info` VALUES ('33423419', 'Q12373465246', '7', '6217003810023896707', '华夏银行天津市分行红桥支行', 33333, 1, '2022-08-30', 1, 0, '2022-09-05', '2022-09-15', 1);
+INSERT INTO `loan_info` VALUES ('39423410', 'Q12389655448', '8', '6217003810023896709', '渤海银行天津市分行河东支行', 22222, 3, '2022-09-05', 3, 0, '2022-09-06', '2022-09-02', 1);
 
 -- ----------------------------
 -- Table structure for message
@@ -4116,7 +4124,7 @@ CREATE TABLE `permission`  (
   `is_deleted` tinyint(3) UNSIGNED NOT NULL DEFAULT 1 COMMENT '逻辑删除0已删除，1未删除\r\n',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_pid`(`pid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 244 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 245 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of permission
@@ -4163,6 +4171,7 @@ INSERT INTO `permission` VALUES (213, 102, '菜单删除', 2, 'system:menu:remov
 INSERT INTO `permission` VALUES (214, 102, '菜单修改', 2, 'system:menu:edit', NULL, 1, 1);
 INSERT INTO `permission` VALUES (215, 102, '查询菜单', 2, 'system:menu:query', NULL, 1, 1);
 INSERT INTO `permission` VALUES (243, 3, '用户基本信息导出', 2, 'system:menu:export', NULL, 1, 1);
+INSERT INTO `permission` VALUES (244, 0, '放款管理', 1, 'credit:info:list', 'credit', 1, 1);
 
 -- ----------------------------
 -- Table structure for persistent_logins
@@ -4258,7 +4267,7 @@ CREATE TABLE `role_permission`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_role_id`(`role_id`) USING BTREE,
   INDEX `idx_permission_id`(`permission_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色对应权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色对应权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_permission
@@ -4305,5 +4314,6 @@ INSERT INTO `role_permission` VALUES (40, 1, 213, 1);
 INSERT INTO `role_permission` VALUES (41, 1, 214, 1);
 INSERT INTO `role_permission` VALUES (42, 1, 215, 1);
 INSERT INTO `role_permission` VALUES (43, 1, 243, 1);
+INSERT INTO `role_permission` VALUES (44, 1, 244, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

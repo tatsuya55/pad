@@ -52,5 +52,12 @@ public class Credit implements Serializable {
     @ApiModelProperty(value = "逻辑删除 0已删除，1未删除")
     private Integer isDeleted;
 
+    @TableField(exist = false)
+    @ApiModelProperty(value = "企业名称")
+    private String name;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "还款方式 1等额本息，2等额本金，3每月还息，4一次性还")
+    private Integer returnMethod;
 
 }
