@@ -1,5 +1,6 @@
 package com.pad.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pad.entity.Overdue;
 import com.pad.mapper.OverdueMapper;
 import com.pad.service.OverdueService;
@@ -16,5 +17,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OverdueServiceImpl extends ServiceImpl<OverdueMapper, Overdue> implements OverdueService {
-
+    @Override
+    public void pageQuery(Page<Overdue> page, Overdue overdue) {
+        baseMapper.selectPage(page,null);
+    }
 }

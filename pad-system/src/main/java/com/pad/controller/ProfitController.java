@@ -9,6 +9,7 @@ import com.pad.entity.CompanyInfo;
 import com.pad.entity.Profit;
 import com.pad.response.R;
 import com.pad.service.ProfitService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ import java.util.List;
  * @author F4
  * @since 2022-09-02
  */
+@Api(tags = "平台收益管理")
 @RestController
 @RequestMapping("/profit")
 public class ProfitController {
