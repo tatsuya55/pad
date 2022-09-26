@@ -1,5 +1,7 @@
 package com.pad.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pad.entity.CompanyInfo;
 import com.pad.entity.Overdue;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface OverdueService extends IService<Overdue> {
 
+    //逾期信息表分页显示
+    void pageQuery(Page<Overdue> Page, Overdue overdue);
 }

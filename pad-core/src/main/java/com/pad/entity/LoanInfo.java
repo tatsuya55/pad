@@ -49,7 +49,7 @@ public class LoanInfo implements Serializable {
     private Double amount;
 
     @ApiModelProperty(value = "贷款用途")
-    private String purpose;
+    private Integer purpose;
 
     @ApiModelProperty(value = "借款期限")
     private Date period;
