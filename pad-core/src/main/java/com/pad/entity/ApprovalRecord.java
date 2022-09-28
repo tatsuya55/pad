@@ -37,7 +37,7 @@ public class ApprovalRecord implements Serializable {
     private String lId;
 
     @ApiModelProperty(value = "审核人物（银行或平台）")
-    private String character;
+    private String type;
 
     @ApiModelProperty(value = "审批状态 0未审核，1审核通过，-1审核失败")
     private Integer status;
