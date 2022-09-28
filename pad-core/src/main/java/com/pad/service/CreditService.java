@@ -1,5 +1,8 @@
 package com.pad.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pad.entity.CompanyInfo;
 import com.pad.entity.Credit;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +16,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CreditService extends IService<Credit> {
 
+    //放款表分页显示
+    IPage<Credit> pageQuery(IPage<Credit> page, Credit credit);
 }

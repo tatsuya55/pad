@@ -1,7 +1,9 @@
 package com.pad.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pad.entity.Credit;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pad.entity.LoanInfo;
 
 /**
  * <p>
@@ -13,4 +15,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface CreditMapper extends BaseMapper<Credit> {
 
+    //放款表分页显示
+    IPage<Credit> pageQuery(IPage<Credit> page, Credit credit);
 }
