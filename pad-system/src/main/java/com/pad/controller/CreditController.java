@@ -51,5 +51,17 @@ public class CreditController {
         long total = page.getTotal();
         return R.ok().data("total",total).data("creditList",creditList);
     }
+
+    @PreAuthorize("@me.hasAuthority('credit:info:add')")
+    @ApiOperation("放款")
+    @PostMapping("/add")
+    public R creditListPage(
+            @ApiParam(name = "credit",value = "放款",required = true)
+            Credit credit
+    ){
+        creditService.save(credit);
+        //TODO 放款的同时 添加平台收益信息
+        return R.ok().message("放款成功");
+    }
 }
 
